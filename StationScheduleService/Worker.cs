@@ -34,7 +34,7 @@ namespace StationScheduleService
             url = url.Replace("dateBegin=", "dateBegin=" + s);
             url = url.Replace("dateEnd=", "dateEnd=" + s2);
             url = url.Replace("time=", "time=" + (DateTime.Now.TimeOfDay.ToString().Replace(":", "%3A")));
-            url = url.Replace("maxJourneys=", "maxJourneys=20");
+            url = url.Replace("maxJourneys=", "maxJourneys=5");
             url = url.Replace("boardType=", "boardType=dep");
             Console.WriteLine(url);
             //ScrapingBrowser Browser = new ScrapingBrowser();
@@ -53,13 +53,42 @@ namespace StationScheduleService
             //var q = document.DocumentNode.SelectNodes("/ html / body / div[2] / div / div[2] / table / tbody / tr[2] / td / div[2] / div[3] / div / div / div / div / div / div / div / div / div / div / table[1]");
 
 
+            List<string> columns = document.DocumentNode.SelectSingleNode("//table[@class='hafasResult grey']")
+                .Descendants("tr")
+                .Where(tr => tr.Elements("th").Count() > 1)
+                .Select(tr => tr.Elements("th").Select(th => th.InnerText.Trim().Replace("\n", " ").Replace("&nbsp", "")).ToList()).FirstOrDefault();
+
+
+
+            
+
+
+
+
+
+
+
             List<List<string>> table = document.DocumentNode.SelectSingleNode("//table[@class='hafasResult grey']")
               .Descendants("tr")
               .Skip(1)
               .Where(tr => tr.Elements("td").Count() > 1)
               .Select(tr => tr.Elements("td").Select(td => td.InnerText.Trim().Replace("\n", " ").Replace("&nbsp","")).ToList())
               .ToList();
-            
+
+
+            Console.WriteLine(columns.Contains("Prognoza"));
+
+            /*foreach(List<string> str in table)
+            {
+                foreach(string str2 in str)
+                {
+                    Console.Write(str2);
+                }
+                Console.WriteLine();
+                
+            }*/
+
+            //table.RemoveAt(0);
             table.RemoveAt(table.Count-1);
             List<Course> courses = new List<Course>();
             foreach (var tableItem in table) {
@@ -67,11 +96,11 @@ namespace StationScheduleService
                 var c = new Course
                 {
                     Time = tableItem[0],
-                    Delay = tableItem[1] == ""||tableItem[1]==";" ? tableItem[1].Replace(";","") :tableItem[1].Split(";")[2],
-                    Name = System.Net.WebUtility.HtmlDecode(tableItem[2]),
-                    Headsign = System.Net.WebUtility.HtmlDecode(tableItem[3].Split("     ")[0]),
-                    Route = System.Net.WebUtility.HtmlDecode(tableItem[3].Split("     ")[1]),
-                    Platform = tableItem[4].Replace(";","").Trim(),
+                    Delay = columns.Contains("Prognoza")?tableItem[1] == ""||tableItem[1]==";" ? tableItem[1].Replace(";","") :tableItem[1].Split(";")[2]:"",
+                    Name = columns.Contains("Prognoza") ? System.Net.WebUtility.HtmlDecode(tableItem[2]): System.Net.WebUtility.HtmlDecode(tableItem[1]),
+                    Headsign = columns.Contains("Prognoza") ? System.Net.WebUtility.HtmlDecode(tableItem[3].Split("     ")[0]): System.Net.WebUtility.HtmlDecode(tableItem[2].Split("     ")[0]),
+                    Route = columns.Contains("Prognoza") ? System.Net.WebUtility.HtmlDecode(tableItem[3].Split("     ")[1]): System.Net.WebUtility.HtmlDecode(tableItem[2].Split("     ")[1]),
+                    Platform = columns.Contains("Peron/stacja/przystanek")?(columns.Contains("Prognoza") ? tableItem[4].Replace(";","").Trim(): tableItem[3].Replace(";", "").Trim()):""
 
                 };
                 courses.Add(c);

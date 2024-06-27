@@ -9,5 +9,6 @@ namespace StationScheduleService.Services
     internal interface IHttpClientService
     {
         Task<HttpResponseMessage> GetAsync(string url);
+        Task<string> PrepareUrl();
     }
 }

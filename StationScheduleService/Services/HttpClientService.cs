@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScrapySharp.Network;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,14 @@ namespace StationScheduleService.Services
     {
         public Task<HttpResponseMessage> GetAsync(string url)
         {
-            throw new NotImplementedException();
+            ScrapingBrowser browser = new ScrapingBrowser();
+            WebPage page = browser.NavigateToPage(new Uri(url));
+
+
+            return null;
+
         }
+
+        public Task<string> PrepareUrl();
     }
 }
