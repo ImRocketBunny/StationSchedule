@@ -29,7 +29,7 @@ namespace StationScheduleService
             string s2 = dt2.ToString("dd.MM.yy", CultureInfo.InvariantCulture);
             var url = "http://old.rozklad-pkp.pl/bin/stboard.exe/pn?ld=mobil&input=&REQStationS0F=excludeStationAttribute%3BM-&disableEquivs=yes&selectDate=&dateBegin=&dateEnd=&time=&timeselect=wybierz+z+listy&boardType=&advancedProductMode=&GUIREQProduct_0=on&GUIREQProduct_1=on&GUIREQProduct_2=on&GUIREQProduct_3=on&maxJourneys=&start=Poka%C5%BC";
 
-            url = url.Replace("input=", "input=Warszawa+Zachodnia");
+            url = url.Replace("input=", "input=Warszawa+Zachodnia+Peron+9");
             url = url.Replace("selectDate=", "selectDate=today");
             url = url.Replace("dateBegin=", "dateBegin=" + s);
             url = url.Replace("dateEnd=", "dateEnd=" + s2);
