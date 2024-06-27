@@ -11,7 +11,13 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presenation", "Presenation", "{53838F2D-A1AD-49AD-AF51-BAD56AE6D2A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ScheduleUpdater", "ScheduleUpdater\ScheduleUpdater.csproj", "{C25A1F69-2262-42E0-87F3-FE31CFDD1100}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleUpdater", "ScheduleUpdater\ScheduleUpdater.csproj", "{C25A1F69-2262-42E0-87F3-FE31CFDD1100}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleMQTTBroker", "ScheduleMQTTBroker\ScheduleMQTTBroker.csproj", "{B3BFB753-1026-45FE-ACEF-5E10662D89BF}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StationScheduleService", "StationScheduleService\StationScheduleService.csproj", "{A5E06FF9-0445-46FE-93F0-DDB85812AD4C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AudioAnnouncementService", "AudioAnnouncementService\AudioAnnouncementService.csproj", "{33B9FCA6-257D-43D8-B136-41A83E3D08D4}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,12 +29,27 @@ Global
 		{C25A1F69-2262-42E0-87F3-FE31CFDD1100}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C25A1F69-2262-42E0-87F3-FE31CFDD1100}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C25A1F69-2262-42E0-87F3-FE31CFDD1100}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{33B9FCA6-257D-43D8-B136-41A83E3D08D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{33B9FCA6-257D-43D8-B136-41A83E3D08D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{33B9FCA6-257D-43D8-B136-41A83E3D08D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{33B9FCA6-257D-43D8-B136-41A83E3D08D4}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C25A1F69-2262-42E0-87F3-FE31CFDD1100} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {04FF48CA-C897-45A1-8DB0-3D833E957AB3}
+		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {720213FD-27FD-4ED4-A91D-1026BD9FBA37}
+		{33B9FCA6-257D-43D8-B136-41A83E3D08D4} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FECA02D-DCB9-4262-A30C-5C838DCA3C3A}
