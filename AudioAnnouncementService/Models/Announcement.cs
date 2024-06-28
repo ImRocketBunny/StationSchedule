@@ -8,6 +8,8 @@ namespace AudioAnnouncementService.Models
 {
     internal class Announcement
     {
-
+        public string? Name {  get; set; }
+        public string? FileName { get; set; }
+        public DateTime? LastPlayed { get; set; }
     }
 }

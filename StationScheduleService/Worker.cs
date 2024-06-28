@@ -1,4 +1,4 @@
-using HtmlAgilityPack;
+﻿using HtmlAgilityPack;
 using ScrapySharp.Network;
 using StationScheduleService.Models;
 using Newtonsoft.Json;
@@ -29,12 +29,12 @@ namespace StationScheduleService
             string s2 = dt2.ToString("dd.MM.yy", CultureInfo.InvariantCulture);
             var url = "http://old.rozklad-pkp.pl/bin/stboard.exe/pn?ld=mobil&input=&REQStationS0F=excludeStationAttribute%3BM-&disableEquivs=yes&selectDate=&dateBegin=&dateEnd=&time=&timeselect=wybierz+z+listy&boardType=&advancedProductMode=&GUIREQProduct_0=on&GUIREQProduct_1=on&GUIREQProduct_2=on&GUIREQProduct_3=on&maxJourneys=&start=Poka%C5%BC";
 
-            url = url.Replace("input=", "input=Warszawa+Zachodnia+Peron+9");
+            url = url.Replace("input=", "input=Łódź+Fabryczna");
             url = url.Replace("selectDate=", "selectDate=today");
             url = url.Replace("dateBegin=", "dateBegin=" + s);
             url = url.Replace("dateEnd=", "dateEnd=" + s2);
             url = url.Replace("time=", "time=" + (DateTime.Now.TimeOfDay.ToString().Replace(":", "%3A")));
-            url = url.Replace("maxJourneys=", "maxJourneys=5");
+            url = url.Replace("maxJourneys=", "maxJourneys=20");
             url = url.Replace("boardType=", "boardType=dep");
             Console.WriteLine(url);
             //ScrapingBrowser Browser = new ScrapingBrowser();

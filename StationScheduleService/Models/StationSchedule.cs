@@ -8,6 +8,6 @@ namespace StationScheduleService.Models
 {
     internal class StationSchedule
     {
-        public List<Course> Courses { get; set; }
+        public List<Course>? Courses { get; set; }
     }
 }

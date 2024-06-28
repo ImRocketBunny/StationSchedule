@@ -8,7 +8,7 @@ namespace StationScheduleService.Models
 {
     internal class HttpModel
     {
-        public string Url {  get; set; }
-        public string Form { get; set; }
+        public string? Url {  get; set; }
+        public string? Form { get; set; }
     }
 }

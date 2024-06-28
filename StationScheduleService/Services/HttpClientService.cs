@@ -19,6 +19,11 @@ namespace StationScheduleService.Services
 
         }
 
-        public Task<string> PrepareUrl();
+        public Task<string> PrepareUrl()
+        {
+            throw new NotImplementedException();
+        }
+
+        // public Task<string> PrepareUrl();
     }
 }
