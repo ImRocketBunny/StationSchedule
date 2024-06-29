@@ -22,4 +22,13 @@
     <Folder Include="Sounds\TrainCustomNames\" />
     <Folder Include="Sounds\Stations\" />
   </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Sounds\Core\do_stacji.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Sounds\Core\IC.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
