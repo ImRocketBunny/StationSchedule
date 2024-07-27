@@ -16,6 +16,8 @@ namespace StationScheduleService.Models
         public string? Route { get; set; }
         [JsonProperty("platform")]
         public string? Platform { get; set; }
+        /*[JsonProperty("deatils")]
+        public string? Details { get; set; }*/
         
     }
 }

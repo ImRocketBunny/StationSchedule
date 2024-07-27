@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ScrapySharp.Network;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace StationScheduleService.Services
 {
     internal interface IHttpClientService
     {
-        Task<HttpResponseMessage> GetAsync(string url);
-        Task<string> PrepareUrl();
+        Task<WebPage> ScrapAsync(string url);
+        Task<string> PrepareUrls();
     }
 }

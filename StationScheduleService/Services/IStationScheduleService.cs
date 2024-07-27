@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace StationScheduleService.Services
 {
-    internal class ScraperService : IScraperService
+    internal interface IStationScheduleService
     {
-        public Task<List<Course>> GetScheduleContent(string HtmlContent)
-        {
-            throw new NotImplementedException();
-        }
+        Task<List<Course>> GetScheduleContent(string HtmlContent);
     }
 }

@@ -9,6 +9,7 @@ using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Runtime.Intrinsics.Arm;
 using System.Text;
+using System.Text.RegularExpressions;
 using Windows.UI.Xaml;
 using static System.Collections.Specialized.BitVector32;
 
@@ -43,9 +44,14 @@ namespace AudioAnnouncementService
             var msg = String.Empty;
 
             DirectoryInfo d = new DirectoryInfo(".\\Sounds\\Core\\"); //Assuming Test is your Folder
-
+            DirectoryInfo d2 = new DirectoryInfo(".\\Sounds\\TrainCustomNames\\"); //Assuming Test is your Folder
+            DirectoryInfo d3 = new DirectoryInfo(".\\Sounds\\Stations\\");
             FileInfo[] Files = d.GetFiles("*.mp3"); //Getting Text files
+            FileInfo[] Files2 = d2.GetFiles("*.mp3");
+            FileInfo[] Files3 = d3.GetFiles("*.mp3");
             List<string> FileList= Files.Select(e => e.Name.Replace(".mp3","")).ToList();
+            List<string> FileList2 = Files2.Select(e => e.Name.Replace(".mp3", "")).ToList();
+            List<string> FileList3 = Files3.Select(e => e.Name.Replace(".mp3", "")).ToList();
 
 
             if (connectResult.ResultCode == MqttClientConnectResultCode.Success)
@@ -53,7 +59,7 @@ namespace AudioAnnouncementService
                 Console.WriteLine("Connected to MQTT broker successfully.");
 
                 // Subscribe to a topic
-                var response = await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/main/dep").Build());
+                var response = await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/main/departures").Build());
 
                 // Callback function when a message is received
                 mqttClient.ApplicationMessageReceivedAsync += e =>
@@ -63,21 +69,70 @@ namespace AudioAnnouncementService
                     List<Course> courses = JsonConvert.DeserializeObject<List<Course>>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
 
                     string[] nazwy = courses.Select(e=>e.Name.Split(" ")[0]).ToArray();
-                    List<AudioFileReader> lista = new List<AudioFileReader>(); 
+                    List<AudioFileReader> lista = new List<AudioFileReader>();
                     //AudioFileReader[] playlista = new AudioFileReader[nazwy.Length];
-                    foreach (var course in nazwy.Where(c=>c!=string.Empty && FileList.Contains(c)))
+                    foreach (Course c in courses)
                     {
-                        lista.Add(new AudioFileReader(".\\Sounds\\Core\\"+course+".mp3"));
+                        Console.WriteLine((int)(TimeOnly.Parse(c.Time) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes);
+                    }
+
+                    foreach (Course c in courses.Where(c=>c.Name.Split(" ")[0] != string.Empty 
+                    && FileList.Contains(c.Name.Split(" ")[0]) &&
+                    (int)(TimeOnly.Parse(c.Time) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 400))
+                    {
+                        //Console.WriteLine((int)(TimeOnly.Parse(c.Time) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes);
+                        lista.Add(new AudioFileReader(".\\Sounds\\Core\\"+ c.Name.Split(" ")[0] + ".mp3"));
+                        if (c.Name.Split("   ").Length>1&& FileList2.Contains(c.Name.Split("   ")[1]))
+                            lista.Add(new AudioFileReader(".\\Sounds\\TrainCustomNames\\" + c.Name.Split("   ")[1] + ".mp3"));
+                        lista.Add(new AudioFileReader((".\\Sounds\\Core\\do_stacji.mp3")));
+                        if(FileList3.Contains(c.Headsign))
+                            lista.Add(new AudioFileReader(".\\Sounds\\Stations\\" + c.Headsign + ".mp3"));
+                        var otherStations = Regex.Split(Regex.Replace(Regex.Replace(Regex.Replace(c.Route, "[0-9][0-9]:[0-9][0-9]", ""), " •  ", " -  "), "  ", ""), " -");
+                        if(otherStations.Length > 1)
+                        {
+                            for(int i = 1; i < otherStations.Length - 1; i++)
+                            {
+                                try
+                                {
+                                    lista.Add(new AudioFileReader(".\\Sounds\\Stations\\" + otherStations[i] + ".mp3"));
+                                }
+                                catch (Exception ex)
+                                {
+                                    Console.WriteLine(ex.ToString());
+                                }
+                            }
+                            
+                        }
+                        lista.Add(new AudioFileReader((".\\Sounds\\Core\\planowy_przyjazd.mp3")));
+                        lista.Add(new AudioFileReader((".\\Sounds\\Time\\Hours\\" + c.Time.Split(":")[0] + ".mp3")));
+
+                        try
+                        {
+                            lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + c.Time.Split(":")[1] + ".mp3")));
+                        }
+                        catch (Exception ex)
+                        {
+                            Console.WriteLine(ex.ToString());
+                        }
+                        //lista.Add(new AudioFileReader((".\\Sounds\\Time\\Hours\\"+c.Time.Split(":")[0]+".mp3")));
+                        //lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + c.Time.Split(":")[1] + ".mp3")));
+                        if (c.Delay != string.Empty)
+                            lista.Add(new AudioFileReader((".\\Sounds\\Core\\za_opóŸnienie.mp3")));
                     }
                     AudioFileReader[] playlista = lista.ToArray();
-                    var playlist = new ConcatenatingSampleProvider(playlista);
-                    waveOut.Init(playlist);
-                    waveOut.Play();
-                    while (waveOut.PlaybackState == PlaybackState.Playing)
+                    if (playlista.Length > 0)
                     {
-                        Thread.Sleep(1000);
+                        var playlist = new ConcatenatingSampleProvider(playlista);
+                        waveOut.Init(playlist);
+                        waveOut.Play();
+                        while (waveOut.PlaybackState == PlaybackState.Playing)
+                        {
+                            Thread.Sleep(1000);
+                        }
+                        waveOut.Dispose();
                     }
-                    waveOut.Dispose();
+                    
+                    Thread.Sleep(60000);
                     return Task.CompletedTask;
                 };
             }
