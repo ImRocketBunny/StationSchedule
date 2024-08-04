@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace StationScheduleService.Services
 {
-    internal interface IHttpClientService
+    internal interface IWebScrapperService
     {
-        Task<WebPage> ScrapAsync(string url);
+        Task ScrapAsync(string url);
         Task<string> PrepareUrls();
     }
 }

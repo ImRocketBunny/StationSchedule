@@ -1,6 +1,7 @@
 using MQTTnet;
 using MQTTnet.Client;
 using Newtonsoft.Json;
+using System.Linq;
 using System.Net;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -18,7 +19,7 @@ namespace TextToSpeachUpdateService
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            //string[] stacje = ["O¿arów Mazowiecki", "Pruszków", "Warszawa Œródmieœcie PKP", "Warszawa Œródmieœcie PKP", "Pruszków", "Modlin", "Sulejówek Mi³osna", "Skierniewice", "Skierniewice", "Otwock", "Gdynia G³ówna", "Gdynia G³ówna", "Pruszków", "Radzymin", "Piaseczno", "¯yrardów", "Celestynów", "Skierniewice", "Warszawa Wschodnia", "Pruszków", "Sulejówek Mi³osna", "Warszawa Wschodnia", "Wroc³aw G³ówny", "Otwock", "Berlin Hbf", "£owicz G³ówny", "Siedlce", "Warszawa Lotnisko Chopina", "Modlin", "¯yrardów", "Poznañ G³ówny", "Celestynów", "Grodzisk Mazowiecki PKP", "Mrozy", "Olsztyn G³ówny", "Pruszków", "Sulejówek Mi³osna", "Bia³ystok", "Otwock", "Warszawa Lotnisko Chopina", "Warszawa G³ówna", "Warszawa Wschodnia", "Zakopane", "Warszawa Rembertów", "Praha hl.n.", "Radzymin", "Miñsk Mazowiecki", "Warszawa Lotnisko Chopina", "Skierniewice", "Dêblin", "Gdynia G³ówna"];
+            string[] stacje = ["Warszawa Zachodnia WKD", "Warszawa Ochota WKD", "Warszawa Sródmiescie WKD"];
             var factory = new MqttFactory();
 
             // Create a MQTT client instance
@@ -41,10 +42,14 @@ namespace TextToSpeachUpdateService
                 Console.WriteLine("Connected to MQTT broker successfully.");
 
 
-                var response = await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/main/departures").Build());
+                await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/main/departures").Build());
+                await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/main/arrivals").Build());
                 DirectoryInfo d3 = new DirectoryInfo("..\\AudioAnnouncementService\\Sounds\\Stations\\");
+                DirectoryInfo d4 = new DirectoryInfo("..\\AudioAnnouncementService\\Sounds\\TrainCustomNames\\");
                 FileInfo[] Files3 = d3.GetFiles("*.mp3");
+                FileInfo[] Files4 = d4.GetFiles("*.mp3");
                 List<string> FileList3 = Files3.Select(e => e.Name.Replace(".mp3", "")).ToList();
+                List<string> FileList4 = Files4.Select(e => e.Name.Replace(".mp3", "")).ToList();
 
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
@@ -54,28 +59,28 @@ namespace TextToSpeachUpdateService
                         d3 = new DirectoryInfo("..\\AudioAnnouncementService\\Sounds\\Stations\\");
                         Files3 = d3.GetFiles("*.mp3");
                         FileList3 = Files3.Select(e => e.Name.Replace(".mp3", "")).ToList();
-                        //string pattern = "[0-9][0-9]:[0-9][0-9]";
-                        if (!FileList3.Contains(c.Headsign))
+                        string pattern = "[0-9][0-9]:[0-9][0-9]";
+                        /*if (!FileList3.Contains(c.Headsign))
                         {
                             Console.WriteLine($"{c.Headsign}" + " missing");
-                        }
+                        }*/
                         d3 = new DirectoryInfo("..\\AudioAnnouncementService\\Sounds\\Stations\\");
                         Files3 = d3.GetFiles("*.mp3");
                         FileList3 = Files3.Select(e => e.Name.Replace(".mp3", "")).ToList();
-                        var otherStations = Regex.Split(Regex.Replace(Regex.Replace(Regex.Replace(c.Route,"[0-9][0-9]:[0-9][0-9]",""), " •  ", " -  "),"  ","")," -");
-                        foreach (string s in otherStations)
+                        var otherStations =Regex.Split(Regex.Replace(Regex.Replace(Regex.Replace(c.Route,"[0-9][0-9]:[0-9][0-9]",""), " •  ", " -  "),"  ","")," -");
+                        foreach(string c1 in otherStations)
                         {
-                           
 
-                            if (!FileList3.Contains(s))
+                           
+                            if (!FileList3.Contains(c1)&& !c1.Contains("Polonus"))
                             {
-                                Console.WriteLine($"{s}" + "| missing");
+                                Console.WriteLine($"{c1}" + "| missing");
                                 HttpClient client = new HttpClient();
                                 //client.DefaultRequestHeaders
                                 //.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
                                 var values = new Dictionary<string, string>
                                 {
-                                    { "msg", s.ToString() },
+                                    { "msg", c1.ToString() },
                                     { "lang", "Ewa" },
                                     { "source", "ttsmp3" }
                                 };
@@ -90,9 +95,39 @@ namespace TextToSpeachUpdateService
                                 //Console.WriteLine(data.URL);
                                 using (var download = new WebClient())
                                 {
-                                   download.DownloadFile((string)data.URL, "..\\AudioAnnouncementService\\Sounds\\Stations\\" + s.ToString() + ".mp3");
+                                   download.DownloadFile((string)data.URL, "..\\AudioAnnouncementService\\Sounds\\Stations\\" + c1.ToString() + ".mp3");
                                 }
                             }
+                            Files3 = d3.GetFiles("*.mp3");
+                            FileList3 = Files3.Select(e => e.Name.Replace(".mp3", "")).ToList();
+                        }
+                        if (c.Name.Split("   ").Length > 1&&!FileList4.Contains(c.Name.Split("   ")[1].Split("/")[0]))
+                        {
+                            Console.WriteLine($"{c.Name.Split("   ")[1].Split("/")[0]}" + "| missing");
+                            HttpClient client = new HttpClient();
+                            //client.DefaultRequestHeaders
+                            //.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+                            var values = new Dictionary<string, string>
+                                {
+                                    { "msg", c.Name.Split("   ")[1].Split("/")[0].ToString() },
+                                    { "lang", "Ewa" },
+                                    { "source", "ttsmp3" }
+                                };
+
+                            var content = new FormUrlEncodedContent(values);
+
+                            var response = client.PostAsync("https://ttsmp3.com/makemp3_new.php", content);
+
+                            var responseString = response.Result.Content.ReadAsStringAsync().Result;
+                            //Console.WriteLine(responseString);
+                            dynamic data = Newtonsoft.Json.Linq.JObject.Parse(responseString);
+                            //Console.WriteLine(data.URL);
+                            using (var download = new WebClient())
+                            {
+                                download.DownloadFile((string)data.URL, "..\\AudioAnnouncementService\\Sounds\\TrainCustomNames\\" + c.Name.Split("   ")[1].Split("/")[0].ToString() + ".mp3");
+                            }
+                            Files4 = d4.GetFiles("*.mp3");
+                            FileList4 = Files4.Select(e => e.Name.Replace(".mp3", "")).ToList();
                         }
                     }
                     

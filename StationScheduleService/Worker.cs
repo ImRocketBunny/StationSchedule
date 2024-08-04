@@ -11,6 +11,7 @@ using System.Resources;
 using System.Reflection.Metadata;
 using System.Collections.Generic;
 using System.Linq;
+using System.Collections;
 
 
 namespace StationScheduleService
@@ -19,6 +20,7 @@ namespace StationScheduleService
     {
         private readonly ILogger<Worker> _logger;
         private readonly IConfiguration _configuration;
+        private Dictionary<string, string> openWithOlds = new Dictionary<string, string>();
 
         public Worker(ILogger<Worker> logger, IConfiguration configuration)
         {
@@ -33,6 +35,7 @@ namespace StationScheduleService
 
         private  async Task WaitUntilStoppedAsync(CancellationToken stoppingToken)
         {
+
             while (!stoppingToken.IsCancellationRequested)
             {
                 DateTime dt = DateTime.Today;
@@ -88,7 +91,7 @@ namespace StationScheduleService
                     List<Course> dep = await PrepareDepartures(document);
                     List<Course> arr = await PrepareArrivals(document2);
                     await PrepareSchedule(arr,dep);
-                    Thread.Sleep(60000);
+                    Thread.Sleep(20000);
                 }
                 catch (Exception ex)
                 {
@@ -283,7 +286,9 @@ namespace StationScheduleService
             foreach (string s3 in list)
             {
                 
-                openWith.Add(s3, (JsonConvert.SerializeObject(fullCourses.Where(e => e.Platform.Contains(s3) && (int)(TimeOnly.Parse(e.DepartureTime??e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 10).OrderBy(e=>e.ArrivalTime??e.DepartureTime), Formatting.Indented)));
+                openWith.Add(s3+"/lcd", (JsonConvert.SerializeObject(fullCourses.Where(e => e.Platform.Contains(s3) && (int)(TimeOnly.Parse(e.DepartureTime??e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 10).OrderBy(e=>e.ArrivalTime??e.DepartureTime).FirstOrDefault(), Formatting.Indented)));
+                openWith.Add(s3+"/audio", (JsonConvert.SerializeObject(fullCourses.Where(e => e.Platform.Contains(s3) && (int)(TimeOnly.Parse(e.DepartureTime ?? e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 4).OrderBy(e => e.ArrivalTime ?? e.DepartureTime).FirstOrDefault(), Formatting.Indented)));
+                    
             }
 
             /*List<List<string>> table = doc.DocumentNode.SelectSingleNode("//table[@class='hafasResultGrey']")
@@ -339,7 +344,7 @@ namespace StationScheduleService
 
             // Connect to broker
 
-
+         
             //var AppName = new ConfigurationBuilder().AddJsonFile("appsettings.json").Build().GetSection("StationConfiguration:StationStructure").Get<List<string>>();
             foreach (string s4 in openWith.Keys)
             {
@@ -347,15 +352,16 @@ namespace StationScheduleService
                 {
                     var message = new MqttApplicationMessageBuilder()
                         .WithTopic("station/" + s4)
-                        .WithPayload(openWith.GetValueOrDefault(s4) == "null" ? "[]" : openWith.GetValueOrDefault(s4))
+                        .WithPayload(openWith.GetValueOrDefault(s4) == "null" ? "{}" : openWith.GetValueOrDefault(s4))
                         .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                         .WithRetainFlag()
                         .Build();
-
+                    if ((openWithOlds.ContainsKey(s4)&& openWithOlds[s4]!=openWith[s4])||openWithOlds.Keys.Count==0)
                     await mqttClient.PublishAsync(message);
 
                 }
             }
+            openWithOlds = openWith;
         }
 
         async Task<List<Course>> PrepareArrivals(HtmlDocument document)

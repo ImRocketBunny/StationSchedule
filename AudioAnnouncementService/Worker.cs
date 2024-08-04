@@ -1,4 +1,4 @@
-
+﻿
 using AudioAnnouncementService.Models;
 using MQTTnet;
 using MQTTnet.Client;
@@ -49,7 +49,7 @@ namespace AudioAnnouncementService
             FileInfo[] Files = d.GetFiles("*.mp3"); //Getting Text files
             FileInfo[] Files2 = d2.GetFiles("*.mp3");
             FileInfo[] Files3 = d3.GetFiles("*.mp3");
-            List<string> FileList= Files.Select(e => e.Name.Replace(".mp3","")).ToList();
+            List<string> FileList = Files.Select(e => e.Name.Replace(".mp3", "")).ToList();
             List<string> FileList2 = Files2.Select(e => e.Name.Replace(".mp3", "")).ToList();
             List<string> FileList3 = Files3.Select(e => e.Name.Replace(".mp3", "")).ToList();
 
@@ -59,65 +59,202 @@ namespace AudioAnnouncementService
                 Console.WriteLine("Connected to MQTT broker successfully.");
 
                 // Subscribe to a topic
-                var response = await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/main/departures").Build());
+                string[] platformTrack = [
+      "WKD",
+      "II/22",
+      "II/20",
+      "III/21",
+      "III/23",
+      "IV/8",
+      "V/6",
+      "V/4",
+      "VI/4",
+      "VI/2",
+      "VII/3",
+      "VII/5",
+      "VIII/7",
+      "IX/1",
+      "IX/2",
+      "BUS"
+    ];
+                foreach (string platform in platformTrack)
+                {
+                    await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/"+platform+"/audio").Build());
+                }
+               // await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/VI/2").Build());
+                //await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/IX/1").Build());
+                //await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/WKD").Build());
+                //await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/II/22").Build());
+                //await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/II/20").Build());
+                //await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/III/21").Build());
+                //await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/III/23").Build());
+                //await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/IV/8").Build());*/
+
+
 
                 // Callback function when a message is received
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
+                    //ApplicationMessageReceivedAsync
                     var waveOut = new WasapiOut();
 
-                    List<Course> courses = JsonConvert.DeserializeObject<List<Course>>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
-
-                    string[] nazwy = courses.Select(e=>e.Name.Split(" ")[0]).ToArray();
+                    FullCourse courses = JsonConvert.DeserializeObject<FullCourse>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
+                    if(courses ==null || courses.Name is null)
+                    {
+                        return Task.CompletedTask;
+                    }
+                    string nazwa = courses.Name.Split(" ")[0];
                     List<AudioFileReader> lista = new List<AudioFileReader>();
                     //AudioFileReader[] playlista = new AudioFileReader[nazwy.Length];
-                    foreach (Course c in courses)
+                    /*foreach (Course c in courses)
                     {
                         Console.WriteLine((int)(TimeOnly.Parse(c.Time) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes);
-                    }
-
-                    foreach (Course c in courses.Where(c=>c.Name.Split(" ")[0] != string.Empty 
-                    && FileList.Contains(c.Name.Split(" ")[0]) &&
-                    (int)(TimeOnly.Parse(c.Time) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 400))
+                    }*/
+                    
+                   // courses.OrderBy(c => c.ArrivalTime ?? c.DepartureTime);
+                    if (  courses.Name.Split(" ")[0] != string.Empty
+                    && FileList.Contains(courses.Name.Split(" ")[0]) &&
+                    (int)(TimeOnly.Parse(courses.ArrivalTime ?? courses.DepartureTime) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 10
+                    && (int)(TimeOnly.Parse(courses.ArrivalTime ?? courses.DepartureTime) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes >=1)
                     {
                         //Console.WriteLine((int)(TimeOnly.Parse(c.Time) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes);
-                        lista.Add(new AudioFileReader(".\\Sounds\\Core\\"+ c.Name.Split(" ")[0] + ".mp3"));
-                        if (c.Name.Split("   ").Length>1&& FileList2.Contains(c.Name.Split("   ")[1]))
-                            lista.Add(new AudioFileReader(".\\Sounds\\TrainCustomNames\\" + c.Name.Split("   ")[1] + ".mp3"));
-                        lista.Add(new AudioFileReader((".\\Sounds\\Core\\do_stacji.mp3")));
-                        if(FileList3.Contains(c.Headsign))
-                            lista.Add(new AudioFileReader(".\\Sounds\\Stations\\" + c.Headsign + ".mp3"));
-                        var otherStations = Regex.Split(Regex.Replace(Regex.Replace(Regex.Replace(c.Route, "[0-9][0-9]:[0-9][0-9]", ""), " �  ", " -  "), "  ", ""), " -");
-                        if(otherStations.Length > 1)
+                        lista.Add(new AudioFileReader(".\\Sounds\\Core\\" + courses.Name.Split(" ")[0] + ".mp3"));
+                        if (courses.Name.Split("   ").Length > 1 && FileList2.Contains(courses.Name.Split("   ")[1].Split("/")[0]))
+                            lista.Add(new AudioFileReader(@".\\Sounds\\TrainCustomNames\\" + courses.Name.Split("   ")[1].Split("/")[0] + ".mp3"));
+                        //lista.Add(new AudioFileReader((".\\Sounds\\Core\\do_stacji.mp3")));
+                        if (courses.HeadsignTo != "" && FileList3.Contains(courses.HeadsignTo))
                         {
-                            for(int i = 1; i < otherStations.Length - 1; i++)
+                            lista.Add(new AudioFileReader((".\\Sounds\\Core\\do_stacji.mp3")));
+                            lista.Add(new AudioFileReader(".\\Sounds\\Stations\\" + courses.HeadsignTo + ".mp3"));
+                        }
+                        if (courses.HeadsignTo == "" && courses.HeadsignFrom != "" && FileList3.Contains(courses.HeadsignFrom))
+                        {
+                            lista.Add(new AudioFileReader((".\\Sounds\\Core\\ze_stacji.mp3")));
+                            lista.Add(new AudioFileReader(".\\Sounds\\Stations\\" + courses.HeadsignFrom + ".mp3"));
+                        }
+                        //var otherStations = Regex.Split(Regex.Replace(Regex.Replace(Regex.Replace(courses.RouteTo, "[0-9][0-9]:[0-9][0-9]", ""), " •  ", " -  "), "  ", ""), " -");
+                        /*if (otherStations.Length > 1)
+                        {
+                            lista.Add(new AudioFileReader(".\\Sounds\\Core\\przez_stacje.mp3"));
+                            for (int i = 1; i < otherStations.Length-1; i++)
                             {
                                 try
                                 {
                                     lista.Add(new AudioFileReader(".\\Sounds\\Stations\\" + otherStations[i] + ".mp3"));
+                                    Console.Write(otherStations[i] + ", ");
                                 }
                                 catch (Exception ex)
                                 {
-                                    Console.WriteLine(ex.ToString());
+                                    Console.Write(otherStations[i] + ", ");
+                                    //Console.WriteLine(ex.ToString());
                                 }
                             }
-                            
-                        }
-                        lista.Add(new AudioFileReader((".\\Sounds\\Core\\planowy_przyjazd.mp3")));
-                        lista.Add(new AudioFileReader((".\\Sounds\\Time\\Hours\\" + c.Time.Split(":")[0] + ".mp3")));
 
-                        try
+                        }*/
+                        if (courses.ArrivalTime is not null)
                         {
-                            lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + c.Time.Split(":")[1] + ".mp3")));
+                            if (courses.DepartureTime is not null)
+                            {
+                                var otherStations = Regex.Split(Regex.Replace(Regex.Replace(Regex.Replace(courses.RouteTo, "[0-9][0-9]:[0-9][0-9]", ""), " •  ", " -  "), "  ", ""), " -");
+                                if (otherStations.Length > 2)
+                                {
+                                    lista.Add(new AudioFileReader(".\\Sounds\\Core\\przez_stacje.mp3"));
+                                    for (int i = 1; i < otherStations.Length - 1; i++)
+                                    {
+                                        try
+                                        {
+                                            lista.Add(new AudioFileReader(".\\Sounds\\Stations\\" + otherStations[i] + ".mp3"));
+                                            Console.Write(otherStations[i] + ", ");
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Console.Write(otherStations[i] + ", ");
+                                            //Console.WriteLine(ex.ToString());
+                                        }
+                                    }
+
+                                }
+                            }
+
+                            if (courses.DepartureTime is null)
+                            {
+                                var otherStations = Regex.Split(Regex.Replace(Regex.Replace(Regex.Replace(courses.RouteFrom, "[0-9][0-9]:[0-9][0-9]", ""), " •  ", " -  "), "  ", ""), " -");
+                                if (otherStations.Length > 2)
+                                {
+                                    lista.Add(new AudioFileReader(".\\Sounds\\Core\\przez_stacje.mp3"));
+                                    for (int i = 1; i < otherStations.Length - 1; i++)
+                                    {
+                                        try
+                                        {
+                                            lista.Add(new AudioFileReader(".\\Sounds\\Stations\\" + otherStations[i] + ".mp3"));
+                                            Console.Write(otherStations[i] + ", ");
+                                        }
+                                        catch (Exception ex)
+                                        {
+                                            Console.Write(otherStations[i] + ", ");
+                                            //Console.WriteLine(ex.ToString());
+                                        }
+                                    }
+
+                                }
+                            }
+
+                            lista.Add(new AudioFileReader((".\\Sounds\\Core\\planowy_przyjazd.mp3")));
+                            lista.Add(new AudioFileReader((".\\Sounds\\Time\\Hours\\" + (courses.ArrivalTime).Split(":")[0] + ".mp3")));
+                            lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + (courses.ArrivalTime).Split(":")[1] + ".mp3")));
+                            lista.Add(new AudioFileReader((".\\Sounds\\Core\\wjedzie_na.mp3")));
+                            lista.Add(new AudioFileReader((".\\Sounds\\Core\\przy_peronie.mp3")));
+
+                            if(courses.DepartureTime is null)
+                            {
+                                lista.Add(new AudioFileReader((".\\Sounds\\Core\\pociąg_konczy.mp3")));
+                            }
+                        }
+                        if (courses.ArrivalTime is null && courses.DepartureTime is not null)
+                        {
+                            var otherStations = Regex.Split(Regex.Replace(Regex.Replace(Regex.Replace(courses.RouteTo, "[0-9][0-9]:[0-9][0-9]", ""), " •  ", " -  "), "  ", ""), " -");
+
+                            if (otherStations.Length > 2)
+                            {
+                                lista.Add(new AudioFileReader(".\\Sounds\\Core\\przez_stacje.mp3"));
+                                for (int i = 1; i < otherStations.Length - 1; i++)
+                                {
+                                    try
+                                    {
+                                        lista.Add(new AudioFileReader(".\\Sounds\\Stations\\" + otherStations[i] + ".mp3"));
+                                        Console.Write(otherStations[i] + ", ");
+                                    }
+                                    catch (Exception ex)
+                                    {
+                                        Console.Write(otherStations[i] + ", ");
+                                        //Console.WriteLine(ex.ToString());
+                                    }
+                                }
+
+                            }
+                            lista.Add(new AudioFileReader((".\\Sounds\\Core\\stoi_na.mp3")));
+                            lista.Add(new AudioFileReader((".\\Sounds\\Core\\przy_peronie.mp3")));
+                            if (courses.Delay == "")
+                            {
+                                lista.Add(new AudioFileReader((".\\Sounds\\Core\\planowy_odjazd.mp3")));
+                                lista.Add(new AudioFileReader((".\\Sounds\\Time\\Hours\\" + (courses.DepartureTime).Split(":")[0] + ".mp3")));
+                                lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + (courses.DepartureTime).Split(":")[1] + ".mp3")));
+                            }
+                        }
+
+                        /*try
+                        {
+                            lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + (c.ArrivalTime ?? c.DepartureTime).Split(":")[1] + ".mp3")));
                         }
                         catch (Exception ex)
                         {
                             Console.WriteLine(ex.ToString());
-                        }
+                        }*/
                         //lista.Add(new AudioFileReader((".\\Sounds\\Time\\Hours\\"+c.Time.Split(":")[0]+".mp3")));
                         //lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + c.Time.Split(":")[1] + ".mp3")));
-                        if (c.Delay != string.Empty)
-                            lista.Add(new AudioFileReader((".\\Sounds\\Core\\za_op�nienie.mp3")));
+                        lista.Add(new AudioFileReader((".\\Sounds\\Core\\prosimy_zachować.mp3")));
+                        if (courses.Delay != string.Empty)
+                            lista.Add(new AudioFileReader((".\\Sounds\\Core\\za_opóźnienie.mp3")));
                     }
                     AudioFileReader[] playlista = lista.ToArray();
                     if (playlista.Length > 0)
@@ -131,8 +268,8 @@ namespace AudioAnnouncementService
                         }
                         waveOut.Dispose();
                     }
-                    
-                    Thread.Sleep(60000);
+
+                    //Thread.Sleep(60000);
                     return Task.CompletedTask;
                 };
             }
@@ -140,7 +277,7 @@ namespace AudioAnnouncementService
             //var reader = new AudioFileReader(".\\Sounds\\Core\\ttsMP3.com_VoiceText_2024-5-20_1-33-57.mp3");
             //var waveOut = new  WasapiOut();
 
-           // var audio = new AudioFileReader(".\\Sounds\\Core\\ttsMP3.com_VoiceText_2024-5-20_1-33-57.mp3");
+            // var audio = new AudioFileReader(".\\Sounds\\Core\\ttsMP3.com_VoiceText_2024-5-20_1-33-57.mp3");
 
             //var file = new AudioFileReader(".\\Sounds\\Core\\ttsMP3.com_VoiceText_2024-5-20_1-34-17.mp3");
             //waveOut.Init(reader);
@@ -157,7 +294,7 @@ namespace AudioAnnouncementService
             {
                 Console.WriteLine(c.Headsign);
             }*/
-            //var reader2 = new Mp3FileReader("D:\\Pobrane\\Obecny odg�os zapowiedzi  gong PKP Krak�w Wroc�aw Pozna� Gliwice.mp3");
+            //var reader2 = new Mp3FileReader("D:\\Pobrane\\Obecny odg³os zapowiedzi  gong PKP Kraków Wroc³aw Poznañ Gliwice.mp3");
             // var time = new AudioFileReader(".\\Sounds\\Core\\ttsMP3.com_VoiceText_2024-5-20_1-33-57.mp3").TotalTime;
             //Thread.Sleep(time);
             //waveOut.Dispose();
