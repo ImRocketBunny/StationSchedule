@@ -59,7 +59,7 @@ namespace StationScheduleService
                 browser.Timeout = TimeSpan.FromSeconds(30);
 
 
-                url = "https://rozklad-pkp.pl/pl/sq?maxJourneys=50&start=yes&dirInput=&GUIREQProduct_0=on&GUIREQProduct_1=on&GUIREQProduct_2=on&GUIREQProduct_3=on&advancedProductMode=&boardType=&input=&input=5100067&date=&dateStart=&REQ0JourneyDate=&time=";
+                url = "https://rozklad-pkp.pl/pl/sq?maxJourneys=20&start=yes&dirInput=&GUIREQProduct_0=on&GUIREQProduct_1=on&GUIREQProduct_2=on&GUIREQProduct_3=on&advancedProductMode=&boardType=&input=&input=5100067&date=&dateStart=&REQ0JourneyDate=&time=";
                 url = url.Replace("time=", "time=" + (DateTime.Now.TimeOfDay.ToString().Replace(":", "%3A")));
                 url = url.Replace("dateStart=", "dateStart=" + s);
                 url = url.Replace("&date=", "&date=" + s);
