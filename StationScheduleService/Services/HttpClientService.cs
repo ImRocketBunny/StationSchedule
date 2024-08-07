@@ -1,4 +1,5 @@
-﻿using ScrapySharp.Network;
+﻿using HtmlAgilityPack;
+using ScrapySharp.Network;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,23 +10,27 @@ using System.Threading.Tasks;
 namespace StationScheduleService.Services
 {
     
-    internal class HttpClientService : IHttpClientService
+    internal class WebScrapperService : IWebScrapperService
     {
         private readonly IConfiguration _configuration;
-        private readonly ScrapingBrowser _browser;
-        public HttpClientService(IConfiguration configuration)
+        private ScrapingBrowser _browser;
+        private HtmlDocument _document;
+        public WebScrapperService(IConfiguration configuration)
         {
             _browser=new ScrapingBrowser
             {
                 Timeout = TimeSpan.FromSeconds(int.Parse(configuration["ScraperOptions:ConnectionTimeout"]!))
             };
             _configuration = configuration;
+            _document = new HtmlDocument();
             
 
         }
-        public async Task<WebPage> ScrapAsync(string url)
+        public async Task ScrapAsync(string url)
         {
-            return _browser.NavigateToPage(new Uri(url));
+            
+             _document.LoadHtml(_browser.NavigateToPage(new Uri(url)).Content);
+
         }
 
         public Task<string> PrepareUrls()

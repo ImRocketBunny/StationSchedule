@@ -17,7 +17,7 @@
 
   <ItemGroup>
     <Folder Include="Sounds\Delay\" />
-    <Folder Include="Sounds\Time\Minutes\" />
+    <Folder Include="Sounds\Track\" />
   </ItemGroup>
 
   <ItemGroup>

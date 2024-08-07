@@ -18,7 +18,7 @@ namespace StationScheduleService.Services
         private readonly IConfiguration _configuration;
         private readonly ILogger<StationScheduleService> _logger;
         private readonly IMqttManagerService _mqttManagerService;
-        private readonly IHttpClientService _httpClient;
+        private readonly IWebScrapperService _httpClient;
         private readonly string _sessionId;
         private DateTime _nextScheduleSend;
         private Dictionary<string, List<Course>> _schedules;
@@ -28,7 +28,7 @@ namespace StationScheduleService.Services
         private int _scheduleId = 0;
         private bool _connection = false;
         public StationScheduleService(IConfiguration configuration, ILogger<StationScheduleService> logger, IMqttManagerService mqttManagerService,
-            IHttpClientService httpClient)
+            IWebScrapperService httpClient)
         {
             _logger = logger;
             _configuration = configuration;
