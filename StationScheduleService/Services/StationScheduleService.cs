@@ -97,10 +97,6 @@ namespace StationScheduleService.Services
             {
                 _logger.LogInformation("Sending schedule with ID: {ID}", _scheduleId);
 
-                await _mqttManagerService.PublishSchedule(JsonConvert.SerializeObject(_courses!, Formatting.Indented));
-                _courses.Clear();
-                _scheduleId++;
-            }
         }
 
         private async Task GetScheduleData()
