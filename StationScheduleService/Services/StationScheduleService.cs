@@ -135,7 +135,7 @@ namespace StationScheduleService.Services
                 fullCourses.Add(fc);
                 
             }
-            Console.WriteLine("Chuj");
+            //Console.WriteLine("Chuj");
             //Console.WriteLine("Kursy: "+fullCourses.Count);
             _schedules.Add("main/delayed", (JsonConvert.SerializeObject(fullCourses.Where(e => e.Delay != ""), Formatting.Indented)));
             foreach (string s3 in _list)

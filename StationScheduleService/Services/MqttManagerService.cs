@@ -21,6 +21,7 @@ namespace StationScheduleService.Services
         private readonly ILogger _logger;
         private MqttClientConnectResult? result;
         private Dictionary<string, string> _mqttDataStore;
+        private Dictionary<string, string> openWithOlds = new Dictionary<string, string>();
 
 
         public MqttManagerService(
@@ -78,36 +79,54 @@ namespace StationScheduleService.Services
 
         public async Task PublishSchedule(Dictionary<string, string> keyValuePairs)
         {
+            int i = 0;
             foreach (string key in keyValuePairs.Keys)
             {
-                //Console.WriteLine(key);
+
+                /*if (!keyValuePairs[key].Contains("main"))
+                {
+
+                    Console.WriteLine(keyValuePairs[key]);
+                }*/
+                //Console.WriteLine(keyValuePairs.Keys.Count);
                 var message = new MqttApplicationMessageBuilder()
                         .WithTopic("station/" + key)
-                        .WithPayload(keyValuePairs.GetValueOrDefault(key) == "null" ? "{}" : keyValuePairs.GetValueOrDefault(key))
+                        .WithPayload(keyValuePairs[key] == "null" ? "{}" : keyValuePairs[key])
                         .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                         .WithRetainFlag()
                         .Build();
-            
-                /*if ((_mqttDataStore.ContainsKey(key) && _mqttDataStore[message.Topic.Replace("station/", "")] == (keyValuePairs[key])) || _mqttDataStore.Keys.Count == 0)
-                {
-                    if (!_mqttDataStore.ContainsKey(key))
-                    {
-                        _mqttDataStore.Add(message.Topic.Replace("station/",""), Encoding.UTF8.GetString(message.PayloadSegment));
-                    }
-                    else
-                    {
-                        _mqttDataStore[message.Topic.Replace("station/", "")] = Encoding.UTF8.GetString(message.PayloadSegment);
-                    }*/
-                    await _mqttClient!.PublishAsync(message);
-                    
 
-                //}
+
+                /*if (openWithOlds.Keys.Count >0)
+                {
+                    Console.WriteLine(openWithOlds[key] == keyValuePairs[key]);
+                }*/
+
+                if ((openWithOlds.ContainsKey(key) && openWithOlds[key] != keyValuePairs[key]) || !openWithOlds.ContainsKey(key))
+                {
+
+                        if (!openWithOlds.ContainsKey(key))
+                        {
+                        openWithOlds.Add(key, keyValuePairs[key]);
+                            Console.WriteLine("Adding key: " + key);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Updating key: " + key);
+                            openWithOlds[key] = keyValuePairs[key];
+                        }
+                       // Console.WriteLine(_mqttDataStore.Keys.Count);
+                    //Console.WriteLine(_mqttDataStore.ContainsKey(key) && _mqttDataStore[message.Topic.Replace("station/", "")] == (keyValuePairs[key]));
+                    await _mqttClient!.PublishAsync(message);
+                    //Console.WriteLine("update: "+key);    
+
+                }
                 
          
             }
-            //_mqttDataStore = keyValuePairs;
+           // openWithOlds = keyValuePairs;
 
-
+            
 
         }
 
