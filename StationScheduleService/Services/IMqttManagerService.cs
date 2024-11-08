@@ -10,6 +10,6 @@ namespace StationScheduleService.Services
     {
         Task SetUpMqttClientAsync();
         Task DisposeMqttClientAsync();
-        Task PublishSchedule(object value);
+        Task PublishSchedule(Dictionary<string, string> keyValuePairs);
     }
 }

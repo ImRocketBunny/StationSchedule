@@ -67,7 +67,7 @@ namespace ScheduleMQTTBroker
                 //mqttServer.InterceptingPublishAsync += Server_InterceptingPublishAsync;
             var mqttServer = new MqttFactory().CreateMqttServer(option.Build());
             mqttServer.InterceptingPublishAsync += Server_InterceptingPublishAsync;
-            //mqttServer.ValidatingConnectionAsync+=
+            mqttServer.ValidatingConnectionAsync += Server_ValidatingConnectionAsync;
             await mqttServer.StartAsync();
                 await Task.Delay(1000);
             //}
@@ -79,7 +79,7 @@ namespace ScheduleMQTTBroker
             var payload = arg.ApplicationMessage?.Payload == null ? null : Encoding.UTF8.GetString(arg.ApplicationMessage?.Payload);
 
 
-            Console.WriteLine(
+            /*Console.WriteLine(
                 " TimeStamp: {0} -- Message: ClientId = {1}, Topic = {2}, Payload = {3}, QoS = {4}, Retain-Flag = {5}",
 
                 DateTime.Now,
@@ -87,7 +87,26 @@ namespace ScheduleMQTTBroker
                 arg.ApplicationMessage?.Topic,
                 payload,
                 arg.ApplicationMessage?.QualityOfServiceLevel,
-                arg.ApplicationMessage?.Retain);
+                arg.ApplicationMessage?.Retain);*/
+            return Task.CompletedTask;
+        }
+
+        Task Server_ValidatingConnectionAsync(ValidatingConnectionEventArgs arg)
+        {
+            // Convert Payload to string
+            var payload = arg.ClientId;
+            Console.WriteLine(arg.ClientId, arg.Password);
+            Console.WriteLine(arg.RawPassword);
+            //validate
+            /*Console.WriteLine(
+                " TimeStamp: {0} -- Message: ClientId = {1}, Topic = {2}, Payload = {3}, QoS = {4}, Retain-Flag = {5}",
+
+                DateTime.Now,
+                arg.ClientId,
+                arg.ApplicationMessage?.Topic,
+                payload,
+                arg.ApplicationMessage?.QualityOfServiceLevel,
+                arg.ApplicationMessage?.Retain);*/
             return Task.CompletedTask;
         }
 

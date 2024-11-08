@@ -12,20 +12,25 @@ using System.Reflection.Metadata;
 using System.Collections.Generic;
 using System.Linq;
 using System.Collections;
+using static Microsoft.FSharp.Core.ByRefKinds;
+using StationScheduleService.Services;
 
 
 namespace StationScheduleService
 {
     public class Worker : BackgroundService
     {
+        private DateTime executeTime = DateTime.Now;
+        private readonly ITaskManager _taskManager;
         private readonly ILogger<Worker> _logger;
         private readonly IConfiguration _configuration;
         private Dictionary<string, string> openWithOlds = new Dictionary<string, string>();
 
-        public Worker(ILogger<Worker> logger, IConfiguration configuration)
+        public Worker(ILogger<Worker> logger, IConfiguration configuration, ITaskManager taskManager)
         {
             _logger = logger;
-            _configuration=configuration;
+            _configuration = configuration;
+            _taskManager = taskManager;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -38,6 +43,14 @@ namespace StationScheduleService
 
             while (!stoppingToken.IsCancellationRequested)
             {
+                if (executeTime < DateTime.Now)
+                {
+                    await _taskManager.Execute();
+                    Thread.Sleep(10000);
+
+                    
+                }
+                /*
                 DateTime dt = DateTime.Today;
                 DateTime dt2 = DateTime.Now.AddDays(6);
                 string s = dt.ToString("dd.MM.yy", CultureInfo.InvariantCulture);
@@ -62,21 +75,29 @@ namespace StationScheduleService
                 browser.Timeout = TimeSpan.FromSeconds(30);
 
 
-                url = "https://rozklad-pkp.pl/pl/sq?maxJourneys=20&start=yes&dirInput=&GUIREQProduct_0=on&GUIREQProduct_1=on&GUIREQProduct_2=on&GUIREQProduct_3=on&advancedProductMode=&boardType=&input=&input=5100067&date=&dateStart=&REQ0JourneyDate=&time=";
+                url = "https://rozklad-pkp.pl/pl/sq?maxJourneys=&start=yes&GUIREQProduct_0=on&GUIREQProduct_1=on&GUIREQProduct_2=on&GUIREQProduct_3=on&advancedProductMode=&boardType=&input=&date=&dateStart=&REQ0JourneyDate=&time=";
                 url = url.Replace("time=", "time=" + (DateTime.Now.TimeOfDay.ToString().Replace(":", "%3A")));
                 url = url.Replace("dateStart=", "dateStart=" + s);
                 url = url.Replace("&date=", "&date=" + s);
                 url = url.Replace("JourneyDate=", "JourneyDate=" + s);
                 url = url.Replace("boardType=", "boardType=dep");
-                Console.WriteLine(url);
+                url = url.Replace("maxJourneys=", "maxJourneys=30");
+                url = url.Replace("input=", "input=Warszawa+Zachodnia");
 
-                var url2 = "https://rozklad-pkp.pl/pl/sq?maxJourneys=20&start=yes&dirInput=&GUIREQProduct_0=on&GUIREQProduct_1=on&GUIREQProduct_2=on&GUIREQProduct_3=on&advancedProductMode=&boardType=&input=&input=5100067&date=&dateStart=&REQ0JourneyDate=&time=";
+
+                //Console.WriteLine(url);
+
+                var url2 = "https://rozklad-pkp.pl/pl/sq?maxJourneys=&start=yes&GUIREQProduct_0=on&GUIREQProduct_1=on&GUIREQProduct_2=on&GUIREQProduct_3=on&advancedProductMode=&boardType=&input=&date=&dateStart=&REQ0JourneyDate=&time=";
                 url2 = url2.Replace("time=", "time=" + (DateTime.Now.TimeOfDay.ToString().Replace(":", "%3A")));
                 url2 = url2.Replace("dateStart=", "dateStart=" + s);
                 url2 = url2.Replace("&date=", "&date=" + s);
                 url2 = url2.Replace("JourneyDate=", "JourneyDate=" + s);
                 url2 = url2.Replace("boardType=", "boardType=arr");
-                Console.WriteLine(url2);
+                url2 = url2.Replace("maxJourneys=", "maxJourneys=30");
+                url2 = url2.Replace("input=", "input=Warszawa+Zachodnia");
+
+
+                //Console.WriteLine(url2);
                 WebPage page;
                 WebPage page2;
                 try
@@ -107,8 +128,8 @@ namespace StationScheduleService
 
                 //Console.WriteLine(HttpUtility.HtmlDecode(page.Content));
                 //var q = document.DocumentNode.SelectNodes("/ html / body / div[2] / div / div[2] / table / tbody / tr[2] / td / div[2] / div[3] / div / div / div / div / div / div / div / div / div / div / table[1]");
-
-
+                
+                */
             }
 
         }
@@ -357,10 +378,16 @@ namespace StationScheduleService
                         .WithRetainFlag()
                         .Build();
                     if ((openWithOlds.ContainsKey(s4)&& openWithOlds[s4]!=openWith[s4])||openWithOlds.Keys.Count==0)
-                    await mqttClient.PublishAsync(message);
+                    {
+                        await mqttClient.PublishAsync(message);
+                        Console.WriteLine(s4);
+
+                    }
+                   
 
                 }
             }
+            Console.WriteLine("");
             openWithOlds = openWith;
         }
 

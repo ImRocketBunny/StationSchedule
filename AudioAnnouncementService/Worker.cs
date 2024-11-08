@@ -18,7 +18,7 @@ namespace AudioAnnouncementService
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-
+        private List<FullCourse> _courses = new List<FullCourse>();
         public Worker(ILogger<Worker> logger)
         {
             _logger = logger;
@@ -92,9 +92,13 @@ namespace AudioAnnouncementService
 
 
 
-                // Callback function when a message is received
+                
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
+                    if (e.ApplicationMessage.Topic.ToString().Contains("delay"))
+                    {
+                        Console.WriteLine("Nothing");
+                    }
                     //ApplicationMessageReceivedAsync
                     var waveOut = new WasapiOut();
 
@@ -103,6 +107,7 @@ namespace AudioAnnouncementService
                     {
                         return Task.CompletedTask;
                     }
+                    _courses.Add(courses);
                     string nazwa = courses.Name.Split(" ")[0];
                     List<AudioFileReader> lista = new List<AudioFileReader>();
                     //AudioFileReader[] playlista = new AudioFileReader[nazwy.Length];

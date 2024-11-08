@@ -1,5 +1,4 @@
-﻿using ScrapySharp.Network;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace StationScheduleService.Services
 {
-    internal interface IWebScrapperService
+    internal interface IPingClientService
     {
-        Task ScrapAsync(string url);
-        Task<string> PrepareUrls();
+        Task<bool> SendPing(string url);
     }
 }
