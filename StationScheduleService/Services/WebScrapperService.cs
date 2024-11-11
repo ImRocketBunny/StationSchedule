@@ -17,21 +17,25 @@ namespace StationScheduleService.Services
     internal class WebScrapperService : IWebScrapperService
     {
         private readonly IConfiguration _configuration;
+        private readonly ILogger<StationScheduleService> _logger;
         private ScrapingBrowser _browser;
         private List<Course> _arrivals;
         private List<Course> _departures;
         private HtmlDocument _documentArrivals;
         private HtmlDocument _documentDepartures;
         private bool _scrapCompleted;
-        public Dictionary<string, List<Course>> _schedule;
-        public WebScrapperService(IConfiguration configuration)
+        private bool _offlineDataFetch;
+        public Dictionary<string, List<Course>> _schedule = new Dictionary<string, List<Course>>();
+
+        public WebScrapperService(IConfiguration configuration, ILogger<StationScheduleService> logger)
         {
+            _configuration = configuration;
+            _logger = logger;
             _browser=new ScrapingBrowser
             {
                 Timeout = TimeSpan.FromSeconds(int.Parse(configuration["ScraperOptions:ConnectionTimeout"]!))
             };
             _configuration = configuration;
-            _schedule = new Dictionary<string, List<Course>>();
             _scrapCompleted = false;
             _arrivals = new List<Course>();
             _departures = new List<Course>();
@@ -61,20 +65,35 @@ namespace StationScheduleService.Services
             url = url.Replace("boardType=", "boardType="+type);
             url = url.Replace("maxJourneys=", "maxJourneys="+ _configuration["StationConfiguration:MaxJourneys"]!);
             url = url.Replace("input=", "input="+_configuration["StationConfiguration:Name"]!.Replace(" ","+"));
-            //Console.WriteLine(url);
             return url;
         }
 
         public async Task<Dictionary<string, List<Course>>> ScrapPage()
         {   
             _scrapCompleted = false;
-            ClearScrappedData();
-            await PrepareArrivals();
-            await PrepareDepartures();
-            _schedule.Add("arrivals", _arrivals!);
-            _schedule.Add("departures", _departures!);
-            _scrapCompleted = true;
-            return _schedule;
+            _offlineDataFetch = false;
+            //ClearScrappedData();
+            try
+            {
+                await Task.WhenAll(PrepareArrivals(), PrepareDepartures());
+                //ClearSchedule();
+                _schedule.Add("arrivals", _arrivals!);
+                _schedule.Add("departures", _departures!);
+                _scrapCompleted = true;
+                return _schedule;
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError("Scrapping failed: "+ex.Message+"\nPrvious known data has been fetchd");
+                Console.WriteLine(_schedule.Count);
+                //_schedule.Add("arrivals", _arrivals!);
+                //_schedule.Add("departures", _departures!);
+                _scrapCompleted = true;
+                _offlineDataFetch = true;
+                return _schedule;
+            }
+            
             
         }
 
@@ -176,11 +195,19 @@ namespace StationScheduleService.Services
         {
             return _scrapCompleted;
         }
+        public bool OfflineData()
+        {
+            return _offlineDataFetch;
+        }
 
         private void ClearScrappedData()
         {
             _arrivals.Clear();
             _departures.Clear();
+        }
+
+        private void ClearSchedule()
+        {
             _schedule.Clear();
         }
 
