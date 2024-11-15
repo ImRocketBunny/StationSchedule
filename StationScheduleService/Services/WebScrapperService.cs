@@ -72,11 +72,11 @@ namespace StationScheduleService.Services
         {   
             _scrapCompleted = false;
             _offlineDataFetch = false;
-            //ClearScrappedData();
+            ClearScrappedData();
             try
             {
                 await Task.WhenAll(PrepareArrivals(), PrepareDepartures());
-                //ClearSchedule();
+                ClearSchedule();
                 _schedule.Add("arrivals", _arrivals!);
                 _schedule.Add("departures", _departures!);
                 _scrapCompleted = true;
@@ -85,13 +85,13 @@ namespace StationScheduleService.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError("Scrapping failed: "+ex.Message+"\nPrvious known data has been fetchd");
-                Console.WriteLine(_schedule.Count);
+                _logger.LogError("Scrapping failed: "+ex.Message+"\nPrvious known data has will be fetchd");
+               
                 //_schedule.Add("arrivals", _arrivals!);
                 //_schedule.Add("departures", _departures!);
                 _scrapCompleted = true;
                 _offlineDataFetch = true;
-                return _schedule;
+                return null;
             }
             
             
