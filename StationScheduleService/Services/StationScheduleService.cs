@@ -83,14 +83,14 @@ namespace StationScheduleService.Services
             _logger.LogInformation("Scrapping...");
             _courses = await _webScrapperService.ScrapPage();
             if (_courses == null)
-            {
+            {  
                 _courses = _coursesHistory;
             }
             else
             {
                 _coursesHistory=_courses;
             }
-            
+           
         }
 
         private Task PrepareCourses()
