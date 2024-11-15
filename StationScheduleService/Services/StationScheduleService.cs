@@ -26,7 +26,7 @@ namespace StationScheduleService.Services
         private Dictionary<string, string> _schedules;
         private List<List<string>> _scheduleRows;
         private Dictionary<string, List<Course>> _courses;
-        private Dictionary<string, List<Course>> _coursesHistory;
+        private Dictionary<string, List<Course>> _coursesHistory = new Dictionary<string, List<Course>>();
         private int _scheduleId = 0;
         private bool _connection = false;
         private bool _schedulePrepared = false;
@@ -41,7 +41,8 @@ namespace StationScheduleService.Services
             _pingClientService = pingClientService;
             _schedules = new Dictionary<string, string>();
             _scheduleRows = new List<List<string>>();
-            _courses = new Dictionary<string, List<Course>>();   
+            _courses = new Dictionary<string, List<Course>>();
+            //_coursesHistory = new Dictionary<string, List<Course>>();
             _list = _configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>();
 
         }
@@ -79,16 +80,38 @@ namespace StationScheduleService.Services
 
         private async Task GetScheduleData()
         {
+            Console.WriteLine("History "+_coursesHistory.Count);
+
             _courses.Clear();
             _logger.LogInformation("Scrapping...");
             _courses = await _webScrapperService.ScrapPage();
-            if (_courses == null)
-            {  
-                _courses = _coursesHistory;
-            }
-            else
+            Console.WriteLine("History "+_coursesHistory.Count);
+            Console.WriteLine("Current "+_courses.Count);
+            if (_courses.Count!=2)
             {
-                _coursesHistory=_courses;
+                
+                _courses.Clear();
+                _logger.LogInformation("Fetching with saved Data");
+                _courses.Add("departures", new List<Course>(_coursesHistory["departures"]));
+                _courses.Add("arrivals", new List<Course>(_coursesHistory["arrivals"]));
+            }
+            else if(_courses.Count == 2)
+            {
+                if (_coursesHistory.Count == 0)
+                {
+                    _coursesHistory.Add("arrivals", new List<Course>(_courses["arrivals"]));
+                    _coursesHistory.Add("departures", new List<Course>(_courses["departures"]));
+                }
+                else
+                {
+                    _coursesHistory["arrivals"] = new List<Course>(_courses["arrivals"]);
+                    _coursesHistory["departures"] = new List<Course>(_courses["departures"]);
+                    
+                }
+
+
+
+               
             }
            
         }
@@ -98,7 +121,7 @@ namespace StationScheduleService.Services
             _schedulePrepared = false;
             List<string> uniqueCourses = _courses["arrivals"].Select(course => course.Name).ToList().Concat(_courses["departures"].Select(course => course.Name).ToList()).Distinct().ToList();
             Dictionary<string, Course> arrivals = new Dictionary<string, Course>();
-            
+            _schedules.Clear();
             Dictionary<string, Course> departures = new Dictionary<string, Course>();
             _schedules.Add("main/departures", JsonConvert.SerializeObject(_courses["departures"], Formatting.Indented));
             _schedules.Add("main/arrivals", JsonConvert.SerializeObject(_courses["arrivals"], Formatting.Indented));
@@ -144,8 +167,6 @@ namespace StationScheduleService.Services
                 fullCourses.Add(fc);
                 
             }
-            //Console.WriteLine("Chuj");
-            //Console.WriteLine("Kursy: "+fullCourses.Count);
             _schedules.Add("main/delayed", (JsonConvert.SerializeObject(fullCourses.Where(e => e.Delay != ""), Formatting.Indented)));
             foreach (string s3 in _list)
             {

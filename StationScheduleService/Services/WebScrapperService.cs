@@ -91,7 +91,7 @@ namespace StationScheduleService.Services
                 //_schedule.Add("departures", _departures!);
                 _scrapCompleted = true;
                 _offlineDataFetch = true;
-                return null;
+                return _schedule;
             }
             
             
