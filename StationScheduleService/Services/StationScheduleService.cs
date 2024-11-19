@@ -42,7 +42,6 @@ namespace StationScheduleService.Services
             _schedules = new Dictionary<string, string>();
             _scheduleRows = new List<List<string>>();
             _courses = new Dictionary<string, List<Course>>();
-            //_coursesHistory = new Dictionary<string, List<Course>>();
             _list = _configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>();
 
         }
@@ -80,13 +79,10 @@ namespace StationScheduleService.Services
 
         private async Task GetScheduleData()
         {
-            Console.WriteLine("History "+_coursesHistory.Count);
 
             _courses.Clear();
             _logger.LogInformation("Scrapping...");
             _courses = await _webScrapperService.ScrapPage();
-            Console.WriteLine("History "+_coursesHistory.Count);
-            Console.WriteLine("Current "+_courses.Count);
             if (_courses.Count!=2)
             {
                 
@@ -125,9 +121,6 @@ namespace StationScheduleService.Services
             Dictionary<string, Course> departures = new Dictionary<string, Course>();
             _schedules.Add("main/departures", JsonConvert.SerializeObject(_courses["departures"], Formatting.Indented));
             _schedules.Add("main/arrivals", JsonConvert.SerializeObject(_courses["arrivals"], Formatting.Indented));
-            //Console.WriteLine(JsonConvert.SerializeObject(_courses["arrivals"], Formatting.Indented));
-            //Console.WriteLine("Przyjazdy " + _courses["arrivals"].Count);
-            //Console.WriteLine("Odjazdy " + _courses["departures"].Count);
             arrivals.Clear();
             departures.Clear();
             foreach (var c in _courses["arrivals"])
@@ -184,10 +177,5 @@ namespace StationScheduleService.Services
         {
             return _webScrapperService.GetScrapperState() && _schedulePrepared;
         }
-
-        /*Task<List<Course>> IStationScheduleService.GetScheduleContent(string HtmlContent)
-        {
-            throw new NotImplementedException();
-        }*/
     }
 }

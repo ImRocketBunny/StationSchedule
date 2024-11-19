@@ -224,9 +224,15 @@ namespace AudioAnnouncementService
                             }
                             else
                             {
-                                lista.Add(new AudioFileReader((".\\Sounds\\Core\\planowy_odjazd.mp3")));
+                                if (courses.ArrivalTime != courses.DepartureTime)
+                                {
+                                    lista.Add(new AudioFileReader((".\\Sounds\\Core\\planowy_odjazd.mp3")));
+                                    lista.Add(new AudioFileReader((".\\Sounds\\Time\\Hours\\" + (courses.DepartureTime).Split(":")[0] + ".mp3")));
+                                    lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + (courses.DepartureTime).Split(":")[1] + ".mp3")));
+                                }
+                                /*lista.Add(new AudioFileReader((".\\Sounds\\Core\\planowy_odjazd.mp3")));
                                 lista.Add(new AudioFileReader((".\\Sounds\\Time\\Hours\\" + (courses.DepartureTime).Split(":")[0] + ".mp3")));
-                                lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + (courses.DepartureTime).Split(":")[1] + ".mp3")));
+                                lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + (courses.DepartureTime).Split(":")[1] + ".mp3")));*/
 
                             }
                         }
