@@ -4,13 +4,25 @@ import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-import { MqttModule, IMqttServiceOptions } from 'ngx-mqtt';
+import {
+  IMqttMessage,
+  MqttModule,
+  IMqttServiceOptions,
+  MqttService
+} from 'ngx-mqtt';
 
 
-const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+/*const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+  hostname: '127.0.0.1',
+  protocol: "wss",
+  port: 1883
+};*/
+
+
+export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: '127.0.0.1',
   port: 1883,
-  protocol: 'wss'
+  path: '/mqtt'
 };
 
 @NgModule({
