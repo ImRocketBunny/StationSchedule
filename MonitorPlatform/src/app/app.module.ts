@@ -10,6 +10,10 @@ import {
   IMqttServiceOptions,
   MqttService
 } from 'ngx-mqtt';
+//import { MatSnackBar } from '@angular/material/snack-bar';
+import { IClientSubscribeOptions } from 'mqtt-browser';
+import { Subscription } from 'rxjs';
+
 
 
 /*const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
@@ -18,12 +22,16 @@ import {
   port: 1883
 };*/
 
-
 export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: '127.0.0.1',
   port: 1883,
-  path: '/mqtt'
+  path: '/mqtt',
+  clean: true,
+  connectTimeout: 4000,
+  reconnectPeriod: 4000
 };
+
+
 
 @NgModule({
   declarations: [
@@ -32,7 +40,7 @@ export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MqttModule.forRoot(MQTT_SERVICE_OPTIONS)
+    MqttModule.forRoot(MQTT_SERVICE_OPTIONS),
   ],
   providers: [],
   bootstrap: [AppComponent]

@@ -12,16 +12,35 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presenation", "Presenation", "{53838F2D-A1AD-49AD-AF51-BAD56AE6D2A3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleUpdater", "ScheduleUpdater\ScheduleUpdater.csproj", "{C25A1F69-2262-42E0-87F3-FE31CFDD1100}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {A5E06FF9-0445-46FE-93F0-DDB85812AD4C}
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {B3BFB753-1026-45FE-ACEF-5E10662D89BF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleMQTTBroker", "ScheduleMQTTBroker\ScheduleMQTTBroker.csproj", "{B3BFB753-1026-45FE-ACEF-5E10662D89BF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StationScheduleService", "StationScheduleService\StationScheduleService.csproj", "{A5E06FF9-0445-46FE-93F0-DDB85812AD4C}"
+	ProjectSection(ProjectDependencies) = postProject
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {B3BFB753-1026-45FE-ACEF-5E10662D89BF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioAnnouncementService", "AudioAnnouncementService\AudioAnnouncementService.csproj", "{33B9FCA6-257D-43D8-B136-41A83E3D08D4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {A5E06FF9-0445-46FE-93F0-DDB85812AD4C}
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {B3BFB753-1026-45FE-ACEF-5E10662D89BF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextToSpeachUpdateService", "TextToSpeachUpdateService\TextToSpeachUpdateService.csproj", "{6C64600D-ECB5-4F1F-835D-7849280E7FAA}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {A5E06FF9-0445-46FE-93F0-DDB85812AD4C}
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {B3BFB753-1026-45FE-ACEF-5E10662D89BF}
+	EndProjectSection
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "MonitorPlatform", "MonitorPlatform\MonitorPlatform.esproj", "{A3FDCF03-E78B-4524-AC0A-21FE75EE175F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {A5E06FF9-0445-46FE-93F0-DDB85812AD4C}
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {B3BFB753-1026-45FE-ACEF-5E10662D89BF}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
