@@ -1,37 +1,13 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-
-import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MqttModule, IMqttServiceOptions } from 'ngx-mqtt';
 
-import {
-  IMqttMessage,
-  MqttModule,
-  IMqttServiceOptions,
-  MqttService
-} from 'ngx-mqtt';
-//import { MatSnackBar } from '@angular/material/snack-bar';
-import { IClientSubscribeOptions } from 'mqtt-browser';
-import { Subscription } from 'rxjs';
-
-
-
-/*const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
-  hostname: '127.0.0.1',
-  protocol: "wss",
-  port: 1883
-};*/
-
-export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
+const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   hostname: '127.0.0.1',
   port: 1883,
-  path: '/mqtt',
-  clean: true,
-  connectTimeout: 4000,
-  reconnectPeriod: 4000
+  path: '/station'
 };
-
-
 
 @NgModule({
   declarations: [
@@ -39,8 +15,7 @@ export const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
-    MqttModule.forRoot(MQTT_SERVICE_OPTIONS),
+    MqttModule.forRoot(MQTT_SERVICE_OPTIONS) // Rejestracja modułu ngx-mqtt
   ],
   providers: [],
   bootstrap: [AppComponent]

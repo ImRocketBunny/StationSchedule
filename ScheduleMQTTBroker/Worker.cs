@@ -1,7 +1,6 @@
 using MQTTnet;
 using MQTTnet.Server;
 using System.Text;
-
 namespace ScheduleMQTTBroker
 {
     public class Worker : BackgroundService
@@ -64,7 +63,7 @@ namespace ScheduleMQTTBroker
                     // It is also possible to read the payload and extend it. For example by adding a timestamp in a JSON document.
                     // This is useful when the IoT device has no own clock and the creation time of the message might be important.
                 });*/
-                //mqttServer.InterceptingPublishAsync += Server_InterceptingPublishAsync;
+            //mqttServer.InterceptingPublishAsync += Server_InterceptingPublishAsync;
             var mqttServer = new MqttFactory().CreateMqttServer(option.Build());
             mqttServer.InterceptingPublishAsync += Server_InterceptingPublishAsync;
             mqttServer.ValidatingConnectionAsync += Server_ValidatingConnectionAsync;
