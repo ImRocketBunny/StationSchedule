@@ -1,7 +1,9 @@
-﻿using MQTTnet;
+﻿using Microsoft.Extensions.Options;
+using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Protocol;
 using MQTTnet.Server;
+using System.Text;
 
 namespace MQTTBrigdeAPI.Services
 {
@@ -12,17 +14,18 @@ namespace MQTTBrigdeAPI.Services
         private readonly ILogger _logger;
         private MqttClientConnectResult? result;
         private Dictionary<string, string> _mqttDataStore;
-        private Dictionary<string, string> openWithOlds = new Dictionary<string, string>();
-
+        private List<string> _subscriptions;
 
         public MqttClientService(
-         IConfiguration configuration/*, IMqttClient mqttClient*/, ILogger logger)
+         IConfiguration configuration, ILogger logger)
         {
 
             _configuration = configuration;
             _mqttDataStore = new Dictionary<string, string>();
-            //_mqttClient = mqttClient;
             _logger = logger;
+            _subscriptions = _configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>();
+
+
         }
         public async Task DisposeMqttClientAsync()
         => await _mqttClient.DisconnectAsync();
@@ -30,18 +33,24 @@ namespace MQTTBrigdeAPI.Services
 
         public async Task SetUpMqttClientAsync()
         {
+           
             if (_mqttClient is null || (_mqttClient is not null && !_mqttClient.IsConnected))
             {
+                foreach (var topic in _subscriptions)
+                {
+                     _mqttDataStore.TryAdd(topic, "{}");
+                }
 
                 _mqttClient = await InitializeMqttClientAsync(_configuration);
-                await SubscribeTopicAsync(_configuration);
+                await SubscribeTopicAsync();
+                await StartStuff();
             }
-
-
+           
+           
         }
 
 
-        private async Task<IMqttClient> InitializeMqttClientAsync(IConfiguration configuration)
+        async Task<IMqttClient> InitializeMqttClientAsync(IConfiguration configuration)
         {
 
             var factory = new MqttFactory();
@@ -54,24 +63,52 @@ namespace MQTTBrigdeAPI.Services
             .Build();
 
             await _mqttClient.ConnectAsync(options);
-            //_logger.LogInformation(_mqttClient.IsConnected.ToString());
+            
+
+           
+
             return _mqttClient;
         }
 
-        private async Task SubscribeTopicAsync(IConfiguration configuration)
+        async Task SubscribeTopicAsync()
         {
-            List<string> topicList = new List<string>();
-            foreach (var topic in topicList)
-            {
-                await _mqttClient.SubscribeAsync(topic);
-            }
+
+                foreach (var topic in _subscriptions)
+                {
+                    await _mqttClient.SubscribeAsync(topic);
+                }
+            
         }
 
 
 
-        public Task GetNextCourseToAnnouce(object value)
+        string GetNextNewestTopicValue(string topic)
         {
-            throw new NotImplementedException();
+            return _mqttDataStore[topic];
+        }
+
+        string IMqttClientService.GetNextNewestTopicValue(string topic)
+        {
+            return _mqttDataStore[topic];
+        }
+
+        
+
+        async Task StartStuff()
+        {
+            _mqttClient.ApplicationMessageReceivedAsync += e =>
+            {
+                if (_mqttDataStore.ContainsKey(e.ApplicationMessage.Topic))
+                {
+                    _mqttDataStore[e.ApplicationMessage.Topic] = Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment);
+
+                }
+                else
+                {
+                    _mqttDataStore.Add(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
+                }
+                return Task.CompletedTask;
+            };
         }
     }
 }

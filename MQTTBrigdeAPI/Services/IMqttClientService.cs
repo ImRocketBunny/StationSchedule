@@ -4,6 +4,6 @@
     {
         Task SetUpMqttClientAsync();
         Task DisposeMqttClientAsync();
-        Task GetNextCourseToAnnouce(object value);
+        string GetNextNewestTopicValue(string topic);
     }
 }

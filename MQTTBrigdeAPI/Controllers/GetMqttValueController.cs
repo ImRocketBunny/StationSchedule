@@ -1,20 +1,42 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Cors;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MQTTBrigdeAPI.Models;
+using MQTTBrigdeAPI.Services;
+using Newtonsoft.Json;
+using System.Text;
 
 namespace MQTTBrigdeAPI.Controllers
 {
     public class GetMqttValueController : Controller
     {
+        private readonly ILogger _logger;
+        private readonly IConfiguration _configuration;
+        private ITaskManagerService _taskManagerService;
+        public GetMqttValueController(ILogger logger, IConfiguration configuration,ITaskManagerService taskManagerService) 
+        {
+            _logger = logger;
+            _configuration = configuration;
+            _taskManagerService = taskManagerService;
+        }
         // GET: GetMqttValueController
         public ActionResult Index()
         {
             return View();
         }
 
-        // GET: GetMqttValueController/Details/5
-        public ActionResult GetByTopic(string topic)
+        // GET: GetMqttValueController/Details
+        [Route("api/Details")]
+        [HttpPost]
+        public async Task<IActionResult> GetByTopic()
         {
-            return View();
+            var requestBody = Request.Body;
+            Topic topic = await Request.ReadFromJsonAsync<Topic>();
+            string fc = _taskManagerService.GetNewestValue(topic.topic);
+            FullCourse courses = JsonConvert.DeserializeObject<FullCourse>(fc);
+            
+
+            return Ok(courses);
         }
 
         // GET: GetMqttValueController/Create

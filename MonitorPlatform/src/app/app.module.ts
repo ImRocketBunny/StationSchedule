@@ -1,23 +1,14 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-import { AppComponent } from './app.component';
-import { MqttModule, IMqttServiceOptions } from 'ngx-mqtt';
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
+import { FormsModule } from "@angular/forms";
 
-const MQTT_SERVICE_OPTIONS: IMqttServiceOptions = {
-  hostname: '127.0.0.1',
-  port: 1883,
-  path: '/station'
-};
+import { AppComponent } from "./app.component";
+//import { HelloComponent } from "./hello.component";
+import { HttpClientModule } from "@angular/common/http";
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
-  imports: [
-    BrowserModule,
-    MqttModule.forRoot(MQTT_SERVICE_OPTIONS) // Rejestracja modułu ngx-mqtt
-  ],
-  providers: [],
+  imports: [BrowserModule, FormsModule, HttpClientModule],
+  declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -2,5 +2,5 @@
 
 GET {{MQTTBrigdeAPI_HostAddress}}/weatherforecast/
 Accept: application/json
-
+Access-Control-Allow-Origin : *
 ###
