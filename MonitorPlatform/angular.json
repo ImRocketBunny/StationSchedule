@@ -75,10 +75,6 @@
               "buildTarget": "MonitorPlatform:build:development"
             }
           },
-          "options": {
-            "browserTarget": "move-save:build",
-            "proxyConfig": "src/profy.conf.json"
-          },
           "defaultConfiguration": "development"
         },
         "extract-i18n": {

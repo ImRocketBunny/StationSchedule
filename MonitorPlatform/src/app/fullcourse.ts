@@ -1,19 +1,16 @@
 export class FullCourse {
   constructor(
 
-        public arrivalTime: string,
-        public departureTime: string,
-        public delay: string,
-        public name: string,
-        public headsignFrom: string,
-        public headsignTo: string,
-        public routeFrom: string,
-        public routeTo: string,
-        public platofrm: string,
-  ) {}
+    public arrivalTime: string,
+    public departureTime: string,
+    public delay: string,
+    public name: string,
+    public headsignFrom: string,
+    public headsignTo: string,
+    public routeFrom: string,
+    public routeTo: string,
+    public platofrm: string,
+  ) { }
 
-  // Przykładowa metoda w klasie
-  getFormattedName(): string {
-    return `User: ${this.name}`;
-  }
+
 }
