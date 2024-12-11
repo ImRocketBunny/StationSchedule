@@ -1,8 +1,8 @@
-/*import { Injectable } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { HttpHeaders } from '@angular/common/http';
-import { FullCourse } from './fullcourse';
+import { FullCourse } from './../models/fullcourse';
 
 @Injectable({
   providedIn: 'root'
@@ -21,4 +21,4 @@ export class ApiService {
     });
     return this.http.post<FullCourse>(url, data); // Wywołanie POST z body
   }
-}*/
+}

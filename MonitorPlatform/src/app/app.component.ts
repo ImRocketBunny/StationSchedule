@@ -5,9 +5,10 @@ import { switchMap } from 'rxjs/operators';
 import { FullCourse } from './fullcourse';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.css'],
+    standalone: false
 })
 export class AppComponent implements OnDestroy {
   line: string | null = null
@@ -73,11 +74,11 @@ export class AppComponent implements OnDestroy {
         this.errorMessage = 'Wystąpił błąd podczas pobierania danych.';
       }
     });
-  }*/
+  }
   ngOnDestroy(): void {
     // Unieważnienie subskrypcji przy niszczeniu komponentu
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
-  }
+  }*/
 }

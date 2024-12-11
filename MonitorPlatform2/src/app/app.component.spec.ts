@@ -1,16 +1,10 @@
-/*import { TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';*/
+import { TestBed } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
-/*describe('AppComponent', () => {
+describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [
-        RouterModule.forRoot([])
-      ],
-      declarations: [
-        AppComponent
-      ],
+      imports: [AppComponent],
     }).compileComponents();
   });
 
@@ -20,16 +14,16 @@ import { AppComponent } from './app.component';
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'MonitorPlatform'`, () => {
+  it(`should have the 'MonitorPlatform2' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('MonitorPlatform');
+    expect(app.title).toEqual('MonitorPlatform2');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, MonitorPlatform');
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, MonitorPlatform2');
   });
-});*/
+});
