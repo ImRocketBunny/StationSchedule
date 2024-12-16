@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace AudioAnnouncementService.Services
         Task SetUpMqttClientAsync();
         Task DisposeMqttClientAsync();
         Task GetNextCourseToAnnouce(object value);
+        Task ReceiveMqttDataAsync(BlockingCollection<string> messageQueue);
     }
 }
