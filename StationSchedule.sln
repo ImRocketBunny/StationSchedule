@@ -12,6 +12,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presenation", "Presenation", "{53838F2D-A1AD-49AD-AF51-BAD56AE6D2A3}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleUpdater", "ScheduleUpdater\ScheduleUpdater.csproj", "{C25A1F69-2262-42E0-87F3-FE31CFDD1100}"
+	ProjectSection(ProjectDependencies) = postProject
+		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {A5E06FF9-0445-46FE-93F0-DDB85812AD4C}
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {B3BFB753-1026-45FE-ACEF-5E10662D89BF}
+	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleMQTTBroker", "ScheduleMQTTBroker\ScheduleMQTTBroker.csproj", "{B3BFB753-1026-45FE-ACEF-5E10662D89BF}"
 EndProject
@@ -23,41 +27,39 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioAnnouncementService", "AudioAnnouncementService\AudioAnnouncementService.csproj", "{33B9FCA6-257D-43D8-B136-41A83E3D08D4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {A5E06FF9-0445-46FE-93F0-DDB85812AD4C}
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {B3BFB753-1026-45FE-ACEF-5E10662D89BF}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextToSpeachUpdateService", "TextToSpeachUpdateService\TextToSpeachUpdateService.csproj", "{6C64600D-ECB5-4F1F-835D-7849280E7FAA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {A5E06FF9-0445-46FE-93F0-DDB85812AD4C}
+		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {B3BFB753-1026-45FE-ACEF-5E10662D89BF}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MQTTBrigdeAPI", "MQTTBrigdeAPI\MQTTBrigdeAPI.csproj", "{BF46B524-C516-42B4-818B-240CCC535CE5}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {A5E06FF9-0445-46FE-93F0-DDB85812AD4C}
-	EndProjectSection
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "MonitorPlatform2", "MonitorPlatform2\", "{B4699015-53CB-4889-9610-5116B7E1C293}"
-	ProjectSection(ProjectDependencies) = postProject
-		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {A5E06FF9-0445-46FE-93F0-DDB85812AD4C}
-	EndProjectSection
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_52932"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50083"
 		Debug.AspNetCompiler.PhysicalPath = "MonitorPlatform2\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52932\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50083\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_52932"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50083"
 		Release.AspNetCompiler.PhysicalPath = "MonitorPlatform2\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_52932\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50083\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "52932"
+		VWDPort = "50083"
 		SlnRelativePath = "MonitorPlatform2\"
 	EndProjectSection
+EndProject
+Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "TimeTable", "TimeTable\TimeTable.esproj", "{CE2029EB-FAF8-4B64-8B01-0D0E6896D5CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -92,6 +94,12 @@ Global
 		{B4699015-53CB-4889-9610-5116B7E1C293}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4699015-53CB-4889-9610-5116B7E1C293}.Release|Any CPU.ActiveCfg = Debug|Any CPU
 		{B4699015-53CB-4889-9610-5116B7E1C293}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{CE2029EB-FAF8-4B64-8B01-0D0E6896D5CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE2029EB-FAF8-4B64-8B01-0D0E6896D5CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE2029EB-FAF8-4B64-8B01-0D0E6896D5CA}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CE2029EB-FAF8-4B64-8B01-0D0E6896D5CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE2029EB-FAF8-4B64-8B01-0D0E6896D5CA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE2029EB-FAF8-4B64-8B01-0D0E6896D5CA}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,6 +112,7 @@ Global
 		{6C64600D-ECB5-4F1F-835D-7849280E7FAA} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
 		{BF46B524-C516-42B4-818B-240CCC535CE5} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
 		{B4699015-53CB-4889-9610-5116B7E1C293} = {53838F2D-A1AD-49AD-AF51-BAD56AE6D2A3}
+		{CE2029EB-FAF8-4B64-8B01-0D0E6896D5CA} = {53838F2D-A1AD-49AD-AF51-BAD56AE6D2A3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FECA02D-DCB9-4262-A30C-5C838DCA3C3A}

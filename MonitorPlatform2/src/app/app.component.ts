@@ -66,33 +66,6 @@ export class AppComponent implements OnDestroy {
     });
   }
 
-  /*sendData() {
-    const body = {
-      topic: 'station/V/4/lcd'
-    };*/
-
-  /*const headerDict = {
-    'Content-Type': 'application/json',
-    'Accept': 'application/json',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Origin': 'http://localhost:4200/'
-  }*/
-
-  /*const requestOptions = {
-    headers: new Headers(headerDict),
-    body: body
-  };/
-
-  /*this.apiService.postData(body).subscribe({
-    next: (response) => {
-      this.responseData = response; // Przypisanie odpowiedzi do właściwości
-      this.errorMessage = null; 
-    },
-    error: (error) => {
-      this.errorMessage = 'Wystąpił błąd podczas pobierania danych.';
-    }
-  });
-}*/
   ngOnDestroy(): void {
     // Unieważnienie subskrypcji przy niszczeniu komponentu
     if (this.subscription) {

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using MQTTBrigdeAPI.Models;
 using MQTTBrigdeAPI.Services;
 using Newtonsoft.Json;
+using System.Runtime.Intrinsics.Arm;
 using System.Text;
 
 namespace MQTTBrigdeAPI.Controllers
@@ -33,10 +34,25 @@ namespace MQTTBrigdeAPI.Controllers
             var requestBody = Request.Body;
             Topic topic = await Request.ReadFromJsonAsync<Topic>();
             string fc = _taskManagerService.GetNewestValue(topic.topic);
-            FullCourse courses = JsonConvert.DeserializeObject<FullCourse>(fc);
+            List<Course> courses;
+            FullCourse course;
+
+            if (topic.topic.Contains("main"))
+            {
+                courses = JsonConvert.DeserializeObject<List<Course>>(fc);
+                Console.WriteLine(courses.Count);
+                //JsonConvert.SerializeObject(courses, Formatting.Indented);
+                return Ok(courses);
+            }
+            else
+            {
+                 course = JsonConvert.DeserializeObject<FullCourse>(fc);
+                return Ok(course);
+            }
+           
             
 
-            return Ok(courses);
+            //return Ok(courses);
         }
 
         // GET: GetMqttValueController/Create
