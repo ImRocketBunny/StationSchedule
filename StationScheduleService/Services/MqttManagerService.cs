@@ -97,12 +97,12 @@ namespace StationScheduleService.Services
                      if (!openWithOlds.ContainsKey(key))
                      {
                         openWithOlds.Add(key, keyValuePairs[key]);
-                         _logger.LogInformation("Adding key: " + key);
+                        _logger.LogInformation("Adding key: " + key);
                      }
                     else
                     {
-                            _logger.LogInformation("Updating key: " + key);
-                            openWithOlds[key] = keyValuePairs[key];
+                        _logger.LogInformation("Updating key: " + key);
+                        openWithOlds[key] = keyValuePairs[key];
                     }
 
                     await _mqttClient!.PublishAsync(message);
