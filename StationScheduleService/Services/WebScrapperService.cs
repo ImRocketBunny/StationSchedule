@@ -59,13 +59,14 @@ namespace StationScheduleService.Services
                 ExecutablePath = _configuration["ScraperOptions:ChromiumPath"]!,
                 Headless = true
             });
-
+            var page = await browser.NewPageAsync();
             try
             {
                 Console.WriteLine(url);
-                _page = await browser.NewPageAsync();
-                await _page.GoToAsync(url);
-                return _page.GetContentAsync().Result;
+                //var page = await browser.NewPageAsync();
+                page.DefaultTimeout = 10000;
+                await page.GoToAsync(url);
+                return page.GetContentAsync().Result;
             }
             catch (Exception ex) 
             {
@@ -74,7 +75,9 @@ namespace StationScheduleService.Services
             }
             finally
             {
+                await page.CloseAsync();
                 await browser.CloseAsync();
+                
             }
             
 
@@ -196,7 +199,7 @@ namespace StationScheduleService.Services
         async Task PrepareDepartures()
         {
             _documentDepartures = PrepareHtml(await GetContentPage(PrepareUrls("dep")));
-
+            //if (_documentDepartures.) {
             List<string> columns = _documentDepartures.DocumentNode.SelectSingleNode("//*[@id='wyniki']")
                        .Descendants("tr")
                        .Where(tr => tr.Elements("th").Count() > 1)
