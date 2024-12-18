@@ -1,18 +1,21 @@
-import { NgModule } from "@angular/core";
-import { BrowserModule } from "@angular/platform-browser";
-import { FormsModule } from "@angular/forms";
+import { NgModule } from '@angular/core';
+import { BrowserModule } from '@angular/platform-browser';
 
-import { AppComponent } from "./app.component";
-//import { HelloComponent } from "./hello.component";
-import { HttpClientModule } from "@angular/common/http";
-import { MaterialModule } from "./material/material.module";
-
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 
 @NgModule({
-  imports: [BrowserModule, FormsModule, HttpClientModule, MaterialModule],
-  declarations: [AppComponent],
+  declarations: [
+    AppComponent
+  ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule
+  ],
+  providers: [
+    provideAnimationsAsync()
+  ],
   bootstrap: [AppComponent]
-
-  
 })
 export class AppModule { }

@@ -1,7 +1,0 @@
-{
-  "/api/Details": {
-    "target": "http://localhost:5271",
-    "secure": false,
-    "logLevel": "debug"
-  }
-}

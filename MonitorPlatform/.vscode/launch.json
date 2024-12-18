@@ -2,7 +2,13 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "runtimeExecutable": "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe",
+      "type": "edge",
+      "request": "launch",
+      "name": "localhost (Edge)",
+      "url": "http://localhost:4200",
+      "webRoot": "${workspaceFolder}"
+    },
+    {
       "type": "chrome",
       "request": "launch",
       "name": "localhost (Chrome)",

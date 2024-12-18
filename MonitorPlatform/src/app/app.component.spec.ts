@@ -1,8 +1,8 @@
-/*import { TestBed } from '@angular/core/testing';
-import { RouterModule } from '@angular/router';*/
+import { TestBed } from '@angular/core/testing';
+import { RouterModule } from '@angular/router';
 import { AppComponent } from './app.component';
 
-/*describe('AppComponent', () => {
+describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [
@@ -32,4 +32,4 @@ import { AppComponent } from './app.component';
     const compiled = fixture.nativeElement as HTMLElement;
     expect(compiled.querySelector('h1')?.textContent).toContain('Hello, MonitorPlatform');
   });
-});*/
+});
