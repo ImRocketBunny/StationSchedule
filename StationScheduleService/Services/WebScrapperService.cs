@@ -1,5 +1,6 @@
 ﻿using HtmlAgilityPack;
 using Newtonsoft.Json;
+using PuppeteerSharp;
 using ScrapySharp.Network;
 using StationScheduleService.Models;
 using System;
@@ -11,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Web;
 
+
+
 namespace StationScheduleService.Services
 {
     
@@ -18,7 +21,9 @@ namespace StationScheduleService.Services
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<StationScheduleService> _logger;
-        private ScrapingBrowser _browser;
+        //private IBrowser _browser;
+        private IPage _page;
+        //private ScrapingBrowser _browser;
         private List<Course> _arrivals;
         private List<Course> _departures;
         private HtmlDocument _documentArrivals;
@@ -32,10 +37,11 @@ namespace StationScheduleService.Services
         {
             _configuration = configuration;
             _logger = logger;
-            _browser=new ScrapingBrowser
+            /*_browser = await Puppeteer.LaunchAsync(new LaunchOptions
             {
-                Timeout = TimeSpan.FromSeconds(int.Parse(configuration["ScraperOptions:ConnectionTimeout"]!))
-            };
+                ExecutablePath = _configuration["ScraperOptions:ChromiumPath"]!, // Ścieżka do lokalnie zainstalowanego Chrome.
+                Headless = true // Ustawienie trybu "bez głowy".
+            });*/
             _configuration = configuration;
             _scrapCompleted = false;
             _arrivals = new List<Course>();
@@ -46,8 +52,36 @@ namespace StationScheduleService.Services
 
 
         }
-        public async Task<WebPage> GoToAsync(string url) 
-            => await _browser.NavigateToPageAsync(new Uri(url));
+        public async Task<string> GetContentPage(string url)
+        {
+            var browser = await Puppeteer.LaunchAsync(new LaunchOptions
+            {
+                ExecutablePath = _configuration["ScraperOptions:ChromiumPath"]!,
+                Headless = true
+            });
+
+            try
+            {
+                Console.WriteLine(url);
+                _page = await browser.NewPageAsync();
+                await _page.GoToAsync(url);
+                return _page.GetContentAsync().Result;
+            }
+            catch (Exception ex) 
+            {
+                _logger.LogCritical(ex.Message);
+                return "";
+            }
+            finally
+            {
+                await browser.CloseAsync();
+            }
+            
+
+           // return _page.GetContentAsync().Result;
+
+        } 
+            //=> await _browser.NavigateToPageAsync(new Uri(url));
 
 
       
@@ -65,7 +99,7 @@ namespace StationScheduleService.Services
             url = url.Replace("JourneyDate=", "JourneyDate=" + s);
             url = url.Replace("boardType=", "boardType="+type);
             url = url.Replace("maxJourneys=", "maxJourneys="+ _configuration["StationConfiguration:MaxJourneys"]!);
-            url = url.Replace("input=", "input="+_configuration["StationConfiguration:Name"]!.Replace(" ","+"));
+            url = url.Replace("input=", "input="+_configuration["StationConfiguration:Name"]!.Replace(" ","+")+ "%235100067");
             return url;
         }
 
@@ -98,10 +132,10 @@ namespace StationScheduleService.Services
             
         }
 
-        private HtmlDocument PrepareHtml(WebPage web)
+        private HtmlDocument PrepareHtml(string webContent)
         {
             var document = new HtmlDocument();
-            document.LoadHtml(web.Content);
+            document.LoadHtml(webContent);
             return document;
         }
           
@@ -111,7 +145,7 @@ namespace StationScheduleService.Services
 
         async Task PrepareArrivals()
         {
-            _documentArrivals = PrepareHtml(await GoToAsync(PrepareUrls("arr")));
+            _documentArrivals = PrepareHtml(await GetContentPage(PrepareUrls("arr")));
             List<string> columns = _documentArrivals.DocumentNode!.SelectSingleNode("//*[@id='wyniki']")!
                    .Descendants("tr")
                    .Where(tr => tr.Elements("th").Count() > 1)
@@ -133,18 +167,26 @@ namespace StationScheduleService.Services
             
             foreach (var tableItem in table)
             {
-
-                var c = new Course
+                Console.WriteLine("Adding arrival " + tableItem[1]);
+                try
                 {
-                    Time = HttpUtility.HtmlDecode(tableItem[columns!.IndexOf("Czas")]).Split("  ")[0],
-                    Delay = columns.Contains("Prognoza") ? HttpUtility.HtmlDecode(tableItem[columns.IndexOf("Prognoza")]).Replace("ok.+", "").Replace("min.", "").Replace("&#3210", "").Replace("&#3240", "").Trim() : string.Empty,
-                    Name = HttpUtility.HtmlDecode(tableItem[columns.IndexOf("Kurs")]).Replace("ZOBACZ PEŁNĄ TRASĘ", string.Empty),
-                    Headsign = HttpUtility.HtmlDecode(tableItem[columns.IndexOf("Z kierunku")]).Split("     ")[0],
-                    Route = HttpUtility.HtmlDecode(tableItem[columns.IndexOf("Z kierunku")]).Split("     ")[1],
-                    Platform = HttpUtility.HtmlDecode(tableItem[columns.IndexOf("Peron/tor")]).Replace(";", string.Empty).Trim(),
-                    //Details = HttpUtility.HtmlDecode(links[table.IndexOf(tableItem)])
-                };
-                _arrivals.Add(c);
+                    var c = new Course
+                    {
+                        Time = HttpUtility.HtmlDecode(tableItem[columns!.IndexOf("Czas")]).Split("  ")[0],
+                        Delay = columns.Contains("Prognoza") ? HttpUtility.HtmlDecode(tableItem[columns.IndexOf("Prognoza")]).Replace("ok.+", "").Replace("min.", "").Replace("&#3210", "").Replace("&#3240", "").Trim() : string.Empty,
+                        Name = HttpUtility.HtmlDecode(tableItem[columns.IndexOf("Kurs")]).Replace("ZOBACZ PEŁNĄ TRASĘ", string.Empty),
+                        Headsign = HttpUtility.HtmlDecode(tableItem[columns.IndexOf("Z kierunku")]).Split("     ")[0],
+                        Route = HttpUtility.HtmlDecode(tableItem[columns.IndexOf("Z kierunku")]).Split("     ")[1],
+                        Platform = HttpUtility.HtmlDecode(tableItem[columns.IndexOf("Peron/tor")]).Replace(";", string.Empty).Trim(),
+                        //Details = HttpUtility.HtmlDecode(links[table.IndexOf(tableItem)])
+                    };
+                    Console.WriteLine("Adding arrival " + c.Time);
+                    _arrivals.Add(c);
+                }
+                catch (Exception ex) 
+                {
+                    Console.WriteLine(tableItem);
+                }
 
             }
 
@@ -153,7 +195,7 @@ namespace StationScheduleService.Services
 
         async Task PrepareDepartures()
         {
-            _documentDepartures = PrepareHtml(await GoToAsync(PrepareUrls("dep")));
+            _documentDepartures = PrepareHtml(await GetContentPage(PrepareUrls("dep")));
 
             List<string> columns = _documentDepartures.DocumentNode.SelectSingleNode("//*[@id='wyniki']")
                        .Descendants("tr")
@@ -176,7 +218,7 @@ namespace StationScheduleService.Services
                 
                 foreach (var tableItem in table)
                 {
-
+                
                     var c = new Course
                     {
                         Time = HttpUtility.HtmlDecode(tableItem[columns!.IndexOf("Czas")]).Split("  ")[0],
@@ -187,7 +229,6 @@ namespace StationScheduleService.Services
                         Platform = HttpUtility.HtmlDecode(tableItem[columns.IndexOf("Peron/tor")]).Replace(";", string.Empty).Trim(),
                         //Details = HttpUtility.HtmlDecode(links[table.IndexOf(tableItem)])
                     };
-                    
                     _departures.Add(c);
                 }
         }

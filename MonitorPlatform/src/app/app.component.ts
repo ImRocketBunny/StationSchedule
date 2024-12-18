@@ -14,8 +14,8 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
-  standalone: true,
-  imports: [MaterialModule, RouterOutlet, CommonModule],
+  standalone: false,
+  //imports: [MaterialModule, RouterOutlet, CommonModule],
 })
 export class AppComponent implements OnDestroy {
   line: string | null = null
