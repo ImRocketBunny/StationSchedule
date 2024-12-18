@@ -25,6 +25,7 @@ namespace StationScheduleService.Services
         private HtmlDocument _documentDepartures;
         private bool _scrapCompleted;
         private bool _offlineDataFetch;
+
         public Dictionary<string, List<Course>> _schedule = new Dictionary<string, List<Course>>();
 
         public WebScrapperService(IConfiguration configuration, ILogger<StationScheduleService> logger)
