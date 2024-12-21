@@ -16,7 +16,7 @@ namespace AudioAnnouncementService.Services
         private readonly ILogger _logger;
         private MqttClientConnectResult? result;
         private Dictionary<string, string> _mqttDataStore;
-        //private BlockingCollection<string> messageQueue = new BlockingCollection<string>();
+        private BlockingCollection<string> messageQueue = new BlockingCollection<string>();
 
         public MqttManagerService(
          IConfiguration configuration, ILogger logger)

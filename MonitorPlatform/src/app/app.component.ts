@@ -39,7 +39,7 @@ export class AppComponent implements OnDestroy {
   private subscription: Subscription;
   constructor(private apiService: ApiService) {
     this.subscription = interval(10000).pipe(
-      switchMap(() => this.apiService.postData({ topic: 'station/III/21/lcd' }))
+      switchMap(() => this.apiService.postData({ topic: 'station/III/23/lcd' }))
     ).subscribe({
       next: (response) => {
         this.line = response.name == null ? "" : response.name.split("   ").length > 1 ? response.name.split("   ")[1] : response.name.split(" ")[0]
@@ -77,6 +77,9 @@ export class AppComponent implements OnDestroy {
             break;
           case "SKW":
             this.icon = "https://www.skm.warszawa.pl/wp-content/uploads/2020/10/SKM_logo_PNG.png";
+            break;
+          case "WKD":
+            this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/WKD.svg/2048px-WKD.svg.png";
             break;
           default:
             this.icon = "";
