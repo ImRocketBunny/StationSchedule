@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { MaterialModule } from './material/material.module'
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -8,6 +9,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule, provideHttpClient } from "@angular/common/http";
+import { MatListModule } from '@angular/material/list';
+import { MatTableModule } from '@angular/material/table'  
 
 @NgModule({
   declarations: [
@@ -16,7 +19,8 @@ import { HttpClientModule, provideHttpClient } from "@angular/common/http";
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MatButtonModule, MatDividerModule, MatIconModule
+    MatButtonModule, MatDividerModule, MatIconModule,
+    MaterialModule, MatListModule, MatTableModule
   ],
   providers: [
     provideAnimationsAsync(),

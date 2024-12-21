@@ -6,7 +6,7 @@ export class Course {
     public name: string,
     public headsign: string,
     public route: string,
-    public platofrm: string
+    public platform: string
   ) { }
 
 

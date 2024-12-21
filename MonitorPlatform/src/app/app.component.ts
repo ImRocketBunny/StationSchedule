@@ -18,6 +18,7 @@ import { RouterOutlet } from '@angular/router';
   //imports: [MaterialModule, RouterOutlet, CommonModule],
 })
 export class AppComponent implements OnDestroy {
+  icon: string = "https://www.mazowieckie.com.pl/sites/default/files/site/logo.svg"
   line: string | null = null
   courseId: string | null = null
   responseData: any
@@ -34,11 +35,11 @@ export class AppComponent implements OnDestroy {
   routeSize: number | null = null;
   endOfTheLine: boolean | null = null;
 
-  title = 'MonitorPlatform2'
+  title = 'MonitorPlatform'
   private subscription: Subscription;
   constructor(private apiService: ApiService) {
     this.subscription = interval(10000).pipe(
-      switchMap(() => this.apiService.postData({ topic: 'station/IX/1/lcd' })) // Wykonuje zapytanie GET
+      switchMap(() => this.apiService.postData({ topic: 'station/III/21/lcd' }))
     ).subscribe({
       next: (response) => {
         this.line = response.name == null ? "" : response.name.split("   ").length > 1 ? response.name.split("   ")[1] : response.name.split(" ")[0]
@@ -55,8 +56,31 @@ export class AppComponent implements OnDestroy {
         this.routeSize = this.route.length;
         this.endOfTheLine = response.departureTime == null ? true : false;
         console.log(this.courseId);
-        console.log(this.headsignSize);
         console.log(this.headsign);
+        console.log(this.route);
+
+        switch (response.name.split(" ")[0]) {
+          case "KM":
+            this.icon = "https://www.mazowieckie.com.pl/sites/default/files/site/logo.svg";
+            break;
+          case "IC":
+            this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+            break;
+          case "EIC":
+            this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+            break;
+          case "EIP":
+            this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+            break;
+          case "IR":
+            this.icon = "https://framerusercontent.com/images/OXiguSVS0CKZDYW1lTxlkVKGQZo.png";
+            break;
+          case "SKW":
+            this.icon = "https://www.skm.warszawa.pl/wp-content/uploads/2020/10/SKM_logo_PNG.png";
+            break;
+          default:
+            this.icon = "";
+        }
 
       },
       error: (error) => {
