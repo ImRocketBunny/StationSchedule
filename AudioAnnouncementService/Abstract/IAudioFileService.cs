@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AudioAnnouncementService.Services
+namespace AudioAnnouncementService.Abstract
 {
     internal interface IAudioFileService
     {

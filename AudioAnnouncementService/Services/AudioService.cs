@@ -1,4 +1,6 @@
-﻿using AudioAnnouncementService.Models;
+﻿using AudioAnnouncementService.Abstract;
+using AudioAnnouncementService.Models;
+using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Concurrent;
@@ -14,17 +16,33 @@ namespace AudioAnnouncementService.Services
         private readonly IConfiguration _configuration;
         private readonly ILogger<AudioService> _logger;
         private readonly IMqttManagerService _mqttManagerService;
-        private BlockingCollection<string> AudioToAnnouceQueue = new BlockingCollection<string>();
-        public AudioService(IConfiguration configuration, ILogger<AudioService> logger, IMqttManagerService mqttManager) 
+        private readonly IAnnoucementQueueManager _annoucementQueueManager;
+        private List<FullCourse> _trainToAnnouce;
+        private List<FullCourse> _delayToAnnouce;
+        private WasapiOut _audioVave;
+
+        //private BlockingCollection<string> AudioToAnnouceQueue = new BlockingCollection<string>();
+        public AudioService(IConfiguration configuration, ILogger<AudioService> logger, IMqttManagerService mqttManager,IAnnoucementQueueManager annoucementQueueManager) 
         {
             _configuration = configuration;
             _logger = logger;
             _mqttManagerService = mqttManager;
+            _annoucementQueueManager = annoucementQueueManager;
+            _audioVave = new WasapiOut();
         }
 
-        public Task Play(ConcatenatingSampleProvider playlist)
+        public async Task Play(ConcatenatingSampleProvider playlist)
         {
-            throw new NotImplementedException();
+            while (_audioVave.PlaybackState == PlaybackState.Playing)
+            {
+                await Task.Delay(1000);
+            }
+            _audioVave.Init(playlist);
+            _audioVave.Play();
+            while (_audioVave.PlaybackState == PlaybackState.Playing)
+            {
+                await Task.Delay(1000);
+            }
         }
 
         public Task PrepareAnnoucementPLaylist(Announcement annoucement)
@@ -32,22 +50,38 @@ namespace AudioAnnouncementService.Services
             throw new NotImplementedException();
         }
 
-        public Task PrepareCoursePlaylist(Course course)
+        public Task PrepareCoursePlaylist(FullCourse course)
         {
             throw new NotImplementedException();
         }
 
         async Task SetUpAudioAnnoucement()
         {
-            await _mqttManagerService.ReceiveMqttDataAsync(AudioToAnnouceQueue);
-            Task consumerTask = Task.Run(() =>
+            _trainToAnnouce = _annoucementQueueManager.GetTrainAnnoucements().ToList();
+            _delayToAnnouce = _annoucementQueueManager.GetDelayAnnoucements().ToList();
+            if (_trainToAnnouce.Count > 0)
             {
-                foreach (var msg in AudioToAnnouceQueue.GetConsumingEnumerable())
-                {
-                     // przygotuj i wygłoś
-                }
-            });
 
+            }
+            if(_delayToAnnouce.Count > 0)
+            {
+
+            }
+
+        }
+
+        static async Task RunPeriodicAnnoucement(TimeSpan interval, Func<Task> action)
+        {
+            while (true)
+            {
+                await action();
+                await Task.Delay(interval);
+            }
+        }
+
+        public Task PrepareCoursePlaylist(Course course)
+        {
+            throw new NotImplementedException();
         }
     }
 }
