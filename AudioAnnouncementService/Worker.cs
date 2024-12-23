@@ -3,6 +3,7 @@ using AudioAnnouncementService.Models;
 using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Packets;
+using MQTTnet.Protocol;
 using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using Newtonsoft.Json;
@@ -35,6 +36,7 @@ namespace AudioAnnouncementService
             // Create MQTT client options
             var options = new MqttClientOptionsBuilder()
                 .WithTcpServer("127.0.0.1", 1883) // MQTT broker address and port
+                .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                 .WithCleanSession()
                 .Build();
 

@@ -60,28 +60,34 @@ namespace StationScheduleService.Services
                 Headless = true
             });
             var page = await browser.NewPageAsync();
-            try
+            page.DefaultTimeout = 10000;
+            string htmlResult;
+            while (true) 
             {
-                Console.WriteLine(url);
-                //var page = await browser.NewPageAsync();
-                page.DefaultTimeout = 10000;
-                await page.GoToAsync(url);
-                return page.GetContentAsync().Result;
-            }
-            catch (Exception ex) 
-            {
-                _logger.LogCritical(ex.Message);
-                return "";
-            }
-            finally
-            {
-                await page.CloseAsync();
-                await browser.CloseAsync();
-                
-            }
-            
+                try
+                {
 
-           // return _page.GetContentAsync().Result;
+                    await page.GoToAsync(url);
+                    htmlResult= page.GetContentAsync().Result;
+                    break;
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogCritical(ex.Message);
+                    
+                }
+                /*finally
+                {
+                    await page.CloseAsync();
+                    await browser.CloseAsync();
+                }*/
+            }
+
+            await page.CloseAsync();
+            await browser.CloseAsync();
+
+
+            return htmlResult;
 
         } 
             //=> await _browser.NavigateToPageAsync(new Uri(url));
@@ -170,7 +176,7 @@ namespace StationScheduleService.Services
             
             foreach (var tableItem in table)
             {
-                Console.WriteLine("Adding arrival " + tableItem[1]);
+                //Console.WriteLine("Adding arrival " + tableItem[1]);
                 try
                 {
                     var c = new Course
@@ -183,7 +189,7 @@ namespace StationScheduleService.Services
                         Platform = HttpUtility.HtmlDecode(tableItem[columns.IndexOf("Peron/tor")]).Replace(";", string.Empty).Trim(),
                         //Details = HttpUtility.HtmlDecode(links[table.IndexOf(tableItem)])
                     };
-                    Console.WriteLine("Adding arrival " + c.Time);
+                    //Console.WriteLine("Adding arrival " + c.Time);
                     _arrivals.Add(c);
                 }
                 catch (Exception ex) 

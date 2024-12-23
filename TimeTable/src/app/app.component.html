@@ -197,8 +197,13 @@
 
     <ng-container matColumnDef="demo-weight">
       <th mat-header-cell *matHeaderCellDef> W kierunku </th>
-      <td mat-cell *matCellDef="let course"> {{course.headsign}} </td>
-    </ng-container>-->
+      <td mat-cell *matCellDef="let course"> {{course.headsign}}
+        <div>
+          Przez stacje:
+          <marquee class="route" direction="left" scrollamount="3">{{course.route}}</marquee>
+        </div>
+      </td>
+    </ng-container>
 
     <ng-container matColumnDef="demo-symbol">
       <th mat-header-cell *matHeaderCellDef> Peron </th>

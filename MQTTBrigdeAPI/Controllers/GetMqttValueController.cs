@@ -26,34 +26,43 @@ namespace MQTTBrigdeAPI.Controllers
             return View();
         }
 
-        // GET: GetMqttValueController/Details
-        [Route("api/Details")]
+        // GET: GetMqttValueController/course
+        [Route("api/course")]
         [HttpPost]
-        public async Task<IActionResult> GetByTopic()
+        public async Task<IActionResult> GetCourse()
         {
             var requestBody = Request.Body;
             Topic topic = await Request.ReadFromJsonAsync<Topic>();
             string fc = _taskManagerService.GetNewestValue(topic.topic);
-            List<Course> courses;
-            FullCourse course;
-
-            if (topic.topic.Contains("main"))
-            {
-                courses = JsonConvert.DeserializeObject<List<Course>>(fc);
-                Console.WriteLine(courses.Count);
-                //JsonConvert.SerializeObject(courses, Formatting.Indented);
-                return Ok(courses);
-            }
-            else
-            {
-                 course = JsonConvert.DeserializeObject<FullCourse>(fc);
-                return Ok(course);
-            }
+            FullCourse course = JsonConvert.DeserializeObject<FullCourse>(fc);
+            return Ok(course);
+            
            
             
 
             //return Ok(courses);
         }
+
+
+        // GET: GetMqttValueController/Details
+        [Route("api/courseList")]
+        [HttpPost]
+        public async Task<IActionResult> GetByTopic()
+        {
+            var requestBody = Request.Body;
+            Topic topic = await Request.ReadFromJsonAsync<Topic>();
+            string courseList = _taskManagerService.GetNewestValue(topic.topic);
+            List<Course> courses = JsonConvert.DeserializeObject<List<Course>>(courseList);
+            return Ok(courses);
+            
+           
+
+
+
+            //return Ok(courses);
+        }
+
+
 
         // GET: GetMqttValueController/Create
         public ActionResult Create()

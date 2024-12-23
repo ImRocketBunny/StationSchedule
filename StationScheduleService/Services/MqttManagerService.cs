@@ -56,13 +56,14 @@ namespace StationScheduleService.Services
                 var options = new MqttClientOptionsBuilder()
                 .WithClientId(Guid.NewGuid().ToString())
                 .WithTcpServer("127.0.0.1", 1883)
+                .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                 //.WithCredentials("user","pass")
                 .WithCleanSession()
                 .Build();
 
                 await _mqttClient.ConnectAsync(options);
                 //_logger.LogInformation(_mqttClient.IsConnected.ToString());
-            return _mqttClient;
+                return _mqttClient;
         }
 
         private async Task SubscribeTopicAsync(IConfiguration configuration)

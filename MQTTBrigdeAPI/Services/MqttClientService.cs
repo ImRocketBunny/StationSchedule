@@ -58,6 +58,7 @@ namespace MQTTBrigdeAPI.Services
             var options = new MqttClientOptionsBuilder()
             .WithClientId(Guid.NewGuid().ToString())
             .WithTcpServer("127.0.0.1", 1883)
+            .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
             //.WithCredentials("user","pass")
             .WithCleanSession()
             .Build();
