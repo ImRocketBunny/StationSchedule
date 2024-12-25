@@ -18,6 +18,7 @@ import { Course } from './models/course';
 
 })
 export class AppComponent {
+  previousResponse: Course[] = [];
   courses: Course[]=[];
   displayedColumns: string[] = ['demo-position', 'demo-name', 'demo-weight', 'demo-symbol'];
   private subscription: Subscription;
@@ -27,10 +28,19 @@ export class AppComponent {
       switchMap(() => this.apiService.postData({ topic: 'station/main/departures' }))
     ).subscribe({
       next: (response) => {
-        this.courses = response;
-        response.forEach(function (course){
-          console.log(course.name);
-        })
+        if (JSON.stringify(response) === JSON.stringify(this.courses)) {
+          console.log("takie same");
+          //this.courses = response
+        } else {
+          console.log(" nie takie same");
+          this.courses = response
+          this.previousResponse = response;
+        }
+        //this.previousResponse = response;
+
+        /*response.forEach(function (course) {
+          //courses.add(course)
+        })*/
       },
       error: (error) => {
         console.error('Błąd:', error);

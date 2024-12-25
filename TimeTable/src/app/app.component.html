@@ -183,10 +183,13 @@
   <div class="content">
 
 
-    <table mat-table [dataSource]="courses" class="mat-elevation-z8 demo-table">
+    <table mat-table [dataSource]="courses" class="demo-table">
     <ng-container matColumnDef="demo-position">
       <th mat-header-cell *matHeaderCellDef> Czas </th>
-      <td mat-cell *matCellDef="let course"> {{course.time }} </td>
+      <td mat-cell *matCellDef="let row; let course">
+        {{course.time }}
+        <div class="courseId">{{course.name}}</div>
+      </td>
     </ng-container>
 
     <ng-container matColumnDef="demo-name">

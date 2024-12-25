@@ -62,29 +62,28 @@ namespace StationScheduleService.Services
             var page = await browser.NewPageAsync();
             page.DefaultTimeout = 10000;
             string htmlResult;
-            while (true) 
-            {
-                try
-                {
+            /*while (true) 
+            {*/
+                /*try
+                {*/
 
-                    await page.GoToAsync(url);
-                    htmlResult= page.GetContentAsync().Result;
-                    break;
-                }
-                catch (Exception ex)
+             await page.GoToAsync(url);
+             htmlResult = page.GetContentAsync().Result;
+                //}
+               /* catch (Exception ex)
                 {
                     _logger.LogCritical(ex.Message);
-                    
-                }
+                    return null;
+                }*/
                 /*finally
-                {
+                {*/
                     await page.CloseAsync();
                     await browser.CloseAsync();
-                }*/
-            }
+                //}
+            //}
 
-            await page.CloseAsync();
-            await browser.CloseAsync();
+            /*await page.CloseAsync();
+            await browser.CloseAsync();*/
 
 
             return htmlResult;
@@ -119,10 +118,11 @@ namespace StationScheduleService.Services
             ClearScrappedData();
             try
             {
-                await Task.WhenAll(PrepareArrivals(), PrepareDepartures());
                 ClearSchedule();
-                _schedule.Add("arrivals", _arrivals!);
-                _schedule.Add("departures", _departures!);
+                await Task.WhenAll(PrepareArrivals(), PrepareDepartures());
+                //ClearSchedule();
+                //_schedule.Add("arrivals", _arrivals!);
+                //_schedule.Add("departures", _departures!);
                 _scrapCompleted = true;
                 return _schedule;
 
@@ -154,7 +154,19 @@ namespace StationScheduleService.Services
 
         async Task PrepareArrivals()
         {
-            _documentArrivals = PrepareHtml(await GetContentPage(PrepareUrls("arr")));
+            try
+            {
+                _documentArrivals = PrepareHtml(await GetContentPage(PrepareUrls("arr")));
+
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex.Message);
+                _offlineDataFetch = true;
+                return;
+
+            }
+            //_documentArrivals = PrepareHtml(await GetContentPage(PrepareUrls("arr")));
             List<string> columns = _documentArrivals.DocumentNode!.SelectSingleNode("//*[@id='wyniki']")!
                    .Descendants("tr")
                    .Where(tr => tr.Elements("th").Count() > 1)
@@ -177,8 +189,7 @@ namespace StationScheduleService.Services
             foreach (var tableItem in table)
             {
                 //Console.WriteLine("Adding arrival " + tableItem[1]);
-                try
-                {
+               
                     var c = new Course
                     {
                         Time = HttpUtility.HtmlDecode(tableItem[columns!.IndexOf("Czas")]).Split("  ")[0],
@@ -191,20 +202,28 @@ namespace StationScheduleService.Services
                     };
                     //Console.WriteLine("Adding arrival " + c.Time);
                     _arrivals.Add(c);
-                }
-                catch (Exception ex) 
-                {
-                    Console.WriteLine(tableItem);
-                }
+               
 
             }
+            _schedule.Add("arrivals", _arrivals!);
 
-           
         }
 
         async Task PrepareDepartures()
         {
-            _documentDepartures = PrepareHtml(await GetContentPage(PrepareUrls("dep")));
+            try
+            {
+                _documentDepartures = PrepareHtml(await GetContentPage(PrepareUrls("dep")));
+
+
+            }
+            catch (Exception ex)
+            {
+                _offlineDataFetch = true;
+                _logger.LogError(ex.Message);
+                return;
+            }
+            //_documentDepartures = PrepareHtml(await GetContentPage(PrepareUrls("dep")));
             //if (_documentDepartures.) {
             List<string> columns = _documentDepartures.DocumentNode.SelectSingleNode("//*[@id='wyniki']")
                        .Descendants("tr")
@@ -240,6 +259,7 @@ namespace StationScheduleService.Services
                     };
                     _departures.Add(c);
                 }
+            _schedule.Add("departures", _departures!);
         }
 
         public bool GetScrapperState()

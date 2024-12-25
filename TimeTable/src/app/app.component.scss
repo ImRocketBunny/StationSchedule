@@ -4,6 +4,38 @@
   font-size: 1600%;
 }
 
+.demo-table {
+  width: 100%;
+}
+
+.mat-column-demo-position {
+  width: 32px;
+  border-right: 1px solid currentColor;
+  padding-right: 24px;
+  text-align: center;
+}
+
+th.mat-header-cell,
+td.mat-cell {
+  text-align: left;
+  padding: 8px;
+  box-sizing: border-box;
+  white-space: nowrap;
+}
+
 .mat-cell {
   font-size: 400%;
+
+}
+
+.mat-cell {
+  color: red;
+}
+
+.time-table{
+    width : 100vw;
+}
+.courseId {
+  font-size: 125%;
+  font-weight: bold;
 }
