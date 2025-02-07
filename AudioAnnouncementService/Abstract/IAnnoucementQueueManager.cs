@@ -1,4 +1,5 @@
 ﻿using AudioAnnouncementService.Models;
+using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
@@ -10,9 +11,14 @@ namespace AudioAnnouncementService.Abstract
 {
     internal interface IAnnoucementQueueManager
     {
-        IEnumerable<FullCourse> GetDelayAnnoucements();
-        IEnumerable<FullCourse> GetTrainAnnoucements();
+        FullCourse GetDelayAnnoucements();
+        FullCourse GetTrainAnnoucements();
         void EnqueueDelayAnnoucement(FullCourse[] courses);
         void EnqueueTrainAnnoucement(FullCourse course);
+        void EnqueueReadyAnnoucement(ConcatenatingSampleProvider annoucement);
+        ConcatenatingSampleProvider GetReadyAnnoucement();
+        bool HasReadyAnnoucement();
+
+
     }
 }

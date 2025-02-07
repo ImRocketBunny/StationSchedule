@@ -1,4 +1,5 @@
 ﻿
+using AudioAnnouncementService.Abstract;
 using AudioAnnouncementService.Models;
 using MQTTnet;
 using MQTTnet.Client;
@@ -19,23 +20,23 @@ namespace AudioAnnouncementService
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-        private List<FullCourse> _courses = new List<FullCourse>();
-        public Worker(ILogger<Worker> logger)
+        private readonly ITaskManagerService _taskManagerService;
+        //private List<FullCourse> _courses = new List<FullCourse>();
+        public Worker(ILogger<Worker> logger, ITaskManagerService taskManagerService)
         {
             _logger = logger;
+            _taskManagerService = taskManagerService;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
 
-            var factory = new MqttFactory();
+            /*var factory = new MqttFactory();
 
-            // Create a MQTT client instance
             var mqttClient = factory.CreateMqttClient();
 
-            // Create MQTT client options
             var options = new MqttClientOptionsBuilder()
-                .WithTcpServer("127.0.0.1", 1883) // MQTT broker address and port
+                .WithTcpServer("127.0.0.1", 1883) 
                 .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                 .WithCleanSession()
                 .Build();
@@ -91,7 +92,7 @@ namespace AudioAnnouncementService
                 //await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/II/20").Build());
                 //await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/III/21").Build());
                 //await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/III/23").Build());
-                //await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/IV/8").Build());*/
+                //await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/IV/8").Build());
 
 
 
@@ -114,10 +115,7 @@ namespace AudioAnnouncementService
                     string nazwa = courses.Name.Split(" ")[0];
                     List<AudioFileReader> lista = new List<AudioFileReader>();
                     //AudioFileReader[] playlista = new AudioFileReader[nazwy.Length];
-                    /*foreach (Course c in courses)
-                    {
-                        Console.WriteLine((int)(TimeOnly.Parse(c.Time) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes);
-                    }*/
+
                     
                    // courses.OrderBy(c => c.ArrivalTime ?? c.DepartureTime);
                     if (  courses.Name.Split(" ")[0] != string.Empty
@@ -148,24 +146,7 @@ namespace AudioAnnouncementService
                             lista.Add(new AudioFileReader(".\\Sounds\\Stations\\" + courses.HeadsignTo + ".mp3"));
                         }
                         //var otherStations = Regex.Split(Regex.Replace(Regex.Replace(Regex.Replace(courses.RouteTo, "[0-9][0-9]:[0-9][0-9]", ""), " •  ", " -  "), "  ", ""), " -");
-                        /*if (otherStations.Length > 1)
-                        {
-                            lista.Add(new AudioFileReader(".\\Sounds\\Core\\przez_stacje.mp3"));
-                            for (int i = 1; i < otherStations.Length-1; i++)
-                            {
-                                try
-                                {
-                                    lista.Add(new AudioFileReader(".\\Sounds\\Stations\\" + otherStations[i] + ".mp3"));
-                                    Console.Write(otherStations[i] + ", ");
-                                }
-                                catch (Exception ex)
-                                {
-                                    Console.Write(otherStations[i] + ", ");
-                                    //Console.WriteLine(ex.ToString());
-                                }
-                            }
-
-                        }*/
+                        
                         if (courses.ArrivalTime is not null)
                         {
                             if (courses.DepartureTime is not null)
@@ -233,9 +214,7 @@ namespace AudioAnnouncementService
                                     lista.Add(new AudioFileReader((".\\Sounds\\Time\\Hours\\" + (courses.DepartureTime).Split(":")[0] + ".mp3")));
                                     lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + (courses.DepartureTime).Split(":")[1] + ".mp3")));
                                 }
-                                /*lista.Add(new AudioFileReader((".\\Sounds\\Core\\planowy_odjazd.mp3")));
-                                lista.Add(new AudioFileReader((".\\Sounds\\Time\\Hours\\" + (courses.DepartureTime).Split(":")[0] + ".mp3")));
-                                lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + (courses.DepartureTime).Split(":")[1] + ".mp3")));*/
+
 
                             }
                         }
@@ -273,17 +252,7 @@ namespace AudioAnnouncementService
                             }
                         }
 
-                        /*try
-                        {
-                            lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + (c.ArrivalTime ?? c.DepartureTime).Split(":")[1] + ".mp3")));
-                        }
-                        catch (Exception ex)
-                        {
-                            Console.WriteLine(ex.ToString());
-                        }*/
-                        //lista.Add(new AudioFileReader((".\\Sounds\\Time\\Hours\\"+c.Time.Split(":")[0]+".mp3")));
-                        //lista.Add(new AudioFileReader((".\\Sounds\\Time\\Minutes\\" + c.Time.Split(":")[1] + ".mp3")));
-                        //lista.Add(new AudioFileReader((".\\Sounds\\Core\\prosimy_zachować.mp3")));
+
 
                         if(courses.ArrivalTime==null)
                         {
@@ -315,41 +284,18 @@ namespace AudioAnnouncementService
                     //Thread.Sleep(60000);
                     return Task.CompletedTask;
                 };
-            }
-            //Console.WriteLine(msg);
-            //var reader = new AudioFileReader(".\\Sounds\\Core\\ttsMP3.com_VoiceText_2024-5-20_1-33-57.mp3");
-            //var waveOut = new  WasapiOut();
-
-            // var audio = new AudioFileReader(".\\Sounds\\Core\\ttsMP3.com_VoiceText_2024-5-20_1-33-57.mp3");
-
-            //var file = new AudioFileReader(".\\Sounds\\Core\\ttsMP3.com_VoiceText_2024-5-20_1-34-17.mp3");
-            //waveOut.Init(reader);
-            //waveOut.Play();
-            //var playlist = new ConcatenatingSampleProvider(new[] { reader, audio, file});
-            //waveOut.Init(playlist);
-            //waveOut.Play();
-            /*while (waveOut.PlaybackState == PlaybackState.Playing)
-            {
-                Thread.Sleep(1000);
             }*/
-            //List<Course> courses = (List<Course>)JsonConvert.DeserializeObject(msg);
-            /*foreach(Course c in courses)
-            {
-                Console.WriteLine(c.Headsign);
-            }*/
-            //var reader2 = new Mp3FileReader("D:\\Pobrane\\Obecny odg³os zapowiedzi  gong PKP Kraków Wroc³aw Poznañ Gliwice.mp3");
-            // var time = new AudioFileReader(".\\Sounds\\Core\\ttsMP3.com_VoiceText_2024-5-20_1-33-57.mp3").TotalTime;
-            //Thread.Sleep(time);
-            //waveOut.Dispose();
-            //waveOut.Init(reader2);
-            //waveOut.Play();
+            await WaitUntilStoppedAsync(stoppingToken);
+        }
+
+        private async Task WaitUntilStoppedAsync(CancellationToken stoppingToken)
+        {
+
             while (!stoppingToken.IsCancellationRequested)
             {
-                if (_logger.IsEnabled(LogLevel.Information))
-                {
-                    _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
-                }
-                await Task.Delay(1000, stoppingToken);
+                await _taskManagerService.Execute();
+               // _logger.LogInformation("Worker is working");
+                Thread.Sleep(1000);
             }
         }
     }

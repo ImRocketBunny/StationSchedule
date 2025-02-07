@@ -2,6 +2,7 @@
 using AudioAnnouncementService.Models;
 using MQTTnet;
 using MQTTnet.Client;
+using MQTTnet.Protocol;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Concurrent;
@@ -9,10 +10,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Foundation.Metadata;
 
 namespace AudioAnnouncementService.Services
 {
-    internal class MqttManagerService
+    internal class MqttManagerService : IMqttManagerService
     {
         private IMqttClient? _mqttClient;
         private readonly IConfiguration _configuration;
@@ -39,9 +41,12 @@ namespace AudioAnnouncementService.Services
 
                 _mqttClient = await InitializeMqttClientAsync(_configuration);
                 await SubscribeTopicAsync(_configuration);
-                
+                await ReceiveNewAnnoucementAsync();
             }
 
+            //_logger.LogInformation($"Mqtt connection Status: {_mqttClient!.IsConnected}");
+            
+           
 
         }
 
@@ -50,12 +55,19 @@ namespace AudioAnnouncementService.Services
 
             var factory = new MqttFactory();
             _mqttClient = factory.CreateMqttClient();
-            var options = new MqttClientOptionsBuilder()
+            /*var options = new MqttClientOptionsBuilder()
             .WithClientId(Guid.NewGuid().ToString())
             .WithTcpServer("127.0.0.1", 1883)
+            .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
             //.WithCredentials("user","pass")
             .WithCleanSession()
-            .Build();
+            .Build();*/
+
+            var options = new MqttClientOptionsBuilder()
+                .WithTcpServer("127.0.0.1", 1883)
+                .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
+                .WithCleanSession()
+                .Build();
 
             await _mqttClient.ConnectAsync(options);
             return _mqttClient;
@@ -63,21 +75,32 @@ namespace AudioAnnouncementService.Services
 
         private async Task SubscribeTopicAsync(IConfiguration configuration)
         {
-            List<string> topicList = new List<string>();
+            List<string> topicList = configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>()!;
             foreach (var topic in topicList)
             {
-                await _mqttClient.SubscribeAsync(topic);
+                await _mqttClient.SubscribeAsync(
+                    topic,
+                    MqttQualityOfServiceLevel.AtLeastOnce
+                    );
+                    /*configuration.GetValue("StationConfiguration:TopicPrefix")
+                    +topic+ configuration.GetSection("StationConfiguration:TopicSufix")*/
+
+                
+                _logger.LogInformation($"MqttClient subscribed to: {topic} ");
+
             }
         }
 
 
         async Task ReceiveNewAnnoucementAsync()
         {
-            _mqttClient.ApplicationMessageReceivedAsync += e =>
+            _logger.LogInformation($"Hello?!");
+            _mqttClient!.ApplicationMessageReceivedAsync += e =>
             {
+                _logger.LogInformation($"Message Received on topic: {e.ApplicationMessage.Topic}");
                 if (e.ApplicationMessage.Topic.Contains("delay"))
                 {
-                    FullCourse[] courses = JsonConvert.DeserializeObject<FullCourse[]>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
+                    FullCourse[] courses = JsonConvert.DeserializeObject<FullCourse[]>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment!));
                     if (courses == null)
                     {
                         return Task.CompletedTask;
@@ -87,13 +110,18 @@ namespace AudioAnnouncementService.Services
                 }
                 else
                 {
-                    _mqttDataStore.Add(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
+                    FullCourse course = JsonConvert.DeserializeObject<FullCourse>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment!));
+                    if (course == null)
+                    {
+                        return Task.CompletedTask;
+                    }
+                    _annoucementQueueManager.EnqueueTrainAnnoucement(course);
+                    //messageQueue.Add(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
+                    //_mqttDataStore.Add(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
                 }
-                messageQueue.Add(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment)); // Dodaj wiadomość do kolejki
                 return Task.CompletedTask;
             };
+
         }
-
-
     }
 }

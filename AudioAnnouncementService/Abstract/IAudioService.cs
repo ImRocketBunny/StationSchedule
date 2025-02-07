@@ -1,4 +1,5 @@
 ﻿using AudioAnnouncementService.Models;
+using NAudio.Wave;
 using NAudio.Wave.SampleProviders;
 using System;
 using System.Collections.Generic;
@@ -10,8 +11,6 @@ namespace AudioAnnouncementService.Abstract
 {
     internal interface IAudioService
     {
-        Task PrepareCoursePlaylist(Course course);
-        Task Play(ConcatenatingSampleProvider playlist);
-        Task PrepareAnnoucementPLaylist(Announcement annoucement);
+        Task RunAudioService();
     }
 }

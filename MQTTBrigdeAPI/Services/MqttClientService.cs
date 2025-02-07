@@ -97,7 +97,7 @@ namespace MQTTBrigdeAPI.Services
 
         async Task StartStuff()
         {
-            _mqttClient.ApplicationMessageReceivedAsync += e =>
+            _mqttClient!.ApplicationMessageReceivedAsync += e =>
             {
                 if (_mqttDataStore.ContainsKey(e.ApplicationMessage.Topic))
                 {
