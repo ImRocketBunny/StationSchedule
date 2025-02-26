@@ -7,6 +7,7 @@ using MQTTnet.Server;
 using Newtonsoft.Json;
 using StationScheduleService.Models;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,6 +21,8 @@ namespace StationScheduleService.Services
         private readonly IConfiguration _configuration;
         private readonly ILogger<MqttManagerService> _logger;
         private Dictionary<string, string> openWithOlds = new Dictionary<string, string>();
+        private ConcurrentDictionary<string, string> _currentDelays = new ConcurrentDictionary<string, string>();
+
 
 
         public MqttManagerService(
@@ -39,6 +42,7 @@ namespace StationScheduleService.Services
                 
                 _mqttClient = await InitializeMqttClientAsync(_configuration);
                 await SubscribeTopicAsync(_configuration);
+                ReceiveNewAnnoucementAsync();
             }
 
             
@@ -64,10 +68,11 @@ namespace StationScheduleService.Services
 
         private async Task SubscribeTopicAsync(IConfiguration configuration)
         {
-            List<string> topicList = new List<string>();
+            List<string> topicList = configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>()!;
             foreach (var topic in topicList)
             {
-                await _mqttClient.SubscribeAsync(topic);
+                await _mqttClient.SubscribeAsync("station/"+topic+"/audio");
+                await _mqttClient.SubscribeAsync("station/" + topic + "/lcd");
             }
         }
 
@@ -114,6 +119,37 @@ namespace StationScheduleService.Services
 
         }
 
-    
+        async Task ReceiveNewAnnoucementAsync()
+        {
+            _mqttClient!.ApplicationMessageReceivedAsync += e =>
+            {
+                Console.WriteLine("Message received: "+e.ApplicationMessage.Topic);
+                /*
+                _logger.LogInformation($"Message Received on topic: {e.ApplicationMessage.Topic}");
+                if (e.ApplicationMessage.Topic.Contains("delay"))
+                {
+                    FullCourse[] courses = JsonConvert.DeserializeObject<FullCourse[]>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment!));
+                    if (courses is null)
+                    {
+                        return Task.CompletedTask;
+                    }
+                    //_annoucementQueueManager.EnqueueDelayAnnoucement(courses);
+
+                }
+                else
+                {
+                    FullCourse course = JsonConvert.DeserializeObject<FullCourse>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment!));
+                    if (course is null)
+                    {
+                        return Task.CompletedTask;
+                    }
+                    _annoucementQueueManager.EnqueueTrainAnnoucement(course);
+                }*/
+                return Task.CompletedTask;
+            };
+
+        }
+
+
     }
 }

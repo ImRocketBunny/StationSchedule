@@ -21,14 +21,14 @@ namespace AudioAnnouncementService.Services
         private readonly ILogger _logger;
         private readonly IAnnoucementQueueManager _annoucementQueueManager;
         private MqttClientConnectResult? result;
-        private Dictionary<string, string> _mqttDataStore;
+        //private Dictionary<string, string> _mqttDataStore;
         private BlockingCollection<string> messageQueue = new BlockingCollection<string>();
 
         public MqttManagerService(
          IConfiguration configuration, ILogger logger,IAnnoucementQueueManager annoucementQueueManager)
         {
             _configuration = configuration;
-            _mqttDataStore = new Dictionary<string, string>();
+           // _mqttDataStore = new Dictionary<string, string>();
             _annoucementQueueManager = annoucementQueueManager;
             _logger = logger;
         }
