@@ -1,6 +1,0 @@
-@MQTTBrigdeAPI_HostAddress = http://localhost:5271
-
-GET {{MQTTBrigdeAPI_HostAddress}}/weatherforecast/
-Accept: application/json
-Access-Control-Allow-Origin : *
-###

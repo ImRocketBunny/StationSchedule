@@ -1,7 +1,7 @@
 ﻿
-using MQTTBrigdeAPI.Services;
+using StationAPI.Services;
 
-namespace MQTTBrigdeAPI
+namespace StationAPI
 {
     public class Worker : BackgroundService
     {
@@ -31,13 +31,6 @@ namespace MQTTBrigdeAPI
                 Thread.Sleep(10000);
             }
         }
-
-        public string GetNewestValue(string key)
-        {
-            return _taskManagerService.GetNewestValue(key);
-        }
-
-
 
     }
 }

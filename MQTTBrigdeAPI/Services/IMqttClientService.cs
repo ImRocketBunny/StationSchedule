@@ -1,4 +1,4 @@
-﻿namespace MQTTBrigdeAPI.Services
+﻿namespace StationAPI.Services
 {
     public interface IMqttClientService
     {

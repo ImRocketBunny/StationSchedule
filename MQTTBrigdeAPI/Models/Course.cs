@@ -1,6 +1,6 @@
 ﻿using Newtonsoft.Json;
 
-namespace MQTTBrigdeAPI.Models
+namespace StationAPI.Models
 {
     internal class Course
     {

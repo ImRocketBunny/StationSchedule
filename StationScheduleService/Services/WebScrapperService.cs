@@ -11,6 +11,7 @@ using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 
 
@@ -59,34 +60,52 @@ namespace StationScheduleService.Services
                 ExecutablePath = _configuration["ScraperOptions:ChromiumPath"]!,
                 Headless = true
             });
+            _logger.LogInformation($"Browser has been initiated.");
             var page = await browser.NewPageAsync();
             page.DefaultTimeout = 10000;
-            string htmlResult;
+            //await Promise.race([browser.close(), browser.close(), browser.close()])
+            string htmlResult="";
             /*while (true) 
             {*/
-                /*try
-                {*/
+            /*try
+            {*/
+            try
+            {
 
-             await page.GoToAsync(url);
-             htmlResult = page.GetContentAsync().Result;
-                //}
-               /* catch (Exception ex)
-                {
-                    _logger.LogCritical(ex.Message);
-                    return null;
-                }*/
-                /*finally
-                {*/
-                    await page.CloseAsync();
-                    await browser.CloseAsync();
-                //}
+                await page.GoToAsync(url);
+                htmlResult = page.GetContentAsync().Result;
+            }
+            catch (Exception e)
+            {
+                _logger.LogError($"Data scrapping error");
+            }
+            finally
+            {
+                await page.CloseAsync();
+                await page.DisposeAsync();
+                await browser.CloseAsync();
+                await browser.DisposeAsync();
+                _logger.LogInformation($"Browser has been closed.");
+
+            }
+
+            //}
+            /* catch (Exception ex)
+             {
+                 _logger.LogCritical(ex.Message);
+                 return null;
+             }*/
+            /*finally
+            {*/
+
+            //}
             //}
 
             /*await page.CloseAsync();
             await browser.CloseAsync();*/
 
 
-            return htmlResult;
+            return htmlResult!;
 
         } 
             //=> await _browser.NavigateToPageAsync(new Uri(url));
@@ -107,7 +126,8 @@ namespace StationScheduleService.Services
             url = url.Replace("JourneyDate=", "JourneyDate=" + s);
             url = url.Replace("boardType=", "boardType="+type);
             url = url.Replace("maxJourneys=", "maxJourneys="+ _configuration["StationConfiguration:MaxJourneys"]!);
-            url = url.Replace("input=", "input="+_configuration["StationConfiguration:Name"]!.Replace(" ","+")+ "%235100067");
+            url = url.Replace("input=", "input=5100067");//5100067
+            //url = url.Replace("input=", "input="+_configuration["StationConfiguration:Name"]!.Replace(" ","+")+ "%235100067");
             return url;
         }
 
@@ -167,10 +187,22 @@ namespace StationScheduleService.Services
 
             }
             //_documentArrivals = PrepareHtml(await GetContentPage(PrepareUrls("arr")));
+
+            if (_documentArrivals!.DocumentNode.ChildNodes.Count == 0)
+            {
+                _offlineDataFetch = true;
+                return;
+            }
+
             List<string> columns = _documentArrivals.DocumentNode!.SelectSingleNode("//*[@id='wyniki']")!
+                                   .Descendants("tr")
+                                   .Where(tr => tr.Elements("th").Count() > 1)
+                                   .Select(tr => tr.Elements("th").Select(th => th.InnerText.Trim().Replace("\n", " ").Replace("&nbsp", "").Replace("NAZWA:", " ").Replace("zwiń:", "").Replace("rozwiń", "").Replace(";", "")).ToList()).FirstOrDefault();
+            
+            /*columns=_documentArrivals.DocumentNode!.SelectSingleNode("//*[@id='wyniki']")!
                    .Descendants("tr")
                    .Where(tr => tr.Elements("th").Count() > 1)
-                   .Select(tr => tr.Elements("th").Select(th => th.InnerText.Trim().Replace("\n", " ").Replace("&nbsp", "").Replace("NAZWA:", " ").Replace("zwiń:", "").Replace("rozwiń", "").Replace(";", "")).ToList()).FirstOrDefault();
+                   .Select(tr => tr.Elements("th").Select(th => th.InnerText.Trim().Replace("\n", " ").Replace("&nbsp", "").Replace("NAZWA:", " ").Replace("zwiń:", "").Replace("rozwiń", "").Replace(";", "")).ToList()).FirstOrDefault();*/
             List<string> links = _documentArrivals.DocumentNode.SelectSingleNode("//*[@id='wyniki']")
                 .Descendants("a")
                 .Where(a => a.Attributes["href"].Value.Contains("trainlink"))
@@ -225,10 +257,25 @@ namespace StationScheduleService.Services
             }
             //_documentDepartures = PrepareHtml(await GetContentPage(PrepareUrls("dep")));
             //if (_documentDepartures.) {
+
+            /* = _documentDepartures.DocumentNode.SelectSingleNode("//*[@id='wyniki']")
+                       .Descendants("tr")
+                       .Where(tr => tr.Elements("th").Count() > 1)
+                       .Select(tr => tr.Elements("th").Select(th => th.InnerText.Trim().Replace("\n", " ").Replace("&nbsp", "").Replace("NAZWA:", " ").Replace("zwiń:", "").Replace("rozwiń", "").Replace(";", "")).ToList()).FirstOrDefault();*/
+
+            
+             if (_documentDepartures!.DocumentNode.ChildNodes.Count==0)
+             {
+                    _offlineDataFetch = true;
+                    return;
+             }
             List<string> columns = _documentDepartures.DocumentNode.SelectSingleNode("//*[@id='wyniki']")
                        .Descendants("tr")
                        .Where(tr => tr.Elements("th").Count() > 1)
                        .Select(tr => tr.Elements("th").Select(th => th.InnerText.Trim().Replace("\n", " ").Replace("&nbsp", "").Replace("NAZWA:", " ").Replace("zwiń:", "").Replace("rozwiń", "").Replace(";", "")).ToList()).FirstOrDefault();
+            
+
+
                 List<string> links = _documentDepartures.DocumentNode.SelectSingleNode("//*[@id='wyniki']")
                     .Descendants("a")
                     .Where(a => a.Attributes["href"].Value.Contains("trainlink"))

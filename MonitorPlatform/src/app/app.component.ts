@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ApiService } from './api/api.service';
 import { interval, Subscription } from 'rxjs';
@@ -9,7 +9,8 @@ import { MatButtonModule } from "@angular/material/button";
 import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterOutlet } from '@angular/router';
+import { ActivatedRoute, RouterOutlet } from '@angular/router';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -18,6 +19,17 @@ import { RouterOutlet } from '@angular/router';
   //imports: [MaterialModule, RouterOutlet, CommonModule],
 })
 export class AppComponent implements OnDestroy {
+
+  videoSrc = 'http://localhost:4200/logo-pkp_20250208182712-r20250208-1.webm';
+  videoPlaylist: string[] = ['http://localhost:4200/logo-pkp_20250208182712-r20250208-1.webm','http://localhost:4200/logo-pkp_20250208182712-r20250208-1.webm']/*['PLK_wylamiane_rogatki_nowe-r20250123-7.webm', 'POK_skm_CZARODZIEJSKI-FLET-DLA-DZIECI_03.2025-r20250205-9.webm',
+    'Praca_SKM_elektryk_1920x810-r20250116-5.webm', 'TS_Mahagonny_1920x810-r20241204-3.webm'
+    , '4_UTK_animacja_BAGAZ_NEW-r20250113-5.webm','ZTM_Warszawa_mruga_9.02-r20250203-1.webm','POK_VENUS-AND-ADONIS_25.02-r20250115-3.webm'
+  ,'TS_STARA-1920x810-r20241017-19.webm','ZTM_PLAKAT_E_HOLOGRAM_DLA_HB_TABOR_SKM_2-r20250117-9.webm','SKM_20lecie_1920x810-r20240510-15.webm' ]*/
+  fileNum: number = this.videoPlaylist.length;
+  videoNum: number = 0;
+  videoStr: string | null ='';
+  @ViewChild('videoPlayer') videoplayer!: ElementRef;
+
   icon: string = "https://www.mazowieckie.com.pl/sites/default/files/site/logo.svg"
   line: string | null = null
   courseId: string | null = null
@@ -34,12 +46,23 @@ export class AppComponent implements OnDestroy {
   headsignSize: number | null = null;
   routeSize: number | null = null;
   endOfTheLine: boolean | null = null;
+  
 
   title = 'MonitorPlatform'
   private subscription: Subscription;
-  constructor(private apiService: ApiService) {
+  platformurl: string ="";
+  trackurl: string ="";
+  constructor(private apiService: ApiService, private urlroute: ActivatedRoute) {
     this.subscription = interval(10000).pipe(
-      switchMap(() => this.apiService.postData({ topic: 'station/III/23/lcd' }))
+      switchMap(() => this.apiService.postData({
+        topic: 'station/'
+          + this.urlroute.snapshot.queryParamMap.get('platform') +
+          /*'/' +
+          this.urlroute.snapshot.queryParamMap.get('track') + */
+          '/lcd'
+         
+      }))
+
     ).subscribe({
       next: (response) => {
         this.line = response.name == null ? "" : response.name.split("   ").length > 1 ? response.name.split("   ")[1] : response.name.split(" ")[0]
@@ -52,12 +75,9 @@ export class AppComponent implements OnDestroy {
         this.route = response.routeTo == "" ? this.routeFrom.slice(1, -1).join(' - ') : this.routeTo.slice(1, -1).join(' - ');
         this.responseData = response;
         this.errorMessage = null;
-        this.headsignSize = this.headsign.length;
+        this.headsignSize = this.headsign == null?0:this.headsign.length;
         this.routeSize = this.route.length;
         this.endOfTheLine = response.departureTime == null ? true : false;
-        console.log(this.courseId);
-        console.log(this.headsign);
-        console.log(this.route);
 
         switch (response.name.split(" ")[0]) {
           case "KM":
@@ -81,6 +101,12 @@ export class AppComponent implements OnDestroy {
           case "WKD":
             this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/WKD.svg/2048px-WKD.svg.png";
             break;
+          case "R":
+            this.icon = "https://framerusercontent.com/images/OXiguSVS0CKZDYW1lTxlkVKGQZo.png";
+            break;
+          case "TLK":
+            this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+            break;
           default:
             this.icon = "";
         }
@@ -93,10 +119,52 @@ export class AppComponent implements OnDestroy {
     });
   }
 
+  @Input('videoSrc') set setVideoSrc(value: string) {
+    this.videoSrc = value
+    this.videoplayer?.nativeElement.load();
+    this.videoplayer?.nativeElement.play();
+  }
+
+  videoEnd() {
+    this.videoSrc = 'http://localhost:4200/' + this.videoPlaylist[this.videoNum]
+    this.videoNum++;
+    if (this.videoNum == this.videoPlaylist.length) {
+      this.apiService.getAdvertPlaylist().subscribe({
+        next: (response) => {
+        this.videoPlaylist=response
+        this.videoNum = 0;
+        //this.videoSrc = 'http://localhost:4200/logo-pkp_20250208182712-r20250208-1.webm';
+      },
+      error: (error) => {
+        this.errorMessage = 'Błąd podczas pobierania danych.';
+
+        console.error('Błąd:', error);
+    },})
+    }
+    this.videoplayer?.nativeElement.load();
+    this.videoplayer?.nativeElement.play();
+  }
+
   ngOnDestroy(): void {
     // Unieważnienie subskrypcji przy niszczeniu komponentu
     if (this.subscription) {
       this.subscription.unsubscribe();
     }
   }
+  ngOnInit() {
+    this.apiService.getAdvertPlaylist().subscribe({
+      next: (response) => {
+      this.videoPlaylist=response
+      this.videoNum = 0;
+      //this.videoSrc = 'http://localhost:4200/logo-pkp_20250208182712-r20250208-1.webm';
+    },
+    error: (error) => {
+      this.errorMessage = 'Błąd podczas pobierania danych.';
+
+      console.error('Błąd:', error);
+  },})
+  }
+
+
+
 }

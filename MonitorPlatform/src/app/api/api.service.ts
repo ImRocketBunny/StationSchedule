@@ -21,4 +21,11 @@ export class ApiService {
     });
     return this.http.post<FullCourse>(url, data); // Wywołanie POST z body
   }
+
+
+  getAdvertPlaylist(): Observable<string[]>{
+    const url = 'http://localhost:5271/api/advertPlaylist/5';
+    return this.http.get<string[]>(url);
+  }
+
 }

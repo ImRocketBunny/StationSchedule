@@ -9,6 +9,8 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatButtonModule } from '@angular/material/button';
 import { HttpClientModule, provideHttpClient } from "@angular/common/http";
 import { MatCardModule } from '@angular/material/card';
+//import { VideogularModule } from 'ngx-videogular';
+//import { MatVideoModule } from 'mat-video';
 
 @NgModule({
   declarations: [

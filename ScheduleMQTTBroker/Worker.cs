@@ -67,6 +67,7 @@ namespace ScheduleMQTTBroker
             var mqttServer = new MqttFactory().CreateMqttServer(option.Build());
             mqttServer.InterceptingPublishAsync += Server_InterceptingPublishAsync;
             mqttServer.ValidatingConnectionAsync += Server_ValidatingConnectionAsync;
+            mqttServer.InterceptingSubscriptionAsync += Server_InterceptingSubscription;
             await mqttServer.StartAsync();
                 await Task.Delay(1000);
             //}
@@ -78,15 +79,15 @@ namespace ScheduleMQTTBroker
             var payload = arg.ApplicationMessage?.Payload == null ? null : Encoding.UTF8.GetString(arg.ApplicationMessage?.Payload);
 
 
-            /*Console.WriteLine(
-                " TimeStamp: {0} -- Message: ClientId = {1}, Topic = {2}, Payload = {3}, QoS = {4}, Retain-Flag = {5}",
+            _logger.LogInformation(
+                " TimeStamp: {0} -- Message: ClientId = {1}, Topic = {2}, QoS = {3}, Retain-Flag = {4}",
 
                 DateTime.Now,
                 arg.ClientId,
                 arg.ApplicationMessage?.Topic,
-                payload,
+                //payload,
                 arg.ApplicationMessage?.QualityOfServiceLevel,
-                arg.ApplicationMessage?.Retain);*/
+                arg.ApplicationMessage?.Retain);
             return Task.CompletedTask;
         }
 
@@ -94,8 +95,7 @@ namespace ScheduleMQTTBroker
         {
             // Convert Payload to string
             var payload = arg.ClientId;
-            Console.WriteLine(arg.ClientId, arg.Password);
-            Console.WriteLine(arg.RawPassword);
+            _logger.LogInformation(arg.ClientId, arg.Password);
             //validate
             /*Console.WriteLine(
                 " TimeStamp: {0} -- Message: ClientId = {1}, Topic = {2}, Payload = {3}, QoS = {4}, Retain-Flag = {5}",
@@ -109,6 +109,21 @@ namespace ScheduleMQTTBroker
             return Task.CompletedTask;
         }
 
+        Task Server_InterceptingSubscription(InterceptingSubscriptionEventArgs arg)
+        {
+
+
+
+
+            _logger.LogInformation(
+                " TimeStamp: {0} -- Sunscription: ClientId = {1}, Topic = {2}",
+
+                DateTime.Now,
+                arg.ClientId,
+                arg.TopicFilter.Topic);
+            
+            return Task.CompletedTask;
+        }
         /*public static void OnNewMessage(MqttApplicationMessageInterceptorContext context)
         {
             var payload = context.ApplicationMessage?.Payload == null ? null : Encoding.UTF8.GetString(context.ApplicationMessage?.Payload);

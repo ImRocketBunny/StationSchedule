@@ -5,7 +5,7 @@ using MQTTnet.Protocol;
 using MQTTnet.Server;
 using System.Text;
 
-namespace MQTTBrigdeAPI.Services
+namespace StationAPI.Services
 {
     public class MqttClientService : IMqttClientService
     {
@@ -64,10 +64,6 @@ namespace MQTTBrigdeAPI.Services
             .Build();
 
             await _mqttClient.ConnectAsync(options);
-            
-
-           
-
             return _mqttClient;
         }
 

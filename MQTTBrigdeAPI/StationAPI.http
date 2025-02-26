@@ -1,0 +1,6 @@
+@StationAPI_HostAddress = http://localhost:5271
+
+GET {{StationAPI_HostAddress}}/weatherforecast/
+Accept: application/json
+Access-Control-Allow-Origin : *
+###

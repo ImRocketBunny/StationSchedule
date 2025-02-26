@@ -19,8 +19,6 @@ namespace StationScheduleService.Services
         private IMqttClient? _mqttClient;
         private readonly IConfiguration _configuration;
         private readonly ILogger<MqttManagerService> _logger;
-        private MqttClientConnectResult? result;
-        private Dictionary<string, string> _mqttDataStore;
         private Dictionary<string, string> openWithOlds = new Dictionary<string, string>();
 
 
@@ -28,7 +26,6 @@ namespace StationScheduleService.Services
          IConfiguration configuration, ILogger<MqttManagerService> logger)
         {
             _configuration = configuration;
-            _mqttDataStore = new Dictionary<string, string>();
             _logger= logger;
         }
         public async Task DisposeMqttClientAsync()
@@ -55,14 +52,13 @@ namespace StationScheduleService.Services
                 _mqttClient = factory.CreateMqttClient();
                 var options = new MqttClientOptionsBuilder()
                 .WithClientId(Guid.NewGuid().ToString())
-                .WithTcpServer("127.0.0.1", 1883)
+                .WithTcpServer(_configuration["MQTTConnectionConfiguration:MQTTServerHost"], int.Parse(_configuration["MQTTConnectionConfiguration:MQTTServerPort"]!))
                 .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                 //.WithCredentials("user","pass")
                 .WithCleanSession()
                 .Build();
 
                 await _mqttClient.ConnectAsync(options);
-                //_logger.LogInformation(_mqttClient.IsConnected.ToString());
                 return _mqttClient;
         }
 

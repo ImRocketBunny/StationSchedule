@@ -1,7 +1,7 @@
 ﻿
 
 
-namespace MQTTBrigdeAPI.Services
+namespace StationAPI.Services
 {
     public class TaskManagerService : ITaskManagerService
     {
@@ -13,7 +13,6 @@ namespace MQTTBrigdeAPI.Services
             _logger = logger;
             _configuration = configuration;
             _mqttClientService = mqttClientService;
-            //_mqttClientService.SetUpMqttClientAsync();
         }
         
 
@@ -34,7 +33,6 @@ namespace MQTTBrigdeAPI.Services
 
         public string GetNewestValue(string topic)
         {
-            //_mqttClientService.SetUpMqttClientAsync();
             return _mqttClientService.GetNextNewestTopicValue(topic);
         }
 

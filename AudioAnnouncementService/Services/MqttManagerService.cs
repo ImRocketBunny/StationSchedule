@@ -40,8 +40,8 @@ namespace AudioAnnouncementService.Services
             {
 
                 _mqttClient = await InitializeMqttClientAsync(_configuration);
-                await SubscribeTopicAsync(_configuration);
-                await ReceiveNewAnnoucementAsync();
+                SubscribeTopicAsync(_configuration);
+                ReceiveNewAnnoucementAsync();
             }
 
             //_logger.LogInformation($"Mqtt connection Status: {_mqttClient!.IsConnected}");
@@ -55,21 +55,16 @@ namespace AudioAnnouncementService.Services
 
             var factory = new MqttFactory();
             _mqttClient = factory.CreateMqttClient();
-            /*var options = new MqttClientOptionsBuilder()
-            .WithClientId(Guid.NewGuid().ToString())
-            .WithTcpServer("127.0.0.1", 1883)
-            .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
-            //.WithCredentials("user","pass")
-            .WithCleanSession()
-            .Build();*/
 
             var options = new MqttClientOptionsBuilder()
+                .WithClientId(Guid.NewGuid().ToString())
                 .WithTcpServer("127.0.0.1", 1883)
                 .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                 .WithCleanSession()
                 .Build();
 
             await _mqttClient.ConnectAsync(options);
+
             return _mqttClient;
         }
 
@@ -82,8 +77,7 @@ namespace AudioAnnouncementService.Services
                     topic,
                     MqttQualityOfServiceLevel.AtLeastOnce
                     );
-                    /*configuration.GetValue("StationConfiguration:TopicPrefix")
-                    +topic+ configuration.GetSection("StationConfiguration:TopicSufix")*/
+
 
                 
                 _logger.LogInformation($"MqttClient subscribed to: {topic} ");
@@ -94,14 +88,13 @@ namespace AudioAnnouncementService.Services
 
         async Task ReceiveNewAnnoucementAsync()
         {
-            _logger.LogInformation($"Hello?!");
             _mqttClient!.ApplicationMessageReceivedAsync += e =>
             {
                 _logger.LogInformation($"Message Received on topic: {e.ApplicationMessage.Topic}");
                 if (e.ApplicationMessage.Topic.Contains("delay"))
                 {
                     FullCourse[] courses = JsonConvert.DeserializeObject<FullCourse[]>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment!));
-                    if (courses == null)
+                    if (courses is null)
                     {
                         return Task.CompletedTask;
                     }
@@ -111,13 +104,11 @@ namespace AudioAnnouncementService.Services
                 else
                 {
                     FullCourse course = JsonConvert.DeserializeObject<FullCourse>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment!));
-                    if (course == null)
+                    if (course is null)
                     {
                         return Task.CompletedTask;
                     }
                     _annoucementQueueManager.EnqueueTrainAnnoucement(course);
-                    //messageQueue.Add(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
-                    //_mqttDataStore.Add(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
                 }
                 return Task.CompletedTask;
             };

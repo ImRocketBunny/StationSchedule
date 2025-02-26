@@ -46,10 +46,13 @@ namespace TextToSpeachUpdateService
                 await mqttClient.SubscribeAsync(new MqttTopicFilterBuilder().WithTopic("station/main/arrivals").Build());
                 DirectoryInfo d3 = new DirectoryInfo("..\\AudioAnnouncementService\\Sounds\\Stations\\");
                 DirectoryInfo d4 = new DirectoryInfo("..\\AudioAnnouncementService\\Sounds\\TrainCustomNames\\");
+                DirectoryInfo d5 = new DirectoryInfo("..\\AudioAnnouncementService\\Sounds\\Delay\\");
                 FileInfo[] Files3 = d3.GetFiles("*.mp3");
                 FileInfo[] Files4 = d4.GetFiles("*.mp3");
+                FileInfo[] Files5 = d5.GetFiles("*.mp3");
                 List<string> FileList3 = Files3.Select(e => e.Name.Replace(".mp3", "")).ToList();
                 List<string> FileList4 = Files4.Select(e => e.Name.Replace(".mp3", "")).ToList();
+                List<string> FileList5 = Files5.Select(e => e.Name.Replace(".mp3", "")).ToList();
 
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
@@ -128,6 +131,33 @@ namespace TextToSpeachUpdateService
                             }
                             Files4 = d4.GetFiles("*.mp3");
                             FileList4 = Files4.Select(e => e.Name.Replace(".mp3", "")).ToList();
+                        }
+                        if (c.Delay != "" && !FileList5.Contains(c.Delay))
+                        {
+                            Console.WriteLine($"Delay is missing: {c.Delay}");
+                            HttpClient client = new HttpClient();
+                            //client.DefaultRequestHeaders
+                            //.Accept.Add(new MediaTypeWithQualityHeaderValue("application/x-www-form-urlencoded"));
+                            var values = new Dictionary<string, string>
+                                {
+                                    { "msg", c.Delay!.ToString() },
+                                    { "lang", "Ewa" },
+                                    { "source", "ttsmp3" }
+                                };
+                            var content = new FormUrlEncodedContent(values);
+
+                            var response = client.PostAsync("https://ttsmp3.com/makemp3_new.php", content);
+
+                            var responseString = response.Result.Content.ReadAsStringAsync().Result;
+                            //Console.WriteLine(responseString);
+                            dynamic data = Newtonsoft.Json.Linq.JObject.Parse(responseString);
+                            //Console.WriteLine(data.URL);
+                            using (var download = new WebClient())
+                            {
+                                download.DownloadFile((string)data.URL, "..\\AudioAnnouncementService\\Sounds\\Delay\\" + c.Delay + ".mp3");
+                            }
+                            Files5 = d5.GetFiles("*.mp3");
+                            FileList5 = Files5.Select(e => e.Name.Replace(".mp3", "")).ToList();
                         }
                     }
                     

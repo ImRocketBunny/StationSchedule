@@ -13,6 +13,7 @@ var host = Host.CreateDefaultBuilder(args)
         services.AddSingleton<IAudioFileService, AudioFileService>();
         services.AddSingleton<ITaskManagerService, TaskManagerService>();
         services.AddSingleton<IAudioService,AudioService>();
+        services.AddSingleton<IAudioPlaylistService, AudioPlaylistService>();
         services.AddTransient<ILogger>(s => s.GetService<ILogger<Program>>());
         services.AddHostedService<Worker>();
     })

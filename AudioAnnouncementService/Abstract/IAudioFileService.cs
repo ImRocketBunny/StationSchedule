@@ -19,6 +19,6 @@ namespace AudioAnnouncementService.Abstract
         public string CreateMinutesFilePath(string file);  
         public string CreateHourFilePath(string file);
         public string CreatePlatformFilePath(string file);
-
+        public string CreateDelayFilePath(string file);
     }
 }

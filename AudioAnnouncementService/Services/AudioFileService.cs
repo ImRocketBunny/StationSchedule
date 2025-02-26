@@ -17,6 +17,7 @@ namespace AudioAnnouncementService.Services
         private DirectoryInfo _trainNames;
         private DirectoryInfo _platformNames;
         private DirectoryInfo _coreFiles;
+        private DirectoryInfo _delayFiles;
         public ConcurrentDictionary<string, List<string>> _files;   
 
         public AudioFileService(IConfiguration configuration, ILogger<AudioFileService> logger)
@@ -28,6 +29,7 @@ namespace AudioAnnouncementService.Services
             _trainNames = new DirectoryInfo(_configuration["FilePaths:TrainNames"]!);
             _platformNames = new DirectoryInfo(_configuration["FilePaths:PlatrfomNames"]!);
             _coreFiles = new DirectoryInfo(_configuration["FilePaths:CoreFiles"]!);
+            _delayFiles = new DirectoryInfo(_configuration["FilePaths:DelayMinutes"]!);
             _files = new ConcurrentDictionary<string, List<string>>();
 
         }
@@ -40,6 +42,7 @@ namespace AudioAnnouncementService.Services
             GetTrainNamesList();
             GetTrackNamesList();
             GetPlatformNames();
+            GetDelayList();
             return Task.CompletedTask;
         }
 
@@ -66,6 +69,17 @@ namespace AudioAnnouncementService.Services
                 _files.TryAdd("trainNames", trainNamesList);
             else
                 _files["trainNames"] = trainNamesList;
+
+            return Task.CompletedTask;
+        }
+
+        private Task GetDelayList()
+        {
+            List<string> delayList = _delayFiles.GetFiles("*.mp3").Select(e => e.Name.Replace(".mp3", "")).ToList();
+            if (!_files.ContainsKey("delayFiles"))
+                _files.TryAdd("delayFiles", delayList);
+            else
+                _files["delayFiles"] = delayList;
 
             return Task.CompletedTask;
         }
@@ -107,6 +121,11 @@ namespace AudioAnnouncementService.Services
         public string CreateCoreFilePath(string file)
         {
             return _configuration["FilePaths:CoreFiles"]!+file+".mp3";
+        }
+
+        public string CreateDelayFilePath(string file)
+        {
+            return _configuration["FilePaths:DelayMinutes"]! + file + ".mp3";
         }
 
         public string CreateTrackFilePath(string file)

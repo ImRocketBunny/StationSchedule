@@ -22,7 +22,7 @@ namespace AudioAnnouncementService.Services
         {
             _configuration=configuration;
             _logger=logger;
-            _annoucementDelayQueue = new ConcurrentQueue< FullCourse>();
+            _annoucementDelayQueue = new ConcurrentQueue<FullCourse>();
             _annoucementTrainQueue = new ConcurrentQueue<FullCourse>();
             _annoucmentsToPlay = new ConcurrentQueue<ConcatenatingSampleProvider>();
         }
@@ -78,5 +78,9 @@ namespace AudioAnnouncementService.Services
             return null;
         }
 
+        public int QueuedAnnoucements()
+        {
+            return _annoucmentsToPlay.Count;
+        }
     }
 }

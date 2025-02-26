@@ -18,7 +18,6 @@ namespace AudioAnnouncementService.Abstract
         void EnqueueReadyAnnoucement(ConcatenatingSampleProvider annoucement);
         ConcatenatingSampleProvider GetReadyAnnoucement();
         bool HasReadyAnnoucement();
-
-
+        int QueuedAnnoucements();
     }
 }

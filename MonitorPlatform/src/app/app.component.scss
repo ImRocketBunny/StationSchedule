@@ -161,7 +161,13 @@
 
 .emptyScreen {
   background-color: black;
-  height: 100vh; //100% view height
+  height: 100vh; 
+  width: 100vw;
+  overflow: hidden;
+}
+
+.adverts {
+  height: 100vh;
   width: 100vw;
 }
 
@@ -198,7 +204,7 @@ h1 {
   float: right;
   overflow: hidden;
   height: 100vh;
-  width: 65vw;
+  width: 64.99999vw;
 }
 
 .courseIdLabel2 {

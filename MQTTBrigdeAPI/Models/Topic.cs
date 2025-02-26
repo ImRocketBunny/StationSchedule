@@ -1,4 +1,4 @@
-﻿namespace MQTTBrigdeAPI.Models
+﻿namespace StationAPI.Models
 {
     public class Topic
     {
