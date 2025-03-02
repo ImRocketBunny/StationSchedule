@@ -3,6 +3,7 @@ using MQTTnet;
 using MQTTnet.Client;
 using MQTTnet.Protocol;
 using MQTTnet.Server;
+using System.Collections.Concurrent;
 using System.Text;
 
 namespace StationAPI.Services
@@ -13,7 +14,7 @@ namespace StationAPI.Services
         private readonly IConfiguration _configuration;
         private readonly ILogger _logger;
         private MqttClientConnectResult? result;
-        private Dictionary<string, string> _mqttDataStore;
+        private ConcurrentDictionary<string, string> _mqttDataStore;
         private List<string> _subscriptions;
 
         public MqttClientService(
@@ -21,7 +22,7 @@ namespace StationAPI.Services
         {
 
             _configuration = configuration;
-            _mqttDataStore = new Dictionary<string, string>();
+            _mqttDataStore = new ConcurrentDictionary<string, string>();
             _logger = logger;
             _subscriptions = _configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>();
 
@@ -43,7 +44,7 @@ namespace StationAPI.Services
 
                 _mqttClient = await InitializeMqttClientAsync(_configuration);
                 await SubscribeTopicAsync();
-                await StartStuff();
+                await ReceiveMqttMessage();
             }
            
            
@@ -86,26 +87,34 @@ namespace StationAPI.Services
 
         string IMqttClientService.GetNextNewestTopicValue(string topic)
         {
-            return _mqttDataStore[topic];
+            _mqttDataStore.TryGetValue(topic, out string? value);
+            return value!;
         }
 
         
 
-        async Task StartStuff()
+        async Task ReceiveMqttMessage()
         {
-            _mqttClient!.ApplicationMessageReceivedAsync += e =>
+            Task.Run(() =>
             {
-                if (_mqttDataStore.ContainsKey(e.ApplicationMessage.Topic))
+                _mqttClient!.ApplicationMessageReceivedAsync += e =>
                 {
-                    _mqttDataStore[e.ApplicationMessage.Topic] = Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment);
+                    _mqttDataStore.AddOrUpdate(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment),
+                    (key, oldvalue) => Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
+                    return Task.CompletedTask;
+                    /*
+                    if (_mqttDataStore.ContainsKey(e.ApplicationMessage.Topic))
+                    {
+                        _mqttDataStore[e.ApplicationMessage.Topic] = Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment);
 
-                }
-                else
-                {
-                    _mqttDataStore.Add(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
-                }
-                return Task.CompletedTask;
-            };
+                    }
+                    else
+                    {
+                        _mqttDataStore.Add(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
+                    }*/
+                    //return Task.CompletedTask;
+                };
+            });
         }
     }
 }

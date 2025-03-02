@@ -42,7 +42,7 @@ namespace StationScheduleService.Services
             _schedules = new Dictionary<string, string>();
             _scheduleRows = new List<List<string>>();
             _courses = new Dictionary<string, List<Course>>();
-            _list = _configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>();
+            _list = _configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>()!;
 
         }
 

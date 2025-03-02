@@ -179,7 +179,7 @@ namespace AudioAnnouncementService.Services
             }
             if (String.IsNullOrEmpty(course.Name!.Split(" ")[0]) 
                 || !_audioFileService.GetReadyFileList()["coreFiles"].Contains(course.Name.Split(" ")[0])
-                || (int)(TimeOnly.Parse(course.ArrivalTime ?? course.DepartureTime!).AddMinutes(course.Delay==""?0: Double.Parse(course.Delay!)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes <= 1
+                || (int)(TimeOnly.Parse(course.ArrivalTime ?? course.DepartureTime!).AddMinutes(course.Delay==""?0: Double.Parse(course.Delay!)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 1
                 || (int)(TimeOnly.Parse(course.ArrivalTime ?? course.DepartureTime!).AddMinutes(course.Delay == "" ? 0 : Double.Parse(course.Delay!)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes > 10)
             {
                 _logger.LogInformation($"Couse is not suitable for annoucement");

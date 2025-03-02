@@ -5,6 +5,7 @@ using MQTTnet.Client;
 using MQTTnet.Protocol;
 using MQTTnet.Server;
 using Newtonsoft.Json;
+using PuppeteerSharp.Input;
 using StationScheduleService.Models;
 using System;
 using System.Collections.Concurrent;
@@ -21,7 +22,7 @@ namespace StationScheduleService.Services
         private readonly IConfiguration _configuration;
         private readonly ILogger<MqttManagerService> _logger;
         private Dictionary<string, string> openWithOlds = new Dictionary<string, string>();
-        private ConcurrentDictionary<string, string> _currentDelays = new ConcurrentDictionary<string, string>();
+        private ConcurrentDictionary<string, string> _currentBrokerState = new ConcurrentDictionary<string, string>();
 
 
 
@@ -42,7 +43,7 @@ namespace StationScheduleService.Services
                 
                 _mqttClient = await InitializeMqttClientAsync(_configuration);
                 await SubscribeTopicAsync(_configuration);
-                ReceiveNewAnnoucementAsync();
+                await ReceiveNewAnnoucementAsync();
             }
 
             
@@ -68,12 +69,12 @@ namespace StationScheduleService.Services
 
         private async Task SubscribeTopicAsync(IConfiguration configuration)
         {
-            List<string> topicList = configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>()!;
-            foreach (var topic in topicList)
-            {
-                await _mqttClient.SubscribeAsync("station/"+topic+"/audio");
-                await _mqttClient.SubscribeAsync("station/" + topic + "/lcd");
-            }
+            //List<string> topicList = configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>()!;
+            //foreach (var topic in topicList)
+            //{
+                await _mqttClient.SubscribeAsync("#");
+                //await _mqttClient.SubscribeAsync("station/" + topic + "/lcd");
+            //}
         }
 
 
@@ -91,26 +92,30 @@ namespace StationScheduleService.Services
                         .Build();
 
 
-           
+                    _currentBrokerState.TryGetValue("station/" + key, out string value);
+                        
+                    if (value is null || (value != (keyValuePairs[key] == "null" ? "{}" : keyValuePairs[key])))
+                        await _mqttClient!.PublishAsync(message);
 
-                if ((openWithOlds.ContainsKey(key) && openWithOlds[key] != keyValuePairs[key]) || !openWithOlds.ContainsKey(key))
+                /*if ((openWithOlds.ContainsKey(key) && openWithOlds[key] != keyValuePairs[key]) || !openWithOlds.ContainsKey(key))
                 {
+                 
 
-                     if (!openWithOlds.ContainsKey(key))
-                     {
-                        openWithOlds.Add(key, keyValuePairs[key]);
-                        _logger.LogInformation("Adding key: " + key);
-                     }
-                    else
+                    if (!openWithOlds.ContainsKey(key))
                     {
-                        _logger.LogInformation("Updating key: " + key);
-                        openWithOlds[key] = keyValuePairs[key];
+                       openWithOlds.Add(key, keyValuePairs[key]);
+                       _logger.LogInformation("Adding key: " + key);
                     }
+                   else
+                   {
+                       _logger.LogInformation("Updating key: " + key);
+                       openWithOlds[key] = keyValuePairs[key];
+                   }
 
                     await _mqttClient!.PublishAsync(message);
   
 
-                }
+                }*/
                 
          
             }
@@ -119,34 +124,17 @@ namespace StationScheduleService.Services
 
         }
 
-        async Task ReceiveNewAnnoucementAsync()
+        Task ReceiveNewAnnoucementAsync()
         {
-            _mqttClient!.ApplicationMessageReceivedAsync += e =>
+            
+                _mqttClient!.ApplicationMessageReceivedAsync += e =>
             {
-                Console.WriteLine("Message received: "+e.ApplicationMessage.Topic);
-                /*
-                _logger.LogInformation($"Message Received on topic: {e.ApplicationMessage.Topic}");
-                if (e.ApplicationMessage.Topic.Contains("delay"))
-                {
-                    FullCourse[] courses = JsonConvert.DeserializeObject<FullCourse[]>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment!));
-                    if (courses is null)
-                    {
-                        return Task.CompletedTask;
-                    }
-                    //_annoucementQueueManager.EnqueueDelayAnnoucement(courses);
-
-                }
-                else
-                {
-                    FullCourse course = JsonConvert.DeserializeObject<FullCourse>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment!));
-                    if (course is null)
-                    {
-                        return Task.CompletedTask;
-                    }
-                    _annoucementQueueManager.EnqueueTrainAnnoucement(course);
-                }*/
+                _currentBrokerState.AddOrUpdate(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment),
+                    (key, oldvalue) => Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
                 return Task.CompletedTask;
+
             };
+            return Task.CompletedTask;
 
         }
 

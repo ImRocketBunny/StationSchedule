@@ -27,8 +27,8 @@ namespace StationAPI
             while (!stoppingToken.IsCancellationRequested)
             {
                await _taskManagerService.Execute();
-                _logger.LogInformation("Worker is working");
-                Thread.Sleep(10000);
+                _logger.LogInformation($"StationAPI is running at: {DateTime.Now}");
+               await Task.Delay(10000);
             }
         }
 
