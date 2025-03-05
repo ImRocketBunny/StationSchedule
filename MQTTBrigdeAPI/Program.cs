@@ -19,6 +19,7 @@ builder.Services.AddDbContext<ApiDbContext>(options =>
 
 builder.Services.AddHostedService<Worker>();
 builder.Services.AddSingleton<IApiRepository, ApiRepository>();
+builder.Services.AddSingleton<IGtfsService, GtfsService>(); 
 builder.Services.AddSingleton<IMqttClientService, MqttClientService>();
 builder.Services.AddTransient<ILogger>(s => s.GetService<ILogger<Program>>());
 builder.Services.AddSingleton<ITaskManagerService, TaskManagerService>();

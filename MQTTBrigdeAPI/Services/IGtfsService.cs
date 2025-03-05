@@ -2,5 +2,6 @@
 {
     public interface IGtfsService
     {
+        Task TaskManager();
     }
 }

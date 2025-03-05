@@ -8,11 +8,13 @@ namespace StationAPI.Services
         private readonly ILogger _logger;
         private readonly IConfiguration _configuration;
         private IMqttClientService _mqttClientService;
-        public TaskManagerService(ILogger logger, IConfiguration configuration,IMqttClientService mqttClientService) 
+        private readonly IGtfsService _gtfsService;
+        public TaskManagerService(ILogger logger, IConfiguration configuration,IMqttClientService mqttClientService,IGtfsService gtfsService) 
         {
             _logger = logger;
             _configuration = configuration;
             _mqttClientService = mqttClientService;
+            _gtfsService = gtfsService;
         }
         
 
@@ -23,6 +25,7 @@ namespace StationAPI.Services
             try
             {
                 await _mqttClientService.SetUpMqttClientAsync();
+                _gtfsService.TaskManager();
             }
             catch (Exception ex)
             {
