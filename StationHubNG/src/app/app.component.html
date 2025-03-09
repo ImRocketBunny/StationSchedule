@@ -1,0 +1,14 @@
+<table>
+    <thead>
+        <tr>Name</tr>
+        <tr>Lat</tr>
+        <tr>Lon</tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let train of trains">
+            <td>{{train.Name}}</td>
+            <td>{{train.Latitude}}</td>
+            <td>{{train.Longitude}}</td>
+        </tr>
+    </tbody>
+</table>

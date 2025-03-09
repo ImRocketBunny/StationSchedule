@@ -6,6 +6,7 @@ var host = Host.CreateDefaultBuilder(args).ConfigureServices(services =>
     {
         services.AddHostedService<Worker>();
         services.AddSingleton<IFileService, FileService>();
+        services.AddSingleton<IFileReaderService, FileReaderService>();
         services.AddSingleton<ITaskManagerService, TaskManagerService>();
     }).Build();
 host.Run();

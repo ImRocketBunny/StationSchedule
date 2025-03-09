@@ -1,4 +1,5 @@
 ﻿using Newtonsoft.Json.Linq;
+using ScheduleUpdater.Services;
 using System.Net;
 using System.Net.Http.Headers;
 using static System.Runtime.InteropServices.JavaScript.JSType;
@@ -8,10 +9,11 @@ namespace ScheduleUpdater
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-
-        public Worker(ILogger<Worker> logger)
+        private readonly ITaskManagerService _taskManagerService;
+        public Worker(ILogger<Worker> logger, ITaskManagerService taskManagerService)
         {
             _logger = logger;
+            _taskManagerService = taskManagerService;
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -25,6 +27,7 @@ namespace ScheduleUpdater
 
             while (!stoppingToken.IsCancellationRequested)
             {
+                await _taskManagerService.Execute();
                 await Task.Delay(1000);
 
             }

@@ -8,8 +8,8 @@ namespace ScheduleUpdater.Models
 {
     internal class ScheduleSource
     {
-        public string Name {  get; set; }
-        public string SourceLink { get; set; }
-        public bool Updated { get; set; }
+        public string? Name {  get; set; }
+        public string? SourceLink { get; set; }
+        public bool Update { get; set; }
     }
 }

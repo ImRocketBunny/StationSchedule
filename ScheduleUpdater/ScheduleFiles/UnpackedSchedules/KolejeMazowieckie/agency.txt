@@ -1,0 +1,2 @@
+agency_id,agency_name,agency_url,agency_timezone,agency_lang,agency_phone
+0,Koleje Mazowieckie,https://www.mazowieckie.com.pl/,Europe/Warsaw,pl,+48 22 364 44 44

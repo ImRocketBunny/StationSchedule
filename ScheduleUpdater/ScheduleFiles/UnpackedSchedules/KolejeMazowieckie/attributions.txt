@@ -1,0 +1,2 @@
+organization_name,is_producer,is_operator,is_authority,is_data_source,attribution_url
+Data provided by: Koleje Mazowieckie-KM Sp. z o.o. (retrieved: 2025-03-08 10:00:03),0,1,1,1,https://www.mazowieckie.com.pl/

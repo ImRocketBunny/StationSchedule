@@ -42,7 +42,30 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "TimeTable", "TimeTable\Time
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "MonitorPlatform", "MonitorPlatform\MonitorPlatform.esproj", "{103D3E59-3DA3-4C4F-8F5D-38230F770C5F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StationHub", "StationHub\StationHub.csproj", "{B2D2A5E4-F148-4C1C-96D5-8D706C16919E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StationHub", "StationHub\StationHub.csproj", "{B2D2A5E4-F148-4C1C-96D5-8D706C16919E}"
+EndProject
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "StationHubNG", "StationHubNG\", "{222D6D85-4550-494A-B24B-961883B1A710}"
+	ProjectSection(WebsiteProperties) = preProject
+		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_65309"
+		Debug.AspNetCompiler.PhysicalPath = "StationHubNG\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_65309\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/localhost_65309"
+		Release.AspNetCompiler.PhysicalPath = "StationHubNG\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_65309\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "65309"
+		SlnRelativePath = "StationHubNG\"
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StationMQTTBroker", "StationMQTTBroker\StationMQTTBroker.csproj", "{42B6B4EF-ED9B-4580-854E-187366196FB8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -90,6 +113,14 @@ Global
 		{B2D2A5E4-F148-4C1C-96D5-8D706C16919E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B2D2A5E4-F148-4C1C-96D5-8D706C16919E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B2D2A5E4-F148-4C1C-96D5-8D706C16919E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{222D6D85-4550-494A-B24B-961883B1A710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{222D6D85-4550-494A-B24B-961883B1A710}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{222D6D85-4550-494A-B24B-961883B1A710}.Release|Any CPU.ActiveCfg = Debug|Any CPU
+		{222D6D85-4550-494A-B24B-961883B1A710}.Release|Any CPU.Build.0 = Debug|Any CPU
+		{42B6B4EF-ED9B-4580-854E-187366196FB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{42B6B4EF-ED9B-4580-854E-187366196FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{42B6B4EF-ED9B-4580-854E-187366196FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{42B6B4EF-ED9B-4580-854E-187366196FB8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -104,6 +135,8 @@ Global
 		{CE2029EB-FAF8-4B64-8B01-0D0E6896D5CA} = {53838F2D-A1AD-49AD-AF51-BAD56AE6D2A3}
 		{103D3E59-3DA3-4C4F-8F5D-38230F770C5F} = {53838F2D-A1AD-49AD-AF51-BAD56AE6D2A3}
 		{B2D2A5E4-F148-4C1C-96D5-8D706C16919E} = {720213FD-27FD-4ED4-A91D-1026BD9FBA37}
+		{222D6D85-4550-494A-B24B-961883B1A710} = {720213FD-27FD-4ED4-A91D-1026BD9FBA37}
+		{42B6B4EF-ED9B-4580-854E-187366196FB8} = {04FF48CA-C897-45A1-8DB0-3D833E957AB3}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FECA02D-DCB9-4262-A30C-5C838DCA3C3A}

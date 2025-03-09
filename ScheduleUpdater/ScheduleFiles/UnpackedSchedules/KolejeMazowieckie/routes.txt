@@ -1,0 +1,47 @@
+agency_id,route_id,route_short_name,route_long_name,route_type,route_color,route_text_color
+0,R1,R1,Warszawa — Skierniewice,2,008800,FFFFFF
+0,R2,R2,Warszawa — Łuków,2,008800,FFFFFF
+0,R21,R21,Siedlce — Czeremcha,2,008800,FFFFFF
+0,R3,R3,Warszawa — Kutno,2,008800,FFFFFF
+0,R31,R31,Kutno — Sierpc,2,008800,FFFFFF
+0,R6,R6,Warszawa — Małkinia,2,008800,FFFFFF
+0,R60,R60,Warszawa — Małkinia,2,008800,FFFFFF
+0,R61,R61,Tłuszcz — Ostrołęka,2,008800,FFFFFF
+0,R62,R62,Ostrołęka — Chorzele,2,008800,FFFFFF
+0,R7,R7,Warszawa — Dęblin,2,008800,FFFFFF
+0,R8,R8,Warszawa — Skarżysko-Kamienna,2,008800,FFFFFF
+0,R80,R80,Warszawa — Skarżysko-Kamienna,2,008800,FFFFFF
+0,R81,R81,Dęblin — Radom,2,008800,FFFFFF
+0,R82,R82,Drzewca — Radom,2,008800,FFFFFF
+0,R9,R9,Warszawa — Działdowo,2,008800,FFFFFF
+0,R90,R90,Warszawa — Działdowo,2,008800,FFFFFF
+0,R91,R91,Nasielsk — Sierpc,2,008800,FFFFFF
+0,RE1,RE1,Warszawa — Skierniewice (Przyspieszony),2,005A00,FFFFFF
+0,RE10,RE10,Warszawa — Skierniewice (Przyspieszony),2,005A00,FFFFFF
+0,RE2,RE2,Warszawa — Łuków (Przyspieszony),2,005A00,FFFFFF
+0,RE21,RE21,Siedlce — Czeremcha (Przyspieszony),2,005A00,FFFFFF
+0,RE3,RE3,Warszawa — Kutno (Przyspieszony),2,005A00,FFFFFF
+0,RE31,RE31,Kutno — Sierpc (Przyspieszony),2,005A00,FFFFFF
+0,RE6,RE6,Warszawa — Małkinia (Przyspieszony),2,005A00,FFFFFF
+0,RE61,RE61,Tłuszcz — Ostrołęka (Przyspieszony),2,005A00,FFFFFF
+0,RE7,RE7,Warszawa — Dęblin (Przyspieszony),2,005A00,FFFFFF
+0,RE8,RE8,Warszawa — Skarżysko-Kamienna (Przyspieszony),2,005A00,FFFFFF
+0,RE80,RE80,Warszawa — Skarżysko-Kamienna (Przyspieszony),2,005A00,FFFFFF
+0,RE9,RE9,Warszawa — Działdowo (Przyspieszony),2,005A00,FFFFFF
+0,RE90,RE90,Warszawa — Działdowo (Przyspieszony),2,005A00,FFFFFF
+0,RE91,RE91,Tłuszcz → Sierpc (Przyspieszony),2,005A00,FFFFFF
+0,RE92,RE92,Sierpc → Tłuszcz (Przyspieszony),2,005A00,FFFFFF
+0,RL,RL,Modlin — Warszawa Lotnisko Chopina,2,008800,FFFFFF
+0,Z2,Z2,ZKA: Za R2,3,880000,FFFFFF
+0,Z3,Z3,ZKA: Za R3,3,880000,FFFFFF
+0,Z31,Z31,ZKA: Za R31,3,880000,FFFFFF
+0,Z7,Z7,ZKA: Za R7,3,880000,FFFFFF
+0,Z8,Z8,ZKA: Za R8,3,880000,FFFFFF
+0,Z80,Z80,ZKA: Za R80,3,880000,FFFFFF
+0,Z91,Z91,ZKA: Za R91,3,880000,FFFFFF
+0,ZE3,ZE3,ZKA: Za RE3,3,880000,FFFFFF
+0,ZE31,ZE31,ZKA: Za RE31,3,880000,FFFFFF
+0,ZE9,ZE9,ZKA: Za RE9,3,880000,FFFFFF
+0,ZE91,ZE91,ZKA: Za RE91,3,880000,FFFFFF
+0,ZE92,ZE92,ZKA: Za RE92,3,880000,FFFFFF
+0,ZL,ZL,Stacja Modlin — Lotnisko Modlin,3,880000,FFFFFF

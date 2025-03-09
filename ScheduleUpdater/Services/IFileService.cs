@@ -8,5 +8,6 @@ namespace ScheduleUpdater.Services
 {
     public interface IFileService
     {
+        Task FileServiceManager();
     }
 }
