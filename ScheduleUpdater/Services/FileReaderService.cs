@@ -1,6 +1,11 @@
-﻿using System;
+﻿using CsvHelper;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
+using System.Formats.Asn1;
+using System.Globalization;
 using System.Linq;
+using System.Reflection.PortableExecutable;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -12,10 +17,10 @@ namespace ScheduleUpdater.Services
 
         public async Task FileReaderManager(string file)
         {
-            GetFileHeaders(file);
-            await GetFileContent(file);
+            //GetFileHeaders(file);
+            await GetJsonFileContent(file);
         }
-        private string[] GetFileHeaders(string fileName) 
+       /* private string[] GetFileHeaders(string fileName) 
         {
             using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             using (StreamReader sr = new StreamReader(fs))
@@ -32,25 +37,21 @@ namespace ScheduleUpdater.Services
                 
             }
 
-        }
+        }*/
 
-        private async Task<List<string>> GetFileContent(string fileName)
+        private async Task<string> GetJsonFileContent(string fileName)
         {
             var fileObjects= new List<string>();
             using (FileStream fs = new FileStream(fileName, FileMode.Open, FileAccess.Read))
             using (StreamReader sr = new StreamReader(fs, Encoding.UTF8))
+            using (var csv = new CsvReader(sr, CultureInfo.InvariantCulture))
             {
-                await sr.ReadLineAsync();
-                string line;
-                while ((line = await sr.ReadLineAsync()) != null)
-                {
-                    Console.WriteLine(line);
-                    fileObjects.Add(line);
-                }
-
-
+                var records = csv.GetRecords<dynamic>();
+                string json = JsonConvert.SerializeObject(records, Formatting.Indented);
+                Console.WriteLine(json);
+                return json;
             }
-            return fileObjects;
+            
 
         }
 
