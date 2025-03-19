@@ -10,7 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
-//import { MqttService, IMqttMessage } from 'ngx-mqtt';
+import { MqttService, IMqttMessage } from 'ngx-mqtt';
 
 @Component({
   selector: 'app-root',
@@ -49,89 +49,121 @@ export class AppComponent implements OnDestroy {
   endOfTheLine: boolean | null = null;
   
 
+  message: string = 'Oczekiwanie na wiadomość...';
+  //private subscription!: Subscription;
+  private topic = 'station/IX/2/lcd'; // Temat MQTT
+
   title = 'MonitorPlatform'
-  private subscription: Subscription;
+  private subscription!: Subscription;
   platformurl: string ="";
   trackurl: string ="";
-  constructor(private apiService: ApiService, private urlroute: ActivatedRoute) {
-    this.subscription = interval(10000).pipe(
-      switchMap(() => this.apiService.postData({
-        topic: 'station/'
-          + this.urlroute.snapshot.queryParamMap.get('platform') +
-          /*'/' +
-          this.urlroute.snapshot.queryParamMap.get('track') + */
-          '/lcd'
+  // constructor(private apiService: ApiService, private urlroute: ActivatedRoute) {
+  //   this.subscription = interval(10000).pipe(
+  //     switchMap(() => this.apiService.postData({
+  //       topic: 'station/'
+  //         + this.urlroute.snapshot.queryParamMap.get('platform') +
+  //         /*'/' +
+  //         this.urlroute.snapshot.queryParamMap.get('track') + */
+  //         '/lcd'
          
-      }))
+  //     }))
 
-    ).subscribe({
-      next: (response) => {
-        this.line = response.name == null ? "" : response.name.split("   ").length > 1 ? response.name.split("   ")[1] : response.name.split(" ")[0]
-        this.courseId = response.name == null ? null : response.name.split("   ").length > 1 ? response.name.split("   ")[0] : response.name.split("   ")[0]
-        this.delay = response.delay;
-        this.headsign = response.headsignTo == "" ? response.headsignFrom : response.headsignTo;
-        this.routeTo = response.routeTo == null ? [] : response.routeTo.replace(" • ", " -  ").split(" -  ")
-        this.routeFrom = response.routeFrom == null ? [] : response.routeFrom.replace(" • ", " -  ").split(" -  ")
-        this.departureTime = response.departureTime == null ? response.arrivalTime : response.departureTime;
-        this.route = response.routeTo == "" ? this.routeFrom.slice(1, -1).join(' - ') : this.routeTo.slice(1, -1).join(' - ');
-        this.responseData = response;
-        this.errorMessage = null;
-        this.headsignSize = this.headsign == null?0:this.headsign.length;
-        this.routeSize = this.route.length;
-        this.endOfTheLine = response.departureTime == null ? true : false;
+  //   ).subscribe({
+  //     next: (response) => {
+  //       this.line = response.name == null ? "" : response.name.split("   ").length > 1 ? response.name.split("   ")[1] : response.name.split(" ")[0]
+  //       this.courseId = response.name == null ? null : response.name.split("   ").length > 1 ? response.name.split("   ")[0] : response.name.split("   ")[0]
+  //       this.delay = response.delay;
+  //       this.headsign = response.headsignTo == "" ? response.headsignFrom : response.headsignTo;
+  //       this.routeTo = response.routeTo == null ? [] : response.routeTo.replace(" • ", " -  ").split(" -  ")
+  //       this.routeFrom = response.routeFrom == null ? [] : response.routeFrom.replace(" • ", " -  ").split(" -  ")
+  //       this.departureTime = response.departureTime == null ? response.arrivalTime : response.departureTime;
+  //       this.route = response.routeTo == "" ? this.routeFrom.slice(1, -1).join(' - ') : this.routeTo.slice(1, -1).join(' - ');
+  //       this.responseData = response;
+  //       this.errorMessage = null;
+  //       this.headsignSize = this.headsign == null?0:this.headsign.length;
+  //       this.routeSize = this.route.length;
+  //       this.endOfTheLine = response.departureTime == null ? true : false;
 
-        switch (response.name.split(" ")[0]) {
-          case "KM":
-            this.icon = "https://www.mazowieckie.com.pl/sites/default/files/site/logo.svg";
-            break;
-          case "IC":
-            this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
-            break;
-          case "EIC":
-            this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
-            break;
-          case "EIP":
-            this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
-            break;
-          case "IR":
-            this.icon = "https://framerusercontent.com/images/OXiguSVS0CKZDYW1lTxlkVKGQZo.png";
-            break;
-          case "SKW":
-            this.icon = "https://www.skm.warszawa.pl/wp-content/uploads/2020/10/SKM_logo_PNG.png";
-            break;
-          case "WKD":
-            this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/WKD.svg/2048px-WKD.svg.png";
-            break;
-          case "R":
-            this.icon = "https://framerusercontent.com/images/OXiguSVS0CKZDYW1lTxlkVKGQZo.png";
-            break;
-          case "TLK":
-            this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
-            break;
-          default:
-            this.icon = "";
-        }
+  //       switch (response.name.split(" ")[0]) {
+  //         case "KM":
+  //           this.icon = "https://www.mazowieckie.com.pl/sites/default/files/site/logo.svg";
+  //           break;
+  //         case "IC":
+  //           this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+  //           break;
+  //         case "EIC":
+  //           this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+  //           break;
+  //         case "EIP":
+  //           this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+  //           break;
+  //         case "IR":
+  //           this.icon = "https://framerusercontent.com/images/OXiguSVS0CKZDYW1lTxlkVKGQZo.png";
+  //           break;
+  //         case "SKW":
+  //           this.icon = "https://www.skm.warszawa.pl/wp-content/uploads/2020/10/SKM_logo_PNG.png";
+  //           break;
+  //         case "WKD":
+  //           this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/WKD.svg/2048px-WKD.svg.png";
+  //           break;
+  //         case "R":
+  //           this.icon = "https://framerusercontent.com/images/OXiguSVS0CKZDYW1lTxlkVKGQZo.png";
+  //           break;
+  //         case "TLK":
+  //           this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+  //           break;
+  //         default:
+  //           this.icon = "";
+  //       }
 
-      },
-      error: (error) => {
-        this.errorMessage = 'Błąd podczas pobierania danych.';
-        console.error('Błąd:', error);
-      },
-    });
+  //     },
+  //     error: (error) => {
+  //       this.errorMessage = 'Błąd podczas pobierania danych.';
+  //       console.error('Błąd:', error);
+  //     },
+  //   });
+  // }
+
+  constructor(private mqttService: MqttService,private apiService: ApiService) {
+    this.subscribeToTopic();
   }
-
   @Input('videoSrc') set setVideoSrc(value: string) {
     this.videoSrc = value
     this.videoplayer?.nativeElement.load();
     this.videoplayer?.nativeElement.play();
   }
 
-  /*private subscribeToTopic(): void {
+  private subscribeToTopic(): void {
     this.subscription = this.mqttService.observe(this.topic).subscribe((message: IMqttMessage) => {
-      this.message = message.payload.toString(); // Konwersja payloadu na tekst
-      console.log('Odebrano:', this.message);
+      try {
+        const payloadStr = message.payload.toString(); // Konwersja na string
+        const data = JSON.parse(payloadStr); // Parsowanie do obiektu JSON
+        console.log('Odebrano obiekt:', data);
+        
+
+
+        this.line = data.name == null ? "" : data.name.split("   ").length > 1 ? data.name.split("   ")[1] : data.name.split(" ")[0]
+        this.courseId = data.name == null ? null : data.name.split("   ").length > 1 ? data.name.split("   ")[0] : data.name.split("   ")[0]
+        this.delay = data.delay;
+        this.headsign = data.headsignTo == "" ? data.headsignFrom : data.headsignTo;
+        this.routeTo = data.routeTo == null ? [] : data.routeTo.replace(" • ", " -  ").split(" -  ")
+        this.routeFrom = data.routeFrom == null ? [] : data.routeFrom.replace(" • ", " -  ").split(" -  ")
+        this.departureTime = data.departureTime == null ? data.arrivalTime : data.departureTime;
+        this.route = data.routeTo == "" ? this.routeFrom!.slice(1, -1).join(' - ') : this.routeTo!.slice(1, -1).join(' - ');
+        this.responseData = data;
+        this.errorMessage = null;
+        this.headsignSize = this.headsign == null?0:this.headsign.length;
+        this.routeSize = this.route.length;
+        this.endOfTheLine = data.departureTime == null ? true : false;
+
+
+        // Przykładowe użycie danych:
+        this.message = `ID: ${data.id}, Status: ${data.status}`;
+      } catch (error) {
+        console.error('Błąd parsowania JSON:', error);
+      }
     });
-  }*/
+  }
 
   videoEnd() {
     this.videoSrc = 'http://localhost:4200/' + this.videoPlaylist[this.videoNum]
