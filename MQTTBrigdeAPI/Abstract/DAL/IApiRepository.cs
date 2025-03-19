@@ -1,7 +1,11 @@
-﻿namespace StationAPI.Abstract.DAL
+﻿using StationAPI.Models;
+
+namespace StationAPI.Abstract.DAL
 {
     public interface IApiRepository
     {
-        List<string> GetAdvertPlaylist(int stationId);
+        Task<List<string>> GetAdvertPlaylist(int stationId);
+
+        Task<List<Train>> GetGtfsKMPositions();
     }
 }

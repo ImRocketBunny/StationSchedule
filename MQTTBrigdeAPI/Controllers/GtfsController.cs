@@ -10,11 +10,14 @@ namespace StationAPI.Controllers
         private readonly ILogger<GtfsController> _logger;
         private readonly IConfiguration _configuration;
         private readonly IGtfsService _gtfsService;
-        public GtfsController(ILogger<GtfsController> logger, IConfiguration configuration, IGtfsService gtfsService) 
+        private readonly IApiRepository _apiRepository;
+
+        public GtfsController(ILogger<GtfsController> logger, IConfiguration configuration, IGtfsService gtfsService, IApiRepository apiRepository) 
         {
             _configuration = configuration;
             _gtfsService = gtfsService;
             _logger = logger;
+            _apiRepository = apiRepository;
         }
 
         [Route("api/gtfsrt")]
@@ -26,6 +29,16 @@ namespace StationAPI.Controllers
             return Ok(JsonConvert.SerializeObject((vehicles), Formatting.Indented));
 
         }
+        [Route("api/gtfskmpositions")]
+        [HttpGet]
+        public IActionResult GetGtfsKMPositions()
+        {
+
+            var vehicles = _apiRepository.GetGtfsKMPositions().Result;
+            return Ok(JsonConvert.SerializeObject((vehicles), Formatting.Indented));
+
+        }
+
         public IActionResult Index()
         {
             return View();

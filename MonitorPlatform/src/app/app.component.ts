@@ -10,6 +10,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatIconModule } from '@angular/material/icon';
 import { ActivatedRoute, RouterOutlet } from '@angular/router';
+//import { MqttService, IMqttMessage } from 'ngx-mqtt';
 
 @Component({
   selector: 'app-root',
@@ -125,6 +126,13 @@ export class AppComponent implements OnDestroy {
     this.videoplayer?.nativeElement.play();
   }
 
+  /*private subscribeToTopic(): void {
+    this.subscription = this.mqttService.observe(this.topic).subscribe((message: IMqttMessage) => {
+      this.message = message.payload.toString(); // Konwersja payloadu na tekst
+      console.log('Odebrano:', this.message);
+    });
+  }*/
+
   videoEnd() {
     this.videoSrc = 'http://localhost:4200/' + this.videoPlaylist[this.videoNum]
     this.videoNum++;
@@ -146,7 +154,6 @@ export class AppComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    // Unieważnienie subskrypcji przy niszczeniu komponentu
     if (this.subscription) {
       this.subscription.unsubscribe();
     }

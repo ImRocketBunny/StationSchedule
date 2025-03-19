@@ -4,10 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ScheduleUpdater.Services
+namespace ScheduleUpdater.Abstract
 {
-    internal interface IFileReaderService
+    interface IUpdaterRepository
     {
-        Task FileReaderManager();
+        Task UpdateSchedule(string content);
     }
 }

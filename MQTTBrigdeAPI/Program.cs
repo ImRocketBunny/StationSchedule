@@ -15,7 +15,7 @@ builder.Services.AddCors();
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
 builder.Services.AddDbContext<ApiDbContext>(options =>
-    options.UseSqlServer(connectionString)/*, ServiceLifetime.Singleton*/);
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddHostedService<Worker>();
 builder.Services.AddSingleton<IApiRepository, ApiRepository>();

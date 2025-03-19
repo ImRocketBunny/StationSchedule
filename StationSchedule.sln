@@ -42,27 +42,26 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "TimeTable", "TimeTable\Time
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "MonitorPlatform", "MonitorPlatform\MonitorPlatform.esproj", "{103D3E59-3DA3-4C4F-8F5D-38230F770C5F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StationHub", "StationHub\StationHub.csproj", "{B2D2A5E4-F148-4C1C-96D5-8D706C16919E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StationHub", "StationHub\StationHub.csproj", "{B2D2A5E4-F148-4C1C-96D5-8D706C16919E}"
 EndProject
 Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "StationHubNG", "StationHubNG\", "{222D6D85-4550-494A-B24B-961883B1A710}"
 	ProjectSection(WebsiteProperties) = preProject
 		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_65309"
+		Debug.AspNetCompiler.VirtualPath = "/localhost_50077"
 		Debug.AspNetCompiler.PhysicalPath = "StationHubNG\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_65309\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50077\"
 		Debug.AspNetCompiler.Updateable = "true"
 		Debug.AspNetCompiler.ForceOverwrite = "true"
 		Debug.AspNetCompiler.FixedNames = "false"
 		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_65309"
+		Release.AspNetCompiler.VirtualPath = "/localhost_50077"
 		Release.AspNetCompiler.PhysicalPath = "StationHubNG\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_65309\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50077\"
 		Release.AspNetCompiler.Updateable = "true"
 		Release.AspNetCompiler.ForceOverwrite = "true"
 		Release.AspNetCompiler.FixedNames = "false"
 		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "65309"
-		SlnRelativePath = "StationHubNG\"
+		VWDPort = "50077"
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StationMQTTBroker", "StationMQTTBroker\StationMQTTBroker.csproj", "{42B6B4EF-ED9B-4580-854E-187366196FB8}"

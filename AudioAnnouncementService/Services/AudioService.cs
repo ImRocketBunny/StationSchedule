@@ -62,7 +62,7 @@ namespace AudioAnnouncementService.Services
                 audioVave.Dispose();
                 _logger.LogInformation($"Finnished playing train annoucement");
 
-            }else if (_currentDelays.Count > 0)
+            }/*else if (_currentDelays.Count > 0)
             {
                 if (_currentDelays.Any(e => _currentDelays[e.Key].lastPlayed < DateTime.Now))
                 {
@@ -95,7 +95,7 @@ namespace AudioAnnouncementService.Services
                         }
                     }
                 }
-            }else if (true)
+            }*/else if (true)
             {
 
             }

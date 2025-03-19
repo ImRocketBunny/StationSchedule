@@ -11,7 +11,7 @@ using System.Reflection.PortableExecutable;
 
 namespace StationAPI.DAL.Repository
 {
-    public class ApiRepository : IApiRepository
+    internal class ApiRepository : IApiRepository
     {
         private readonly ILogger<ApiRepository> _logger;
         private readonly IConfiguration _configuration;
@@ -24,7 +24,7 @@ namespace StationAPI.DAL.Repository
             _serviceProvider = serviceProvider;
         }
 
-        public List<string> GetAdvertPlaylist(int stationId)
+        public async Task<List<string>> GetAdvertPlaylist(int stationId)
         {
             using (var scope = _serviceProvider.CreateScope())
             {
@@ -60,7 +60,7 @@ namespace StationAPI.DAL.Repository
                         command.Parameters.Add(new SqlParameter { ParameterName = "@StationId", Value = stationId });
                         try
                         {
-                            using (var reader = command.ExecuteReader())
+                            using (var reader = await command.ExecuteReaderAsync())
                             {
                                 if (reader.Read())
                                 {
@@ -68,7 +68,7 @@ namespace StationAPI.DAL.Repository
                                     {
                                         return JsonConvert.DeserializeObject<List<string>>("[]");
                                     }
-                                    return 
+                                    return
                                     JsonConvert.DeserializeObject<List<string>>(reader.GetString(0));
                                 }
                             }
@@ -84,5 +84,71 @@ namespace StationAPI.DAL.Repository
                 }
             }
         }
+
+
+
+            public async Task<List<Train>> GetGtfsKMPositions()
+            {
+            using (var scope = _serviceProvider.CreateScope())
+            {
+                ApiDbContext dbContext;
+                try
+                {
+                    dbContext = scope.ServiceProvider.GetRequiredService<ApiDbContext>();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError("Błąd połączenia SQL : " + ex.Message);
+                    return JsonConvert.DeserializeObject<List<Train>>("[]");
+                }
+                using (var context = dbContext)
+                {
+
+                    var connection = context.Database.GetDbConnection();
+                    try
+                    {
+                        connection.Open();
+
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError("SQL Connection Error: " + ex.Message);
+                        return JsonConvert.DeserializeObject<List<Train>>("[]");
+                    }
+
+                    using (var command = connection.CreateCommand())
+                    {
+                        command.CommandType = CommandType.StoredProcedure;
+                        command.CommandText = "dbo.GetCurrentKMCourses";
+                        try
+                        {
+                            using (var reader = await command.ExecuteReaderAsync())
+                            {
+                                if (reader.Read())
+                                {
+                                    if (reader.IsDBNull(0))
+                                    {
+                                        return JsonConvert.DeserializeObject<List<Train>>("[]");
+                                    }
+                                    return
+                                    JsonConvert.DeserializeObject<List<Train>>(reader.GetString(0));
+                                }
+                            }
+                        }
+                        catch (Exception ex)
+                        {
+                            _logger.LogError("Błąd połączenia SQL : " + ex.Message);
+                            return JsonConvert.DeserializeObject<List<Train>>("[]");
+                        }
+                    }
+
+                    return JsonConvert.DeserializeObject<List<Train>>("[]");
+                }
+
+
+            }
+
+            }
+
     }
 }

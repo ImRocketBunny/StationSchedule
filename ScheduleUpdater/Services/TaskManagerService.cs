@@ -20,7 +20,7 @@ namespace ScheduleUpdater.Services
             try
             {
                 //await _fileService.FileServiceManager();
-                await _readerService.FileReaderManager("ScheduleFiles\\UnpackedSchedules\\Intercity\\stops.txt");
+                await _readerService.FileReaderManager();
             }
             catch (Exception ex)
             {
