@@ -47,11 +47,11 @@ export class AppComponent implements OnDestroy {
   headsignSize: number | null = null;
   routeSize: number | null = null;
   endOfTheLine: boolean | null = null;
-  
+  urlPlatform: string ='';
 
   message: string = 'Oczekiwanie na wiadomość...';
   //private subscription!: Subscription;
-  private topic = 'station/IX/2/lcd'; // Temat MQTT
+  private topic = 'station/WKD/lcd'; // Temat MQTT
 
   title = 'MonitorPlatform'
   private subscription!: Subscription;
@@ -124,8 +124,16 @@ export class AppComponent implements OnDestroy {
   //   });
   // }
 
-  constructor(private mqttService: MqttService,private apiService: ApiService) {
+  constructor(private mqttService: MqttService,private apiService: ApiService,private urlroute: ActivatedRoute) {
+    this.urlroute.queryParams.subscribe(params => {
+      this.urlPlatform = params['platform'];
+      console.log(this.urlPlatform)
+    })
+    console.log(this.urlPlatform)
+
     this.subscribeToTopic();
+    console.log('station/'+ this.urlPlatform +'/lcd');
+    
   }
   @Input('videoSrc') set setVideoSrc(value: string) {
     this.videoSrc = value
@@ -134,7 +142,8 @@ export class AppComponent implements OnDestroy {
   }
 
   private subscribeToTopic(): void {
-    this.subscription = this.mqttService.observe(this.topic).subscribe((message: IMqttMessage) => {
+    this.subscription = this.mqttService.observe('station/III/21/lcd'
+         ).subscribe((message: IMqttMessage) => {
       try {
         const payloadStr = message.payload.toString(); // Konwersja na string
         const data = JSON.parse(payloadStr); // Parsowanie do obiektu JSON
