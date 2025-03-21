@@ -145,8 +145,8 @@ export class AppComponent implements OnDestroy {
     this.subscription = this.mqttService.observe('station/III/21/lcd'
          ).subscribe((message: IMqttMessage) => {
       try {
-        const payloadStr = message.payload.toString(); // Konwersja na string
-        const data = JSON.parse(payloadStr); // Parsowanie do obiektu JSON
+        const payloadStr = message.payload.toString();
+        const data = JSON.parse(payloadStr);
         console.log('Odebrano obiekt:', data);
         
 
