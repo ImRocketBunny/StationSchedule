@@ -28,7 +28,6 @@ namespace StationAPI.Controllers
         [HttpPost]
         public async Task<IActionResult> GetCourse()
         {
-            var requestBody = Request.Body;
             Topic topic = await Request.ReadFromJsonAsync<Topic>()!;
             string fc = _taskManagerService.GetNewestValue(topic!.topic);
             FullCourse course = JsonConvert.DeserializeObject<FullCourse>(fc)!;

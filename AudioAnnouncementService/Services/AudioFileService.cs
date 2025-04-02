@@ -18,7 +18,7 @@ namespace AudioAnnouncementService.Services
         private DirectoryInfo _platformNames;
         private DirectoryInfo _coreFiles;
         private DirectoryInfo _delayFiles;
-        public ConcurrentDictionary<string, List<string>> _files;   
+        private ConcurrentDictionary<string, List<string>> _files;   
 
         public AudioFileService(IConfiguration configuration, ILogger<AudioFileService> logger)
         {

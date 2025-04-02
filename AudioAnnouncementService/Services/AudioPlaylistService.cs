@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace AudioAnnouncementService.Services
 {
-    class AudioPlaylistService : IAudioPlaylistService
+    internal sealed class AudioPlaylistService : IAudioPlaylistService
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<AudioPlaylistService> _logger;

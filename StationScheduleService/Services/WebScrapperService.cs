@@ -126,7 +126,7 @@ namespace StationScheduleService.Services
             url = url.Replace("JourneyDate=", "JourneyDate=" + s);
             url = url.Replace("boardType=", "boardType="+type);
             url = url.Replace("maxJourneys=", "maxJourneys="+ _configuration["StationConfiguration:MaxJourneys"]!);
-            url = url.Replace("input=", "input=5100067");//5100067
+            url = url.Replace("input=", "input="+ _configuration.GetValue<int>("StationConfiguration:Id")!);//5100067
             //url = url.Replace("input=", "input="+_configuration["StationConfiguration:Name"]!.Replace(" ","+")+ "%235100067");
             return url;
         }

@@ -14,7 +14,7 @@ using Windows.Foundation.Metadata;
 
 namespace AudioAnnouncementService.Services
 {
-    internal class MqttManagerService : IMqttManagerService
+    internal sealed class MqttManagerService : IMqttManagerService
     {
         private IMqttClient? _mqttClient;
         private readonly IConfiguration _configuration;
@@ -84,6 +84,13 @@ namespace AudioAnnouncementService.Services
 
             }
         }
+
+
+        private async Task GetStationAudioStructure()
+        {
+
+        }
+
 
 
         async Task ReceiveNewAnnoucementAsync()

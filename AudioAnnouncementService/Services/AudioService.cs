@@ -8,7 +8,7 @@ using System.Collections.Concurrent;
 
 namespace AudioAnnouncementService.Services
 {
-    internal class AudioService : IAudioService
+    internal sealed class AudioService : IAudioService
     {
         private readonly IConfiguration _configuration;
         private readonly ILogger<AudioService> _logger;

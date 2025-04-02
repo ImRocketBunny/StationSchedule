@@ -119,7 +119,7 @@ namespace StationAPI.DAL.Repository
                     using (var command = connection.CreateCommand())
                     {
                         command.CommandType = CommandType.StoredProcedure;
-                        command.CommandText = "dbo.GetCurrentKMCourses";
+                        command.CommandText = "dbo.GetCurrentCourses";
                         try
                         {
                             using (var reader = await command.ExecuteReaderAsync())

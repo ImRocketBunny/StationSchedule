@@ -1,6 +1,7 @@
 ﻿using HtmlAgilityPack;
 using Newtonsoft.Json;
 using ScrapySharp.Network;
+using StationScheduleService.DAL.Abstract;
 using StationScheduleService.Models;
 using System;
 using System.Collections.Generic;
@@ -19,10 +20,11 @@ namespace StationScheduleService.Services
         private readonly ILogger<StationScheduleService> _logger;
         private readonly IMqttManagerService _mqttManagerService;
         private readonly IWebScrapperService _webScrapperService;
+        private readonly IStationRepository _stationRepositopry;
         private readonly string _sessionId;
         private readonly IPingClientService _pingClientService;
         private DateTime _nextScheduleSend;
-        private List<string> _list;
+        private List<string> _platformTrackList;
         private Dictionary<string, string> _schedules;
         private List<List<string>> _scheduleRows;
         private Dictionary<string, List<Course>> _courses;
@@ -31,7 +33,7 @@ namespace StationScheduleService.Services
         private bool _connection = false;
         private bool _schedulePrepared = false;
         public StationScheduleService(IConfiguration configuration, ILogger<StationScheduleService> logger, IMqttManagerService mqttManagerService,
-            IWebScrapperService webScrapperService, IPingClientService pingClientService)
+            IWebScrapperService webScrapperService, IPingClientService pingClientService, IStationRepository stationRepository)
         {
             _logger = logger;
             _configuration = configuration;
@@ -39,28 +41,35 @@ namespace StationScheduleService.Services
             _webScrapperService = webScrapperService;
             _mqttManagerService = mqttManagerService;
             _pingClientService = pingClientService;
+            _stationRepositopry = stationRepository;
             _schedules = new Dictionary<string, string>();
             _scheduleRows = new List<List<string>>();
             _courses = new Dictionary<string, List<Course>>();
-            _list = _configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>()!;
+
 
         }
 
         public async Task GetScheduleContent()
         {
-            _connection = await _pingClientService.SendPing(_configuration["HTMLScrapConfiguration:HTMLPing"]!);
+            if(_scheduleId==0)
+                _platformTrackList = await GetStationStructure();
 
-            if (_connection)
+            if (await _pingClientService.SendPing(_configuration["HTMLScrapConfiguration:HTMLPing"]!))
             {
                 await GetScheduleData();
                 await PrepareCourses();
                 if (IsScheduleCompleted())
                     await SendSchedule();
             }
+        }
 
-            
-           
 
+        private async Task<List<string>> GetStationStructure()
+        {
+            if(!_configuration.GetValue<bool>("StationStructure:DatabaseMode"!))
+                return _configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>()!;
+
+            return await _stationRepositopry.GetStationStructure(_configuration.GetValue<int>("StationConfiguration:Id")!);
         }
 
         
@@ -161,7 +170,7 @@ namespace StationScheduleService.Services
                 
             }
             _schedules.Add("main/delayed", (JsonConvert.SerializeObject(fullCourses.Where(e => e.Delay != ""), Formatting.Indented)));
-            foreach (string s3 in _list)
+            foreach (string s3 in _platformTrackList)
             {
 
                 _schedules.Add(s3 + "/lcd", (JsonConvert.SerializeObject(fullCourses.Where(e => e.Platform.Contains(s3) && (int)(TimeOnly.Parse(e.DepartureTime ?? e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 10 && (int)(TimeOnly.Parse(e.DepartureTime ?? e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes >= -1).OrderBy(e => e.ArrivalTime ?? e.DepartureTime).FirstOrDefault(), Formatting.Indented)));

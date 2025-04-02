@@ -2,6 +2,6 @@
 {
     public class Topic
     {
-        public string topic { get; set; }
+        public string? topic { get; set; }
     }
 }

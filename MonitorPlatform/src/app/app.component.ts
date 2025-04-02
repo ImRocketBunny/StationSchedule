@@ -51,7 +51,7 @@ export class AppComponent implements OnDestroy {
 
   message: string = 'Oczekiwanie na wiadomość...';
   //private subscription!: Subscription;
-  private topic = 'station/WKD/lcd'; // Temat MQTT
+  private topic = 'station/II/20/lcd'; // Temat MQTT
 
   title = 'MonitorPlatform'
   private subscription!: Subscription;
@@ -125,14 +125,11 @@ export class AppComponent implements OnDestroy {
   // }
 
   constructor(private mqttService: MqttService,private apiService: ApiService,private urlroute: ActivatedRoute) {
-    this.urlroute.queryParams.subscribe(params => {
-      this.urlPlatform = params['platform'];
-      console.log(this.urlPlatform)
-    })
-    console.log(this.urlPlatform)
-
-    this.subscribeToTopic();
-    console.log('station/'+ this.urlPlatform +'/lcd');
+    
+    //console.log(this.urlPlatform)
+   
+    
+    //console.log('station/'+ this.urlPlatform +'/lcd');
     
   }
   @Input('videoSrc') set setVideoSrc(value: string) {
@@ -141,16 +138,12 @@ export class AppComponent implements OnDestroy {
     this.videoplayer?.nativeElement.play();
   }
 
-  private subscribeToTopic(): void {
-    this.subscription = this.mqttService.observe('station/III/21/lcd'
+  private subscribeToTopic(topic: string): void {
+    this.subscription = this.mqttService.observe(topic
          ).subscribe((message: IMqttMessage) => {
       try {
         const payloadStr = message.payload.toString();
         const data = JSON.parse(payloadStr);
-        console.log('Odebrano obiekt:', data);
-        
-
-
         this.line = data.name == null ? "" : data.name.split("   ").length > 1 ? data.name.split("   ")[1] : data.name.split(" ")[0]
         this.courseId = data.name == null ? null : data.name.split("   ").length > 1 ? data.name.split("   ")[0] : data.name.split("   ")[0]
         this.delay = data.delay;
@@ -164,10 +157,38 @@ export class AppComponent implements OnDestroy {
         this.headsignSize = this.headsign == null?0:this.headsign.length;
         this.routeSize = this.route.length;
         this.endOfTheLine = data.departureTime == null ? true : false;
-
-
-        // Przykładowe użycie danych:
-        this.message = `ID: ${data.id}, Status: ${data.status}`;
+        if(data.name != null)
+        switch (data.name.split(" ")[0]) {
+                  case "KM":
+                    this.icon = "https://www.mazowieckie.com.pl/sites/default/files/site/logo.svg";
+                    break;
+                  case "IC":
+                    this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+                    break;
+                  case "EIC":
+                    this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+                    break;
+                  case "EIP":
+                    this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+                    break;
+                  case "IR":
+                    this.icon = "https://framerusercontent.com/images/OXiguSVS0CKZDYW1lTxlkVKGQZo.png";
+                    break;
+                  case "SKW":
+                    this.icon = "https://www.skm.warszawa.pl/wp-content/uploads/2020/10/SKM_logo_PNG.png";
+                    break;
+                  case "WKD":
+                    this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/WKD.svg/2048px-WKD.svg.png";
+                    break;
+                  case "R":
+                    this.icon = "https://framerusercontent.com/images/OXiguSVS0CKZDYW1lTxlkVKGQZo.png";
+                    break;
+                  case "TLK":
+                    this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+                    break;
+                  default:
+                    this.icon = "";
+                }
       } catch (error) {
         console.error('Błąd parsowania JSON:', error);
       }
@@ -182,11 +203,10 @@ export class AppComponent implements OnDestroy {
         next: (response) => {
         this.videoPlaylist=response
         this.videoNum = 0;
-        //this.videoSrc = 'http://localhost:4200/logo-pkp_20250208182712-r20250208-1.webm';
       },
       error: (error) => {
         this.errorMessage = 'Błąd podczas pobierania danych.';
-
+        //this.videoSrc = 'http://localhost:4200/logo-pkp_20250208182712-r20250208-1.webm';
         console.error('Błąd:', error);
     },})
     }
@@ -200,12 +220,15 @@ export class AppComponent implements OnDestroy {
     }
   }
   ngOnInit() {
+    this.urlroute.queryParams.subscribe(params => {
+      this.urlPlatform = params['platform'];
+      this.subscribeToTopic('station/'+this.urlPlatform+'/lcd');
+    })
     this.apiService.getAdvertPlaylist().subscribe({
       next: (response) => {
       this.videoPlaylist=response
       this.videoNum = 0;
-      //this.videoSrc = 'http://localhost:4200/logo-pkp_20250208182712-r20250208-1.webm';
-    },
+      },
     error: (error) => {
       this.errorMessage = 'Błąd podczas pobierania danych.';
 

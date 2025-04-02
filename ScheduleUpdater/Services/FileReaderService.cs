@@ -52,17 +52,22 @@ namespace ScheduleUpdater.Services
         {
             foreach(string folder in _sourceFolders)
             {
-                var scheduleFiles = Directory.GetFiles(folder);
-                foreach(string file in scheduleFiles)
-                {
-                    JObject o = JObject.FromObject(new
+               // if (folder.Contains("SKMW"))
+               // {
+                    var scheduleFiles = Directory.GetFiles(folder);
+                    foreach (string file in scheduleFiles)
                     {
-                        scheduleName = folder.Split("\\"/*LineSeparator*/).Last(),
-                        scheduleFile = file.Split("\\"/*LineSeparator*/).Last().Replace(".txt", ""),
-                        fileContent = await GetJsonFileContent(file)
-                    });
-                    await _updaterRepository.UpdateSchedule(JsonConvert.SerializeObject(o, Formatting.Indented));
-                }
+                        Console.WriteLine(file + " is procesing...");
+                        JObject o = JObject.FromObject(new
+                        {
+                            scheduleName = folder.Split("\\"/*LineSeparator*/).Last(),
+                            scheduleFile = file.Split("\\"/*LineSeparator*/).Last().Replace(".txt", ""),
+                            fileContent = await GetJsonFileContent(file)
+                        });
+                        await _updaterRepository.UpdateSchedule(JsonConvert.SerializeObject(o, Formatting.Indented));
+                    }
+               // }
+                
                 await Task.Delay(100);
             }
         }
