@@ -1,8 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using MQTTnet;
-using MQTTnet.Client;
 using MQTTnet.Protocol;
-using MQTTnet.Server;
 using System.Collections.Concurrent;
 using System.Text;
 
@@ -54,7 +52,7 @@ namespace StationAPI.Services
         async Task<IMqttClient> InitializeMqttClientAsync(IConfiguration configuration)
         {
 
-            var factory = new MqttFactory();
+            var factory = new MqttClientFactory();
             _mqttClient = factory.CreateMqttClient();
             var options = new MqttClientOptionsBuilder()
             .WithClientId(Guid.NewGuid().ToString())
@@ -99,8 +97,8 @@ namespace StationAPI.Services
             {
                 _mqttClient!.ApplicationMessageReceivedAsync += e =>
                 {
-                    _mqttDataStore.AddOrUpdate(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment),
-                    (key, oldvalue) => Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
+                    _mqttDataStore.AddOrUpdate(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.Payload!),
+                    (key, oldvalue) => Encoding.UTF8.GetString(e.ApplicationMessage.Payload!));
                     return Task.CompletedTask;
                     /*
                     if (_mqttDataStore.ContainsKey(e.ApplicationMessage.Topic))

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace AudioAnnouncementService.Models
 {
-    internal class TrainAnnoucement
+    internal sealed class TrainAnnoucement
     {
 
 

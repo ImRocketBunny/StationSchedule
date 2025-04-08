@@ -24,7 +24,7 @@ namespace StationAPI.DAL.Repository
             _serviceProvider = serviceProvider;
         }
 
-        public async Task<List<string>> GetAdvertPlaylist(int stationId)
+        public async Task<List<string>> GetAdvertPlaylist(int stationId,int platform)
         {
             using (var scope = _serviceProvider.CreateScope())
             {
@@ -36,7 +36,7 @@ namespace StationAPI.DAL.Repository
                 catch (Exception ex)
                 {
                     _logger.LogError("Błąd połączenia SQL : " + ex.Message);
-                    return JsonConvert.DeserializeObject<List<string>>("[]");
+                    return JsonConvert.DeserializeObject<List<string>>("[]")!;
                 }
                 using (var context = dbContext)
                 {
@@ -50,7 +50,7 @@ namespace StationAPI.DAL.Repository
                     catch (Exception ex)
                     {
                         _logger.LogError("SQL Connection Error: " + ex.Message);
-                        return JsonConvert.DeserializeObject<List<string>>("[]");
+                        return JsonConvert.DeserializeObject<List<string>>("[]")!;
                     }
 
                     using (var command = connection.CreateCommand())
@@ -58,6 +58,8 @@ namespace StationAPI.DAL.Repository
                         command.CommandType = CommandType.StoredProcedure;
                         command.CommandText = _configuration["DatabaseConfig:GetAdvertPlaylist"];
                         command.Parameters.Add(new SqlParameter { ParameterName = "@StationId", Value = stationId });
+                        command.Parameters.Add(new SqlParameter { ParameterName = "@Platform", Value = platform });
+
                         try
                         {
                             using (var reader = await command.ExecuteReaderAsync())
@@ -66,21 +68,21 @@ namespace StationAPI.DAL.Repository
                                 {
                                     if (reader.IsDBNull(0))
                                     {
-                                        return JsonConvert.DeserializeObject<List<string>>("[]");
+                                        return JsonConvert.DeserializeObject<List<string>>("[]")!;
                                     }
                                     return
-                                    JsonConvert.DeserializeObject<List<string>>(reader.GetString(0));
+                                    JsonConvert.DeserializeObject<List<string>>(reader.GetString(0))!;
                                 }
                             }
                         }
                         catch (Exception ex)
                         {
-                            _logger.LogError("Błąd połączenia SQL : " + ex.Message);
-                            return JsonConvert.DeserializeObject<List<string>>("[]");
+                            _logger.LogError("Błąd wykonania procedury SQL : " + ex.Message);
+                            return JsonConvert.DeserializeObject<List<string>>("[]")!;
                         }
                     }
 
-                    return JsonConvert.DeserializeObject<List<string>>("[]");
+                    return JsonConvert.DeserializeObject<List<string>>("[]")!;
                 }
             }
         }

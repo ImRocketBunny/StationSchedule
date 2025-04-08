@@ -124,26 +124,26 @@ namespace StationScheduleService.Services
         private Task PrepareCourses()
         {
             _schedulePrepared = false;
-            List<string> uniqueCourses = _courses["arrivals"].Select(course => course.Name).ToList().Concat(_courses["departures"].Select(course => course.Name).ToList()).Distinct().ToList();
+            List<string> uniqueCourses = _courses["arrivals"].Select(course => course.Name).ToList().Concat(_courses["departures"].Select(course => course.Name).ToList()).Distinct().ToList()!;
             Dictionary<string, Course> arrivals = new Dictionary<string, Course>();
             _schedules.Clear();
             Dictionary<string, Course> departures = new Dictionary<string, Course>();
-            _schedules.Add("main/departures", JsonConvert.SerializeObject(_courses["departures"], Formatting.Indented));
-            _schedules.Add("main/arrivals", JsonConvert.SerializeObject(_courses["arrivals"], Formatting.Indented));
+            _schedules.Add(_configuration["StationConfiguration:StandardTopics:Departures"]!, JsonConvert.SerializeObject(_courses["departures"], Formatting.Indented));
+            _schedules.Add(_configuration["StationConfiguration:StandardTopics:Arrivals"]!, JsonConvert.SerializeObject(_courses["arrivals"], Formatting.Indented));
             arrivals.Clear();
             departures.Clear();
             foreach (var c in _courses["arrivals"])
             {
-                if (!arrivals.ContainsKey(c.Name))
+                if (!arrivals.ContainsKey(c.Name!))
                 {
-                    arrivals.Add(c.Name, c);
+                    arrivals.Add(c.Name!, c);
                 }
             }
             foreach (var c in _courses["departures"])
             {
-                if (!departures.ContainsKey(c.Name))
+                if (!departures.ContainsKey(c.Name!))
                 {
-                    departures.Add(c.Name, c);
+                    departures.Add(c.Name!, c);
                 }
             }
 
@@ -169,12 +169,12 @@ namespace StationScheduleService.Services
                 fullCourses.Add(fc);
                 
             }
-            _schedules.Add("main/delayed", (JsonConvert.SerializeObject(fullCourses.Where(e => e.Delay != ""), Formatting.Indented)));
+            _schedules.Add(_configuration["StationConfiguration:StandardTopics:Delays"]!, (JsonConvert.SerializeObject(fullCourses.Where(e => e.Delay != ""), Formatting.Indented)));
             foreach (string s3 in _platformTrackList)
             {
 
-                _schedules.Add(s3 + "/lcd", (JsonConvert.SerializeObject(fullCourses.Where(e => e.Platform.Contains(s3) && (int)(TimeOnly.Parse(e.DepartureTime ?? e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 10 && (int)(TimeOnly.Parse(e.DepartureTime ?? e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes >= -1).OrderBy(e => e.ArrivalTime ?? e.DepartureTime).FirstOrDefault(), Formatting.Indented)));
-                _schedules.Add(s3 + "/audio", (JsonConvert.SerializeObject(fullCourses.Where(e => e.Platform.Contains(s3) && (int)(TimeOnly.Parse(e.DepartureTime ?? e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 6 && (int)(TimeOnly.Parse(e.DepartureTime ?? e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes >= -1).OrderBy(e => e.ArrivalTime ?? e.DepartureTime).FirstOrDefault(), Formatting.Indented)));
+                _schedules.Add(s3 + Path.AltDirectorySeparatorChar+_configuration["StationConfiguration:TopicLcdSufix"]!, (JsonConvert.SerializeObject(fullCourses.Where(e => e.Platform.Contains(s3) && (int)(TimeOnly.Parse(e.DepartureTime ?? e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 10 && (int)(TimeOnly.Parse(e.DepartureTime ?? e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes >= -1).OrderBy(e => e.ArrivalTime ?? e.DepartureTime).FirstOrDefault(), Formatting.Indented)));
+                _schedules.Add(s3 + Path.AltDirectorySeparatorChar+ _configuration["StationConfiguration:TopicAudioSufix"]!, (JsonConvert.SerializeObject(fullCourses.Where(e => e.Platform.Contains(s3) && (int)(TimeOnly.Parse(e.DepartureTime ?? e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 6 && (int)(TimeOnly.Parse(e.DepartureTime ?? e.ArrivalTime).AddMinutes(e.Delay == "" ? 0.0 : Convert.ToDouble(e.Delay)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes >= -1).OrderBy(e => e.ArrivalTime ?? e.DepartureTime).FirstOrDefault(), Formatting.Indented)));
 
             }
             _courses.Clear();

@@ -1,5 +1,5 @@
 using MQTTnet;
-using MQTTnet.Server;
+//using MQTTnet.Server;
 using System.Text;
 namespace ScheduleMQTTBroker
 {
@@ -22,9 +22,9 @@ namespace ScheduleMQTTBroker
         {
             /*while (!stoppingToken.IsCancellationRequested)
             {*/
-            var option = new MqttServerOptionsBuilder()
+           /* var option = new MqttServerOptionsBuilder()
             .WithDefaultEndpoint()
-            .WithDefaultEndpointPort(1883);
+            .WithDefaultEndpointPort(1883);*/
                 /*.WithConnectionValidator(c =>
                 {
                     if (c.ClientId.Length < 10)
@@ -64,16 +64,16 @@ namespace ScheduleMQTTBroker
                     // This is useful when the IoT device has no own clock and the creation time of the message might be important.
                 });*/
             //mqttServer.InterceptingPublishAsync += Server_InterceptingPublishAsync;
-            var mqttServer = new MqttFactory().CreateMqttServer(option.Build());
+           /* var mqttServer = new MqttServerFactory().CreateMqttServer(option.Build());
             mqttServer.InterceptingPublishAsync += Server_InterceptingPublishAsync;
             mqttServer.ValidatingConnectionAsync += Server_ValidatingConnectionAsync;
             mqttServer.InterceptingSubscriptionAsync += Server_InterceptingSubscription;
             await mqttServer.StartAsync();
-                await Task.Delay(1000);
+                await Task.Delay(1000);*/
             //}
 
         }
-        Task Server_InterceptingPublishAsync(InterceptingPublishEventArgs arg)
+       /* Task Server_InterceptingPublishAsync(InterceptingPublishEventArgs arg)
         {
             // Convert Payload to string
             var payload = arg.ApplicationMessage?.Payload == null ? null : Encoding.UTF8.GetString(arg.ApplicationMessage?.Payload);
@@ -89,9 +89,9 @@ namespace ScheduleMQTTBroker
                 arg.ApplicationMessage?.QualityOfServiceLevel,
                 arg.ApplicationMessage?.Retain);
             return Task.CompletedTask;
-        }
+        }*/
 
-        Task Server_ValidatingConnectionAsync(ValidatingConnectionEventArgs arg)
+        /*Task Server_ValidatingConnectionAsync(ValidatingConnectionEventArgs arg)
         {
             // Convert Payload to string
             var payload = arg.ClientId;
@@ -106,10 +106,10 @@ namespace ScheduleMQTTBroker
                 payload,
                 arg.ApplicationMessage?.QualityOfServiceLevel,
                 arg.ApplicationMessage?.Retain);*/
-            return Task.CompletedTask;
-        }
+           /* return Task.CompletedTask;
+        }*/
 
-        Task Server_InterceptingSubscription(InterceptingSubscriptionEventArgs arg)
+        /*Task Server_InterceptingSubscription(InterceptingSubscriptionEventArgs arg)
         {
 
 

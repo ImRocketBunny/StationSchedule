@@ -2,7 +2,6 @@
 using AudioAnnouncementService.Abstract;
 using AudioAnnouncementService.Models;
 using MQTTnet;
-using MQTTnet.Client;
 using MQTTnet.Packets;
 using MQTTnet.Protocol;
 using NAudio.Wave;

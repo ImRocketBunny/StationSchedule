@@ -18,12 +18,12 @@ namespace StationAPI.Controllers
             _apiRepository = apiRepository;
             _playlistRepository = playlistRepository;
         }
-        [Route("api/advertPlaylist/{stationId}")]
+        [Route("api/advertPlaylist/{stationId}/{platform}")]
         [HttpGet]
-        public async Task<IActionResult> GetAdvertPlaylist(int stationId)
+        public async Task<IActionResult> GetAdvertPlaylist(int stationId,int platform)
         {
 
-            var adverts = await _apiRepository.GetAdvertPlaylist(stationId);
+            var adverts = await _apiRepository.GetAdvertPlaylist(stationId,platform);
             return Ok(adverts);
 
         }

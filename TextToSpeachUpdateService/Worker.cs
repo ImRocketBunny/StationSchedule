@@ -1,5 +1,4 @@
 using MQTTnet;
-using MQTTnet.Client;
 using Newtonsoft.Json;
 using System.Linq;
 using System.Net;
@@ -20,7 +19,7 @@ namespace TextToSpeachUpdateService
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             string[] stacje = ["Warszawa Zachodnia WKD", "Warszawa Ochota WKD", "Warszawa Sródmiescie WKD"];
-            var factory = new MqttFactory();
+            var factory = new MqttClientFactory();
 
             // Create a MQTT client instance
             var mqttClient = factory.CreateMqttClient();
@@ -56,7 +55,7 @@ namespace TextToSpeachUpdateService
 
                 mqttClient.ApplicationMessageReceivedAsync += e =>
                 {
-                    List<Course> courses = JsonConvert.DeserializeObject<List<Course>>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
+                    List<Course> courses = JsonConvert.DeserializeObject<List<Course>>(Encoding.UTF8.GetString(e.ApplicationMessage.Payload))!;
                     foreach (Course c in courses)
                     {
                         d3 = new DirectoryInfo("..\\AudioAnnouncementService\\Sounds\\Stations\\");
@@ -70,7 +69,7 @@ namespace TextToSpeachUpdateService
                         d3 = new DirectoryInfo("..\\AudioAnnouncementService\\Sounds\\Stations\\");
                         Files3 = d3.GetFiles("*.mp3");
                         FileList3 = Files3.Select(e => e.Name.Replace(".mp3", "")).ToList();
-                        var otherStations =Regex.Split(Regex.Replace(Regex.Replace(Regex.Replace(c.Route,"[0-9][0-9]:[0-9][0-9]",""), " •  ", " -  "),"  ","")," -");
+                        var otherStations =Regex.Split(Regex.Replace(Regex.Replace(Regex.Replace(c.Route!,"[0-9][0-9]:[0-9][0-9]",""), " •  ", " -  "),"  ","")," -");
                         foreach(string c1 in otherStations)
                         {
 

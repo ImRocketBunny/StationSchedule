@@ -5,7 +5,6 @@ using Newtonsoft.Json;
 using System.Globalization;
 using System.Web;
 using MQTTnet;
-using MQTTnet.Client;
 using MQTTnet.Protocol;
 using System.Resources;
 using System.Reflection.Metadata;
@@ -347,7 +346,7 @@ namespace StationScheduleService
                 await Task.Delay(1000, stoppingToken);
             }*/
 
-            var factory = new MqttFactory();
+            var factory = new MqttClientFactory();
 
             // Create a MQTT client instance
             var mqttClient = factory.CreateMqttClient();

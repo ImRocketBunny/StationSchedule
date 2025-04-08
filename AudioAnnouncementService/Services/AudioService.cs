@@ -48,7 +48,7 @@ namespace AudioAnnouncementService.Services
             if (_annoucementQueueManager.HasReadyAnnoucement())
             {
 
-                var audioVave= new WasapiOut();
+                var audioVave = new WasapiOut();
                 var playlist = _annoucementQueueManager.GetReadyAnnoucement();
                 audioVave.Init(playlist);
                 audioVave.Play();
@@ -62,40 +62,42 @@ namespace AudioAnnouncementService.Services
                 audioVave.Dispose();
                 _logger.LogInformation($"Finnished playing train annoucement");
 
-            }/*else if (_currentDelays.Count > 0)
+            }
+            else if (_currentDelays.Count > 0)
             {
-                if (_currentDelays.Any(e => _currentDelays[e.Key].lastPlayed < DateTime.Now))
+                if (_currentDelays.Any(e => e.Value.lastPlayed < DateTime.Now))
                 {
-                    foreach (var key in _currentDelays.Keys)
-                    {
-                        if (_currentDelays[key].lastPlayed < DateTime.Now)
-                        {
-                            var audioVave = new WasapiOut();
-                            var playlist = _currentDelays[key].playlist;
-                            _logger.LogInformation($"Playing delay annoucement...");
+                    var annoucement = _currentDelays.OrderBy(e => e.Value.lastPlayed < DateTime.Now).FirstOrDefault();
+                    var audioVave = new WasapiOut();
+                    var playlist = annoucement.Value.playlist;
+                    _logger.LogInformation($"Playing delay annoucement...");
 
-                            foreach (var file in playlist!)
+                    foreach (var file in playlist!)
+                    {
+                        using (var audioFile = file)
+                        using (var outputDevice = new WaveOutEvent())
+                        {
+                            outputDevice.Init(audioFile);
+                            outputDevice.Play();
+                            while (outputDevice.PlaybackState == PlaybackState.Playing)
                             {
-                                using (var audioFile = file)
-                                using (var outputDevice = new WaveOutEvent())
-                                {
-                                    outputDevice.Init(audioFile);
-                                    outputDevice.Play();
-                                    while (outputDevice.PlaybackState == PlaybackState.Playing)
-                                    {
-                                        await Task.Delay(16);
-                                    }
-                                    outputDevice.Stop();
-                                    outputDevice.Dispose();
-                                }
-                                _currentDelays[key].lastPlayed = DateTime.Now.AddMinutes(7);
+                                await Task.Delay(16);
                             }
-                            _logger.LogInformation($"Finnished playing delay annoucement");
-                            break;
+                            outputDevice.Stop();
+                            outputDevice.Dispose();
                         }
                     }
+                    _logger.LogInformation($"Finnished playing delay annoucement");
+                    annoucement.Value.lastPlayed= DateTime.Now.AddMinutes(7);
+                    bool updated = _currentDelays.TryUpdate(annoucement.Key, annoucement.Value, _currentDelays[annoucement.Key]);
+                    if (updated)
+                        _logger.LogInformation($"Annoucement {annoucement.Key} has been updated");
+                    else
+                        _logger.LogError($"Annoucement {annoucement.Key} update has failed!");
                 }
-            }*/else if (true)
+
+            }
+            else if (true)
             {
 
             }

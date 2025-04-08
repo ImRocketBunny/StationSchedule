@@ -1,7 +1,6 @@
 ﻿using AudioAnnouncementService.Abstract;
 using AudioAnnouncementService.Models;
 using MQTTnet;
-using MQTTnet.Client;
 using MQTTnet.Protocol;
 using Newtonsoft.Json;
 using System;
@@ -53,7 +52,7 @@ namespace AudioAnnouncementService.Services
         private async Task<IMqttClient> InitializeMqttClientAsync(IConfiguration configuration)
         {
 
-            var factory = new MqttFactory();
+            var factory = new MqttClientFactory();
             _mqttClient = factory.CreateMqttClient();
 
             var options = new MqttClientOptionsBuilder()
@@ -100,7 +99,7 @@ namespace AudioAnnouncementService.Services
                 _logger.LogInformation($"Message Received on topic: {e.ApplicationMessage.Topic}");
                 if (e.ApplicationMessage.Topic.Contains("delay"))
                 {
-                    FullCourse[] courses = JsonConvert.DeserializeObject<FullCourse[]>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment!));
+                    FullCourse[] courses = JsonConvert.DeserializeObject<FullCourse[]>(Encoding.UTF8.GetString(e.ApplicationMessage.Payload!));
                     if (courses is null)
                     {
                         return Task.CompletedTask;
@@ -110,7 +109,7 @@ namespace AudioAnnouncementService.Services
                 }
                 else
                 {
-                    FullCourse course = JsonConvert.DeserializeObject<FullCourse>(Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment!));
+                    FullCourse course = JsonConvert.DeserializeObject<FullCourse>(Encoding.UTF8.GetString(e.ApplicationMessage.Payload!));
                     if (course is null)
                     {
                         return Task.CompletedTask;

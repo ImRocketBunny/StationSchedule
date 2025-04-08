@@ -62,7 +62,7 @@ namespace StationScheduleService.Services
             });
             _logger.LogInformation($"Browser has been initiated.");
             var page = await browser.NewPageAsync();
-            page.DefaultTimeout = 10000;
+            page.DefaultTimeout = 100000;
             //await Promise.race([browser.close(), browser.close(), browser.close()])
             string htmlResult="";
             /*while (true) 
@@ -188,16 +188,19 @@ namespace StationScheduleService.Services
             }
             //_documentArrivals = PrepareHtml(await GetContentPage(PrepareUrls("arr")));
 
-            if (_documentArrivals!.DocumentNode.ChildNodes.Count == 0)
+            if (_documentArrivals!.DocumentNode.SelectNodes("//*[@id='wyniki']").Count==0)
             {
                 _offlineDataFetch = true;
+                _logger.LogError(@"There is no result table inside returned HTML Document");
+
                 return;
             }
+           
 
             List<string> columns = _documentArrivals.DocumentNode!.SelectSingleNode("//*[@id='wyniki']")!
                                    .Descendants("tr")
                                    .Where(tr => tr.Elements("th").Count() > 1)
-                                   .Select(tr => tr.Elements("th").Select(th => th.InnerText.Trim().Replace("\n", " ").Replace("&nbsp", "").Replace("NAZWA:", " ").Replace("zwiń:", "").Replace("rozwiń", "").Replace(";", "")).ToList()).FirstOrDefault();
+                                   .Select(tr => tr.Elements("th").Select(th => th.InnerText.Trim().Replace("\n", " ").Replace("&nbsp", "").Replace("NAZWA:", " ").Replace("zwiń:", "").Replace("rozwiń", "").Replace(";", "")).ToList()).FirstOrDefault()!;
             
             /*columns=_documentArrivals.DocumentNode!.SelectSingleNode("//*[@id='wyniki']")!
                    .Descendants("tr")
@@ -272,7 +275,7 @@ namespace StationScheduleService.Services
             List<string> columns = _documentDepartures.DocumentNode.SelectSingleNode("//*[@id='wyniki']")
                        .Descendants("tr")
                        .Where(tr => tr.Elements("th").Count() > 1)
-                       .Select(tr => tr.Elements("th").Select(th => th.InnerText.Trim().Replace("\n", " ").Replace("&nbsp", "").Replace("NAZWA:", " ").Replace("zwiń:", "").Replace("rozwiń", "").Replace(";", "")).ToList()).FirstOrDefault();
+                       .Select(tr => tr.Elements("th").Select(th => th.InnerText.Trim().Replace("\n", " ").Replace("&nbsp", "").Replace("NAZWA:", " ").Replace("zwiń:", "").Replace("rozwiń", "").Replace(";", "")).ToList()).FirstOrDefault()!;
             
 
 

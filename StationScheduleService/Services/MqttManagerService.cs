@@ -1,9 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 using MQTTnet;
-using MQTTnet.Client;
 using MQTTnet.Protocol;
-using MQTTnet.Server;
 using Newtonsoft.Json;
 using PuppeteerSharp.Input;
 using StationScheduleService.Models;
@@ -11,6 +9,7 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -53,13 +52,13 @@ namespace StationScheduleService.Services
         private async Task<IMqttClient> InitializeMqttClientAsync(IConfiguration configuration)
         {
             
-                var factory = new MqttFactory();
+                var factory = new MqttClientFactory();
                 _mqttClient = factory.CreateMqttClient();
                 var options = new MqttClientOptionsBuilder()
                 .WithClientId(Guid.NewGuid().ToString())
                 .WithTcpServer(_configuration["MQTTConnectionConfiguration:MQTTServerHost"], int.Parse(_configuration["MQTTConnectionConfiguration:MQTTServerPort"]!))
                 .WithWillQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
-                //.WithCredentials("user","pass")
+                .WithCredentials(Assembly.GetCallingAssembly().GetName().Name,"pass")
                 .WithCleanSession()
                 .Build();
 
@@ -69,12 +68,7 @@ namespace StationScheduleService.Services
 
         private async Task SubscribeTopicAsync(IConfiguration configuration)
         {
-            //List<string> topicList = configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>()!;
-            //foreach (var topic in topicList)
-            //{
                 await _mqttClient.SubscribeAsync("#");
-                //await _mqttClient.SubscribeAsync("station/" + topic + "/lcd");
-            //}
         }
 
 
@@ -85,37 +79,19 @@ namespace StationScheduleService.Services
 
                 
                 var message = new MqttApplicationMessageBuilder()
-                        .WithTopic("station/" + key)
+                        .WithTopic(_configuration["StationConfiguration:TopicPrefix"] + Path.AltDirectorySeparatorChar + key)
                         .WithPayload(keyValuePairs[key] == "null" ? "{}" : keyValuePairs[key])
                         .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                         .WithRetainFlag()
                         .Build();
 
 
-                    _currentBrokerState.TryGetValue("station/" + key, out string value);
+                    _currentBrokerState.TryGetValue(_configuration["StationConfiguration:TopicPrefix"] + Path.AltDirectorySeparatorChar + key, out string value);
                         
                     if (value is null || (value != (keyValuePairs[key] == "null" ? "{}" : keyValuePairs[key])))
                         await _mqttClient!.PublishAsync(message);
 
-                /*if ((openWithOlds.ContainsKey(key) && openWithOlds[key] != keyValuePairs[key]) || !openWithOlds.ContainsKey(key))
-                {
-                 
-
-                    if (!openWithOlds.ContainsKey(key))
-                    {
-                       openWithOlds.Add(key, keyValuePairs[key]);
-                       _logger.LogInformation("Adding key: " + key);
-                    }
-                   else
-                   {
-                       _logger.LogInformation("Updating key: " + key);
-                       openWithOlds[key] = keyValuePairs[key];
-                   }
-
-                    await _mqttClient!.PublishAsync(message);
-  
-
-                }*/
+                
                 
          
             }
@@ -129,8 +105,8 @@ namespace StationScheduleService.Services
             
                 _mqttClient!.ApplicationMessageReceivedAsync += e =>
             {
-                _currentBrokerState.AddOrUpdate(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment),
-                    (key, oldvalue) => Encoding.UTF8.GetString(e.ApplicationMessage.PayloadSegment));
+                _currentBrokerState.AddOrUpdate(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.Payload),
+                    (key, oldvalue) => Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
                 return Task.CompletedTask;
 
             };
