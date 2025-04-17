@@ -48,8 +48,19 @@
   </div>
 </div>
 <div class="emptyScreen" *ngIf="!courseId">
-  <video id="advertPlayer" class="adverts"
-          autoplay #videoPlayer (ended)="videoEnd()" [muted]="true" [src]="videoSrc"></video>
-         <!-- <iframe width="1920" height="1080" src="https://www.youtube.com/embed/ymjl0_nRXME?autoplay=1" title="Urząd Transportu Kolejowego – transmisja widoku na Warszawę Zachodnią" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
-</div>
+  <div *ngFor="let video of videoPlaylist">
+    <div *ngIf="currentVideo === video">
+      <video width="1920" height="1080" autoplay [muted]="true">
+        <source [src]="video">
+        Twoja przeglądarka nie obsługuje tagu wideo.
+      </video>
+    </div>
+  </div>
+  <!-- <video id="advertPlayer" class="adverts"
+  autoplay #videoPlayer   [muted]="true" [src]="currentVideo"></video> -->
+         <!--autoplay <iframe width="1920" height="1080" src="https://www.youtube.com/embed/ymjl0_nRXME?autoplay=1" title="Urząd Transportu Kolejowego – transmisja widoku na Warszawę Zachodnią" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>-->
+
+         <!-- /*[src]="currentVideo"*/ -->
+         <!-- onended="videoEnd()" -->
+        </div>
 

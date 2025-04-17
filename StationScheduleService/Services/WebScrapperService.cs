@@ -4,6 +4,7 @@ using PuppeteerSharp;
 using ScrapySharp.Network;
 using StationScheduleService.Models;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -23,7 +24,6 @@ namespace StationScheduleService.Services
         private readonly IConfiguration _configuration;
         private readonly ILogger<StationScheduleService> _logger;
         //private IBrowser _browser;
-        private IPage _page;
         //private ScrapingBrowser _browser;
         private List<Course> _arrivals;
         private List<Course> _departures;
@@ -32,7 +32,7 @@ namespace StationScheduleService.Services
         private bool _scrapCompleted;
         private bool _offlineDataFetch;
 
-        public Dictionary<string, List<Course>> _schedule = new Dictionary<string, List<Course>>();
+        public ConcurrentDictionary<string, List<Course>> _schedule = new ConcurrentDictionary<string, List<Course>>();
 
         public WebScrapperService(IConfiguration configuration, ILogger<StationScheduleService> logger)
         {
@@ -131,7 +131,7 @@ namespace StationScheduleService.Services
             return url;
         }
 
-        public async Task<Dictionary<string, List<Course>>> ScrapPage()
+        public async Task<ConcurrentDictionary<string, List<Course>>> ScrapPage()
         {   
             _scrapCompleted = false;
             _offlineDataFetch = false;
@@ -240,7 +240,7 @@ namespace StationScheduleService.Services
                
 
             }
-            _schedule.Add("arrivals", _arrivals!);
+            _schedule.TryAdd("arrivals", _arrivals!);
 
         }
 
@@ -309,7 +309,7 @@ namespace StationScheduleService.Services
                     };
                     _departures.Add(c);
                 }
-            _schedule.Add("departures", _departures!);
+            _schedule.TryAdd("departures", _departures!);
         }
 
         public bool GetScrapperState()

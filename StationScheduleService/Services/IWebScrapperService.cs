@@ -1,6 +1,7 @@
 ﻿using ScrapySharp.Network;
 using StationScheduleService.Models;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,7 +14,7 @@ namespace StationScheduleService.Services
 
 
         bool GetScrapperState();
-        Task<Dictionary<string, List<Course>>> ScrapPage();
+        Task<ConcurrentDictionary<string, List<Course>>> ScrapPage();
 
     }
 }

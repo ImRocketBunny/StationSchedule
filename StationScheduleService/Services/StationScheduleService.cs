@@ -4,6 +4,7 @@ using ScrapySharp.Network;
 using StationScheduleService.DAL.Abstract;
 using StationScheduleService.Models;
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
@@ -27,7 +28,7 @@ namespace StationScheduleService.Services
         private List<string> _platformTrackList;
         private Dictionary<string, string> _schedules;
         private List<List<string>> _scheduleRows;
-        private Dictionary<string, List<Course>> _courses;
+        private ConcurrentDictionary<string, List<Course>> _courses;
         private Dictionary<string, List<Course>> _coursesHistory = new Dictionary<string, List<Course>>();
         private int _scheduleId = 0;
         private bool _connection = false;
@@ -44,7 +45,7 @@ namespace StationScheduleService.Services
             _stationRepositopry = stationRepository;
             _schedules = new Dictionary<string, string>();
             _scheduleRows = new List<List<string>>();
-            _courses = new Dictionary<string, List<Course>>();
+            _courses = new ConcurrentDictionary<string, List<Course>>();
 
 
         }
@@ -97,8 +98,8 @@ namespace StationScheduleService.Services
                 
                 _courses.Clear();
                 _logger.LogInformation("Fetching with saved Data");
-                _courses.Add("departures", new List<Course>(_coursesHistory["departures"]));
-                _courses.Add("arrivals", new List<Course>(_coursesHistory["arrivals"]));
+                _courses.TryAdd("departures", new List<Course>(_coursesHistory["departures"]));
+                _courses.TryAdd("arrivals", new List<Course>(_coursesHistory["arrivals"]));
             }
             else if(_courses.Count == 2)
             {

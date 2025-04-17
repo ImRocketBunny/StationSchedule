@@ -14,26 +14,18 @@ EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleUpdater", "ScheduleUpdater\ScheduleUpdater.csproj", "{C25A1F69-2262-42E0-87F3-FE31CFDD1100}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {A5E06FF9-0445-46FE-93F0-DDB85812AD4C}
-		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {B3BFB753-1026-45FE-ACEF-5E10662D89BF}
 	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ScheduleMQTTBroker", "ScheduleMQTTBroker\ScheduleMQTTBroker.csproj", "{B3BFB753-1026-45FE-ACEF-5E10662D89BF}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StationScheduleService", "StationScheduleService\StationScheduleService.csproj", "{A5E06FF9-0445-46FE-93F0-DDB85812AD4C}"
-	ProjectSection(ProjectDependencies) = postProject
-		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {B3BFB753-1026-45FE-ACEF-5E10662D89BF}
-	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AudioAnnouncementService", "AudioAnnouncementService\AudioAnnouncementService.csproj", "{33B9FCA6-257D-43D8-B136-41A83E3D08D4}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {A5E06FF9-0445-46FE-93F0-DDB85812AD4C}
-		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {B3BFB753-1026-45FE-ACEF-5E10662D89BF}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TextToSpeachUpdateService", "TextToSpeachUpdateService\TextToSpeachUpdateService.csproj", "{6C64600D-ECB5-4F1F-835D-7849280E7FAA}"
 	ProjectSection(ProjectDependencies) = postProject
 		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {A5E06FF9-0445-46FE-93F0-DDB85812AD4C}
-		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {B3BFB753-1026-45FE-ACEF-5E10662D89BF}
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StationAPI", "MQTTBrigdeAPI\StationAPI.csproj", "{BF46B524-C516-42B4-818B-240CCC535CE5}"
@@ -42,30 +34,7 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "TimeTable", "TimeTable\Time
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "MonitorPlatform", "MonitorPlatform\MonitorPlatform.esproj", "{103D3E59-3DA3-4C4F-8F5D-38230F770C5F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StationHub", "StationHub\StationHub.csproj", "{B2D2A5E4-F148-4C1C-96D5-8D706C16919E}"
-EndProject
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "StationHubNG(1)", "StationHubNG\", "{222D6D85-4550-494A-B24B-961883B1A710}"
-	ProjectSection(WebsiteProperties) = preProject
-		TargetFrameworkMoniker = ".NETFramework,Version%3Dv4.8"
-		Debug.AspNetCompiler.VirtualPath = "/localhost_50077"
-		Debug.AspNetCompiler.PhysicalPath = "StationHubNG\"
-		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50077\"
-		Debug.AspNetCompiler.Updateable = "true"
-		Debug.AspNetCompiler.ForceOverwrite = "true"
-		Debug.AspNetCompiler.FixedNames = "false"
-		Debug.AspNetCompiler.Debug = "True"
-		Release.AspNetCompiler.VirtualPath = "/localhost_50077"
-		Release.AspNetCompiler.PhysicalPath = "StationHubNG\"
-		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\localhost_50077\"
-		Release.AspNetCompiler.Updateable = "true"
-		Release.AspNetCompiler.ForceOverwrite = "true"
-		Release.AspNetCompiler.FixedNames = "false"
-		Release.AspNetCompiler.Debug = "False"
-		VWDPort = "50077"
-		SlnRelativePath = "StationHubNG\"
-	EndProjectSection
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StationMQTTBroker", "StationMQTTBroker\StationMQTTBroker.csproj", "{42B6B4EF-ED9B-4580-854E-187366196FB8}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StationMQTTBroker", "StationMQTTBroker\StationMQTTBroker.csproj", "{42B6B4EF-ED9B-4580-854E-187366196FB8}"
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "StationLink", "StationLink\StationLink.esproj", "{0005F40F-1858-6475-253B-89CCA8EC91F9}"
 EndProject
@@ -81,10 +50,6 @@ Global
 		{C25A1F69-2262-42E0-87F3-FE31CFDD1100}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C25A1F69-2262-42E0-87F3-FE31CFDD1100}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C25A1F69-2262-42E0-87F3-FE31CFDD1100}.Release|Any CPU.Build.0 = Release|Any CPU
-		{B3BFB753-1026-45FE-ACEF-5E10662D89BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B3BFB753-1026-45FE-ACEF-5E10662D89BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B3BFB753-1026-45FE-ACEF-5E10662D89BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B3BFB753-1026-45FE-ACEF-5E10662D89BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -113,14 +78,6 @@ Global
 		{103D3E59-3DA3-4C4F-8F5D-38230F770C5F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{103D3E59-3DA3-4C4F-8F5D-38230F770C5F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{103D3E59-3DA3-4C4F-8F5D-38230F770C5F}.Release|Any CPU.Deploy.0 = Release|Any CPU
-		{B2D2A5E4-F148-4C1C-96D5-8D706C16919E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B2D2A5E4-F148-4C1C-96D5-8D706C16919E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B2D2A5E4-F148-4C1C-96D5-8D706C16919E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B2D2A5E4-F148-4C1C-96D5-8D706C16919E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{222D6D85-4550-494A-B24B-961883B1A710}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{222D6D85-4550-494A-B24B-961883B1A710}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{222D6D85-4550-494A-B24B-961883B1A710}.Release|Any CPU.ActiveCfg = Debug|Any CPU
-		{222D6D85-4550-494A-B24B-961883B1A710}.Release|Any CPU.Build.0 = Debug|Any CPU
 		{42B6B4EF-ED9B-4580-854E-187366196FB8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{42B6B4EF-ED9B-4580-854E-187366196FB8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{42B6B4EF-ED9B-4580-854E-187366196FB8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -141,15 +98,12 @@ Global
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{C25A1F69-2262-42E0-87F3-FE31CFDD1100} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
-		{B3BFB753-1026-45FE-ACEF-5E10662D89BF} = {04FF48CA-C897-45A1-8DB0-3D833E957AB3}
 		{A5E06FF9-0445-46FE-93F0-DDB85812AD4C} = {04FF48CA-C897-45A1-8DB0-3D833E957AB3}
 		{33B9FCA6-257D-43D8-B136-41A83E3D08D4} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
 		{6C64600D-ECB5-4F1F-835D-7849280E7FAA} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
 		{BF46B524-C516-42B4-818B-240CCC535CE5} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
 		{CE2029EB-FAF8-4B64-8B01-0D0E6896D5CA} = {53838F2D-A1AD-49AD-AF51-BAD56AE6D2A3}
 		{103D3E59-3DA3-4C4F-8F5D-38230F770C5F} = {53838F2D-A1AD-49AD-AF51-BAD56AE6D2A3}
-		{B2D2A5E4-F148-4C1C-96D5-8D706C16919E} = {720213FD-27FD-4ED4-A91D-1026BD9FBA37}
-		{222D6D85-4550-494A-B24B-961883B1A710} = {720213FD-27FD-4ED4-A91D-1026BD9FBA37}
 		{42B6B4EF-ED9B-4580-854E-187366196FB8} = {04FF48CA-C897-45A1-8DB0-3D833E957AB3}
 		{0005F40F-1858-6475-253B-89CCA8EC91F9} = {720213FD-27FD-4ED4-A91D-1026BD9FBA37}
 		{0EACA0F2-3881-4D2B-A7AC-44A6673196AE} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}

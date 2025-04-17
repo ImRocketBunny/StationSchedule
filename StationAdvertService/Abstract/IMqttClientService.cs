@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace StationAdvertService.Abstract
 {
-    internal interface IMqttClientService
+    public interface IMqttClientService
     {
+        Task PublishPlaylist(string payload);
+        Task SetUpMqttClientAsync();
+
+        Task PublishNumber(int number);
     }
 }

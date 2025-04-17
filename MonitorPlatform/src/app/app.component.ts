@@ -2,7 +2,7 @@ import { Component, ElementRef, Input, OnDestroy, ViewChild } from '@angular/cor
 import { CommonModule } from '@angular/common';
 import { ApiService } from './api/api.service';
 import { interval, Subscription } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
+import { switchMap, take } from 'rxjs/operators';
 import { MaterialModule } from './material/material.module'
 import { FullCourse } from './models/fullcourse';
 import { MatButtonModule } from "@angular/material/button";
@@ -21,7 +21,7 @@ import { MqttService, IMqttMessage } from 'ngx-mqtt';
 })
 export class AppComponent implements OnDestroy {
 
-  videoSrc = 'http://localhost:4200/logo-pkp_20250208182712-r20250208-1.webm';
+  videoSrc = '';
   videoPlaylist: string[] = []/*["PLK_wylamiane_rogatki_nowe-r20250123-7.webm", "POK_skm_CZARODZIEJSKI-FLET-DLA-DZIECI_03.2025-r20250205-9.webm",
   "Praca_SKM_elektryk_1920x810-r20250116-5.webm", "TS_Mahagonny_1920x810-r20241204-3.webm"
   , "4_UTK_animacja_BAGAZ_NEW-r20250113-5.webm","ZTM_Warszawa_mruga_9.02-r20250203-1.webm","POK_VENUS-AND-ADONIS_25.02-r20250115-3.webm"
@@ -30,7 +30,8 @@ export class AppComponent implements OnDestroy {
   videoNum: number = 0;
   videoStr: string | null ='';
   @ViewChild('videoPlayer') videoplayer!: ElementRef;
-
+  @ViewChild('source') source!: ElementRef;
+  currentVideo: string=''
   icon: string = "https://www.mazowieckie.com.pl/sites/default/files/site/logo.svg"
   line: string | null = null
   courseId: string | null = null
@@ -56,6 +57,7 @@ export class AppComponent implements OnDestroy {
   title = 'MonitorPlatform'
   private subscription!: Subscription;
   private adSubscription!: Subscription;
+  private numberSubscription!: Subscription;
   platformurl: string ="";
   trackurl: string ="";
 
@@ -64,27 +66,62 @@ export class AppComponent implements OnDestroy {
     
     
   }
-  @Input('videoSrc') set setVideoSrc(value: string) {
+  /*@Input('videoSrc') set setVideoSrc(value: string) {
     this.videoSrc = value
     this.videoplayer?.nativeElement.load();
     this.videoplayer?.nativeElement.play();
-  }
+  }*/
 
   private subscribeAdSource(topic: string): void{
-      this.adSubscription = this.mqttService.observe(topic).subscribe((message: IMqttMessage) =>{
+      this.mqttService.observe(topic).subscribe((message: IMqttMessage) =>{
+          //console.log("sub action")
           const payload = message.payload.toString();
           const data = JSON.parse(payload);
           this.videoPlaylist=data;
-          console.log(this.videoPlaylist)
-          this.videoNum=0;
+          //console.log(this.videoPlaylist)
         }
       );
   }
+
+  /*changeVideo(newSrc: string) {
+    const videoEl = this.videoplayer?.nativeElement;
+    videoEl.pause();
+    videoEl.currentTime = 0;
+
+    this.currentVideo = '';
+    setTimeout(() => {
+      this.currentVideo = newSrc;
+      videoEl.load();
+      //videoEl.play(); // opcjonalnie automatyczne odtwarzanie
+    });
+  }*/
+
+  private queureAdSource(topic: string): void{
+    this.mqttService.observe(topic
+         ).subscribe((message: IMqttMessage) =>{
+          //console.log("sub action")
+        const payload = message.payload.toString();
+        
+        //this.videoplayer?.nativeElement.setVideoSrc('http://localhost:4200/' + this.videoPlaylist[parseInt(payload)])
+        //this.videoplayer?.nativeElement.pause();
+        //this.videoplayer?.nativeElement.currentTime=0
+        //this.videoplayer?.nativeElement.removeAttribute('src');
+        this.currentVideo=this.videoPlaylist[parseInt(payload)];
+        //this.changeVideo('http://localhost:4200/'+this.videoPlaylist[parseInt(payload)])
+        //this.videoSrc = this.videoPlaylist[parseInt(payload)]
+
+        this.videoplayer?.nativeElement.load();
+        this.videoplayer?.nativeElement.play();
+
+      }
+    );
+}
   private subscribeToTopic(topic: string): void {
     this.subscription = this.mqttService.observe(topic
          ).subscribe((message: IMqttMessage) => {
       try {
         const payloadStr = message.payload.toString();
+        //console.log(payloadStr)
         const data = JSON.parse(payloadStr);
         this.line = data.name == null ? "" : data.name.split("   ").length > 1 ? data.name.split("   ")[1] : data.name.split(" ")[0]
         this.courseId = data.name == null ? null : data.name.split("   ").length > 1 ? data.name.split("   ")[0] : data.name.split("   ")[0]
@@ -120,7 +157,7 @@ export class AppComponent implements OnDestroy {
                     this.icon = "SKM S.A.";
                     break;
                   case "WKD":
-                    this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/WKD.svg/2048px-WKD.svg.png";
+                    this.icon = "WKD";
                     break;
                   case "R":
                     this.icon = "Polregio S.A.";
@@ -138,6 +175,7 @@ export class AppComponent implements OnDestroy {
   }
 
   videoEnd() {
+    //console.log("koniec");
     this.videoSrc = 'http://localhost:4200/' + this.videoPlaylist[this.videoNum]
     this.videoNum++;
     if (this.videoNum == this.videoPlaylist.length) {
@@ -148,17 +186,20 @@ export class AppComponent implements OnDestroy {
   }
 
   ngOnDestroy(): void {
-    if (this.subscription) {
+    
       this.subscription.unsubscribe();
       this.adSubscription.unsubscribe();
-    }
+      this.numberSubscription.unsubscribe();
+    
   }
   ngOnInit() {
     this.urlroute.queryParams.subscribe(params => {
       this.urlPlatform = params['platform'];
       this.subscribeToTopic('station/'+this.urlPlatform+'/lcd');
-      this.subscribeAdSource('station/'+this.urlPlatform.split('/')[0]+'/adPlaylist');
     })
+    this.subscribeAdSource(/*'station/'+this.urlPlatform.split('/')[0]+'/adPlaylist'*/'station/adverts');
+    this.queureAdSource('station/number');
+
     /*this.apiService.getAdvertPlaylist().subscribe({
       next: (response) => {
       this.videoPlaylist=response
