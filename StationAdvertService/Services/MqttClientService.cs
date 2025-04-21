@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace StationAdvertService.Services
 {
-    internal class MqttClientService : IMqttClientService
+    public class MqttClientService : IMqttClientService
     {
         private IMqttClient? _mqttClient;
         private readonly IConfiguration _configuration;
@@ -98,12 +98,25 @@ namespace StationAdvertService.Services
             {
                 _currentBrokerState.AddOrUpdate(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.Payload),
                     (key, oldvalue) => Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
+
                 return Task.CompletedTask;
 
             };
 
         }
 
+
+        public ConcurrentDictionary<string,string> GetCurrentBrokerState()
+            => _currentBrokerState;
+
+        
+
+
+        public bool IsAnnoucement(string platform)
+        {
+            this.GetCurrentBrokerState().TryGetValue(platform, out string? currVal);
+            return currVal != "{}";
+        }
 
 
         public async Task PublishNumber(int number)

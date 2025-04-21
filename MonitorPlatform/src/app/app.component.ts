@@ -142,13 +142,13 @@ export class AppComponent implements OnDestroy {
                     this.icon = "KM S.A.";
                     break;
                   case "IC":
-                    this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+                    this.icon = "Intercity S.A.";
                     break;
                   case "EIC":
-                    this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+                    this.icon = "Intercity S.A.";
                     break;
                   case "EIP":
-                    this.icon = "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/Logo_pkp_ic.svg/512px-Logo_pkp_ic.svg.png";
+                    this.icon = "Intercity S.A.";
                     break;
                   case "IR":
                     this.icon = "Polregio S.A.";

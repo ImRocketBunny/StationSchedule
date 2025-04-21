@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,7 +11,8 @@ namespace StationAdvertService.Abstract
     {
         Task PublishPlaylist(string payload);
         Task SetUpMqttClientAsync();
-
+        bool IsAnnoucement(string platform);
+        ConcurrentDictionary<string, string> GetCurrentBrokerState();
         Task PublishNumber(int number);
     }
 }

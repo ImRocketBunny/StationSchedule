@@ -76,8 +76,6 @@ namespace StationAPI.Services
             
         }
 
-
-
         string GetNextNewestTopicValue(string topic)
         {
             return _mqttDataStore[topic];
@@ -93,8 +91,7 @@ namespace StationAPI.Services
 
         async Task ReceiveMqttMessage()
         {
-            Task.Run(() =>
-            {
+
                 _mqttClient!.ApplicationMessageReceivedAsync += e =>
                 {
                     _mqttDataStore.AddOrUpdate(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.Payload!),
@@ -112,7 +109,7 @@ namespace StationAPI.Services
                     }*/
                     //return Task.CompletedTask;
                 };
-            });
+
         }
     }
 }

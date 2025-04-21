@@ -103,7 +103,7 @@ namespace TextToSpeachUpdateService
                             Files3 = d3.GetFiles("*.mp3");
                             FileList3 = Files3.Select(e => e.Name.Replace(".mp3", "")).ToList();
                         }
-                        if (c.Name.Split("   ").Length > 1&&!FileList4.Contains(c.Name.Split("   ")[1].Split("/")[0]))
+                        if (c.Name!.Split("   ").Length > 1&&!FileList4.Contains(c.Name.Split("   ")[1].Split("/")[0]))
                         {
                             Console.WriteLine($"{c.Name.Split("   ")[1].Split("/")[0]}" + "| missing");
                             HttpClient client = new HttpClient();
@@ -131,7 +131,7 @@ namespace TextToSpeachUpdateService
                             Files4 = d4.GetFiles("*.mp3");
                             FileList4 = Files4.Select(e => e.Name.Replace(".mp3", "")).ToList();
                         }
-                        if (c.Delay != "" && !FileList5.Contains(c.Delay))
+                        if (c.Delay != "" && !FileList5.Contains(c.Delay!))
                         {
                             Console.WriteLine($"Delay is missing: {c.Delay}");
                             HttpClient client = new HttpClient();
