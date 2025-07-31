@@ -106,17 +106,19 @@ namespace StationAdvertService.Services
         }
 
 
-        public ConcurrentDictionary<string,string> GetCurrentBrokerState()
-            => _currentBrokerState;
+        public string? GetCurrentBrokerValue(string key)
+        {
+            _currentBrokerState.TryGetValue(key, out string? currVal);
+            return currVal;
+        } 
 
-        
+
+
 
 
         public bool IsAnnoucement(string platform)
-        {
-            this.GetCurrentBrokerState().TryGetValue(platform, out string? currVal);
-            return currVal != "{}";
-        }
+         =>this.GetCurrentBrokerValue(platform) != "{}";
+        
 
 
         public async Task PublishNumber(int number)
@@ -126,6 +128,38 @@ namespace StationAdvertService.Services
 
             var message = new MqttApplicationMessageBuilder()
                     .WithTopic(_configuration["StationConfiguration:TopicPrefix"] + Path.AltDirectorySeparatorChar + "number")
+                    .WithPayload(number.ToString())
+                    .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
+                    .WithRetainFlag()
+                    .Build();
+
+
+            //_currentBrokerState.TryGetValue(_configuration["StationConfiguration:TopicPrefix"] + Path.AltDirectorySeparatorChar + key, out string value);
+
+            //if (value is null || (value != (keyValuePairs[key] == "null" ? "{}" : keyValuePairs[key])))
+            await _mqttClient!.PublishAsync(message);
+
+
+
+
+            //}
+
+
+
+
+
+
+        }
+
+
+
+        public async Task PublishNumber(int number, string platform)
+        {
+            //foreach (string key in keyValuePairs.Keys)
+            //{
+
+            var message = new MqttApplicationMessageBuilder()
+                    .WithTopic(platform)
                     .WithPayload(number.ToString())
                     .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                     .WithRetainFlag()

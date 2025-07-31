@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StationAdvertService.DAL.NewFolder
 {
-    internal class StationDcbContext : DbContext
+    internal class StationDbContext : DbContext
     {
     }
 }

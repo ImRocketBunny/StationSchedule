@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace StationAdvertService.DAL
+namespace StationAdvertService.DAL.Abstract
 {
-    internal class Repository
+    interface IStationAdvertRepository
     {
     }
 }

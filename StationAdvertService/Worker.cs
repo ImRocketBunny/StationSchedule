@@ -22,7 +22,7 @@ namespace StationAdvertService
 ,"TS_STARA-1920x810-r20241017-19.webm","ZTM_PLAKAT_E_HOLOGRAM_DLA_HB_TABOR_SKM_2-r20250117-9.webm","SKM_20lecie_1920x810-r20240510-15.webm" ];
 
             int number = 0;
-            int[] numbers = [48, 15, 15,15,30,14,15,15,10,15];
+            //int[] numbers = [48, 15, 15,15,30,14,15,15,10,15];
             await _mqttClient.SetUpMqttClientAsync();
             await _mqttClient.PublishPlaylist("[\"PLK_wylamiane_rogatki_nowe-r20250123-7.webm\"," +
                 " \"POK_skm_CZARODZIEJSKI-FLET-DLA-DZIECI_03.2025-r20250205-9.webm\",\r\n" +
@@ -40,11 +40,11 @@ namespace StationAdvertService
                 await _mqttClient.PublishNumber(number);
                 //Console.WriteLine()
                 //Console.WriteLine(GetVideoDuration(topics[number]));
-                var media = new MediaInfoWrapper($"D:\\Code\\SS\\MonitorPlatform\\public\\{topics[number]}",_logger);
+                var media = new MediaInfoWrapper($"..\\MonitorPlatform\\public\\{topics[number]}",_logger);
                 _logger.LogInformation($"Playing advert {topics[number]}...");
                 await Task.Delay(media.Duration);
                 number++;
-                if (number == 10)
+                if (number==topics.Count-1)
                 {
                     number = 0;
                 }

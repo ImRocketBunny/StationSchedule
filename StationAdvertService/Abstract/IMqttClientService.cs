@@ -12,7 +12,8 @@ namespace StationAdvertService.Abstract
         Task PublishPlaylist(string payload);
         Task SetUpMqttClientAsync();
         bool IsAnnoucement(string platform);
-        ConcurrentDictionary<string, string> GetCurrentBrokerState();
+        string? GetCurrentBrokerValue(string topic);
         Task PublishNumber(int number);
+        Task PublishNumber(int number, string platform);
     }
 }
