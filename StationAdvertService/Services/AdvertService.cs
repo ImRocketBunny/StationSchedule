@@ -15,6 +15,7 @@ namespace StationAdvertService.Services
         private readonly IMqttClientService _mqttClientService;
         private readonly ILogger<AdvertService> _logger;
         private readonly IConfiguration _configuration;
+        private readonly IHttpClientService _httpClientService;
         private List<string>? _stationPlatforms;
         private List<string>? _runningTasks = new List<string>();
         private TaskManager _taskManager;
@@ -29,12 +30,14 @@ namespace StationAdvertService.Services
 
         public AdvertService(IMqttClientService mqttClient,
             ILogger<AdvertService> logger,
-            IConfiguration configuration
+            IConfiguration configuration,
+            IHttpClientService httpClientService
  
             ) 
         {
             _taskManager = new TaskManager();
             _mqttClient = mqttClient;
+            _httpClientService = httpClientService;
         }
 
 

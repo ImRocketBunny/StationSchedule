@@ -5,6 +5,7 @@ using StationAdvertService.Services;
 var builder = Host.CreateApplicationBuilder(args);
 
 
+builder.Services.AddHttpClient();
 builder.Services.AddHostedService<Worker>();
 builder.Services.AddSingleton<IMqttClientService, MqttClientService>();
 
