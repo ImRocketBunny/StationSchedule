@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace StationAdvertService.Abstract
 {
-    internal interface IHttpClientService
+    public interface IHttpClientService
     {
-        Task<string> GetAdvertsAsync(string url);
+        Task<string> GetAdvertsAsync();
+        Task DownloadFileAsync(string url, string destinationPath);
     }
 }

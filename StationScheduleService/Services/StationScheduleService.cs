@@ -55,7 +55,7 @@ namespace StationScheduleService.Services
             if(_scheduleId==0)
                 _platformTrackList = await GetStationStructure();
 
-            if (await _pingClientService.SendPing(_configuration["HTMLScrapConfiguration:HTMLPing"]!))
+            if (true/*await _pingClientService.SendPing(_configuration["HTMLScrapConfiguration:HTMLPing"]!)*/)
             {
                 await GetScheduleData();
                 await PrepareCourses();
@@ -71,6 +71,12 @@ namespace StationScheduleService.Services
                 return _configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>()!;
 
             return await _stationRepositopry.GetStationStructure(_configuration.GetValue<int>("StationConfiguration:Id")!);
+        }
+
+
+        private async Task<string> GetStationData()
+        {
+            return _configuration.GetSection("StationConfiguration:Name").Get<string>()!;
         }
 
         

@@ -72,23 +72,23 @@ namespace StationScheduleService.Services
         }
 
 
-        public async Task PublishSchedule(Dictionary<string, string> keyValuePairs)
+        public async Task PublishSchedule(Dictionary<string, string> scheduleData)
         {
-            foreach (string key in keyValuePairs.Keys)
+            foreach (string platform in scheduleData.Keys)
             {
 
                 
                 var message = new MqttApplicationMessageBuilder()
-                        .WithTopic(_configuration["StationConfiguration:TopicPrefix"] + Path.AltDirectorySeparatorChar + key)
-                        .WithPayload(keyValuePairs[key] == "null" ? "{}" : keyValuePairs[key])
+                        .WithTopic(_configuration["StationConfiguration:TopicPrefix"] + Path.AltDirectorySeparatorChar + platform)
+                        .WithPayload(scheduleData[platform] == "null" ? "{}" : scheduleData[platform])
                         .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
                         .WithRetainFlag()
                         .Build();
 
 
-                    _currentBrokerState.TryGetValue(_configuration["StationConfiguration:TopicPrefix"] + Path.AltDirectorySeparatorChar + key, out string value);
+                    _currentBrokerState.TryGetValue(_configuration["StationConfiguration:TopicPrefix"] + Path.AltDirectorySeparatorChar + platform, out string value);
                         
-                    if (value is null || (value != (keyValuePairs[key] == "null" ? "{}" : keyValuePairs[key])))
+                    if (value is null || (value != (scheduleData[platform] == "null" ? "{}" : scheduleData[platform])))
                         await _mqttClient!.PublishAsync(message);
 
                 
@@ -98,6 +98,27 @@ namespace StationScheduleService.Services
 
             
 
+        }
+
+        public async Task PublishStationData(Dictionary<string, string> stationData)
+        {
+            foreach (string data in stationData.Keys)
+            {
+
+
+                var message = new MqttApplicationMessageBuilder()
+                        .WithTopic(_configuration["StationConfiguration:TopicPrefix"] + Path.AltDirectorySeparatorChar + data)
+                        .WithPayload(stationData[data] == "null" ? "{}" : stationData[data])
+                        .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
+                        .WithRetainFlag()
+                        .Build();
+
+                await _mqttClient!.PublishAsync(message);
+
+
+
+
+            }
         }
 
         Task ReceiveNewAnnoucementAsync()

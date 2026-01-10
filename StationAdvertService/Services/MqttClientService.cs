@@ -7,8 +7,10 @@ using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace StationAdvertService.Services
 {
@@ -36,7 +38,7 @@ namespace StationAdvertService.Services
             {
 
                 _mqttClient = await InitializeMqttClientAsync(_configuration);
-                //await SubscribeTopicAsync(_configuration);
+                await SubscribeTopicAsync(_configuration);
                 ReceiveMqttMessageAsync();
             }
 
@@ -91,6 +93,40 @@ namespace StationAdvertService.Services
 
 
         }
+
+
+
+        public async Task PublishValue(string payload)
+        {
+            //foreach (string key in keyValuePairs.Keys)
+            //{
+
+            var message = new MqttApplicationMessageBuilder()
+                    .WithTopic(_configuration["StationConfiguration:TopicPrefix"] + Path.AltDirectorySeparatorChar + "fileName")
+                    .WithPayload(JsonConvert.SerializeObject(topics, Formatting.Indented))
+                    .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
+                    .WithRetainFlag()
+                    .Build();
+
+
+            //_currentBrokerState.TryGetValue(_configuration["StationConfiguration:TopicPrefix"] + Path.AltDirectorySeparatorChar + key, out string value);
+
+            //if (value is null || (value != (keyValuePairs[key] == "null" ? "{}" : keyValuePairs[key])))
+            await _mqttClient!.PublishAsync(message);
+
+
+
+
+            //}
+
+
+
+
+
+
+        }
+
+
         async Task ReceiveMqttMessageAsync()
         {
 
@@ -98,11 +134,28 @@ namespace StationAdvertService.Services
             {
                 _currentBrokerState.AddOrUpdate(e.ApplicationMessage.Topic, Encoding.UTF8.GetString(e.ApplicationMessage.Payload),
                     (key, oldvalue) => Encoding.UTF8.GetString(e.ApplicationMessage.Payload));
-
+                //Console.WriteLine($"{e.ApplicationMessage.Topic} {Encoding.UTF8.GetString(e.ApplicationMessage.Payload)}");
                 return Task.CompletedTask;
 
             };
 
+        }
+
+        private async Task SubscribeTopicAsync(IConfiguration configuration)
+        {
+            List<string> topicList = configuration.GetSection("StationConfiguration:StationStructure").Get<List<string>>()!;
+            foreach (var topic in topicList)
+            {
+                await _mqttClient.SubscribeAsync(
+                     "station" + Path.AltDirectorySeparatorChar + topic + Path.AltDirectorySeparatorChar + "lcd",
+                    MqttQualityOfServiceLevel.AtLeastOnce
+                    );
+
+
+
+                _logger.LogInformation($"MqttClient subscribed to: {"station" + Path.AltDirectorySeparatorChar + topic + Path.AltDirectorySeparatorChar + "lcd"} ");
+
+            }
         }
 
 
@@ -117,7 +170,7 @@ namespace StationAdvertService.Services
 
 
         public bool IsAnnoucement(string platform)
-         =>this.GetCurrentBrokerValue(platform) != "{}";
+         => this.GetCurrentBrokerValue(platform) == "{}";
         
 
 
@@ -152,6 +205,19 @@ namespace StationAdvertService.Services
         }
 
 
+        public async Task PublishPlaylist(List<string> playlist, string topic)
+        {
+            var message = new MqttApplicationMessageBuilder()
+                    .WithTopic(topic)
+                    .WithPayload(JsonConvert.SerializeObject(playlist, Formatting.Indented))
+                    .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
+                    .WithRetainFlag()
+                    .Build();
+
+            await _mqttClient!.PublishAsync(message);
+        }
+
+
 
         public async Task PublishNumber(int number, string platform)
         {
@@ -175,6 +241,34 @@ namespace StationAdvertService.Services
 
 
             //}
+
+
+
+
+
+
+        }
+
+
+
+        public async Task PublishValue(string value, string platform)
+        {
+
+
+            var message = new MqttApplicationMessageBuilder()
+                    .WithTopic(platform)
+                    .WithPayload(value)
+                    .WithQualityOfServiceLevel(MqttQualityOfServiceLevel.AtLeastOnce)
+                    .WithRetainFlag()
+                    .Build();
+
+
+
+            await _mqttClient!.PublishAsync(message);
+
+
+
+
 
 
 

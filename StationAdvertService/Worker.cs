@@ -1,26 +1,52 @@
 using StationAdvertService.Abstract;
 using MediaInfo;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using StationAdvertService.Models;
 namespace StationAdvertService
 {
     public class Worker : BackgroundService
     {
         private readonly ILogger<Worker> _logger;
-        private readonly IMqttClientService _mqttClient;
+        /*private readonly IMqttClientService _mqttClient;
+        private readonly IHttpClientService _httpClientService;
+        private readonly IAdvertFileService _advertFileService;*/
+        private readonly ITaskManagerService _taskManagerService;
 
-        public Worker(ILogger<Worker> logger, IMqttClientService mqttClient)
+        public Worker(ILogger<Worker> logger,ITaskManagerService taskManagerService)
         {
             _logger = logger;
-            _mqttClient = mqttClient;
+            _taskManagerService = taskManagerService;
+            /*_mqttClient = mqttClient;
+            _httpClientService = httpClientService;
+            _advertFileService = advertFileService;*/
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            List<string> topics =
+
+
+            while (!stoppingToken.IsCancellationRequested)
+            {
+                await _taskManagerService.ExecuteAsync();
+                await Task.Delay(1000);
+            }
+
+            /*List<string> topics =
 ["PLK_wylamiane_rogatki_nowe-r20250123-7.webm", "POK_skm_CZARODZIEJSKI-FLET-DLA-DZIECI_03.2025-r20250205-9.webm",
   "Praca_SKM_elektryk_1920x810-r20250116-5.webm", "TS_Mahagonny_1920x810-r20241204-3.webm"
   , "4_UTK_animacja_BAGAZ_NEW-r20250113-5.webm","ZTM_Warszawa_mruga_9.02-r20250203-1.webm","POK_VENUS-AND-ADONIS_25.02-r20250115-3.webm"
 ,"TS_STARA-1920x810-r20241017-19.webm","ZTM_PLAKAT_E_HOLOGRAM_DLA_HB_TABOR_SKM_2-r20250117-9.webm","SKM_20lecie_1920x810-r20240510-15.webm" ];
+            var reklamy = _httpClientService.GetAdvertsAsync();
 
+
+
+            Console.WriteLine(JsonConvert.DeserializeObject(reklamy.Result));
+
+
+            AdvertContent advertPlaylists = JsonConvert.DeserializeObject<AdvertContent>(reklamy.Result);
+
+            
             int number = 0;
             //int[] numbers = [48, 15, 15,15,30,14,15,15,10,15];
             await _mqttClient.SetUpMqttClientAsync();
@@ -48,7 +74,7 @@ namespace StationAdvertService
                 {
                     number = 0;
                 }
-            }
+            }*/
         }
 
         /*public static TimeSpan GetVideoDuration1(string filePath)

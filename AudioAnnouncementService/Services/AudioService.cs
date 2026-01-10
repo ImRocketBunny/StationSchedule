@@ -16,8 +16,8 @@ namespace AudioAnnouncementService.Services
         private readonly IAnnoucementQueueManager _annoucementQueueManager;
         private readonly IAudioFileService _audioFileService;
         private readonly IAudioPlaylistService _audioPlaylistService;
-        private FullCourse _trainToAnnouce;
-        private FullCourse _delayToAnnouce;
+        //private FullCourse _trainToAnnouce;
+        //private FullCourse _delayToAnnouce;
         private ConcurrentDictionary<string, DelayAnnoucement> _currentDelays = new ConcurrentDictionary<string, DelayAnnoucement>();
 
         public AudioService(IConfiguration configuration, 
@@ -63,15 +63,14 @@ namespace AudioAnnouncementService.Services
                 _logger.LogInformation($"Finnished playing train annoucement");
 
             }
-            else if (_currentDelays.Count > 0)
+            else if (_currentDelays.Count>0 && _currentDelays.Any(e => e.Value.lastPlayed < DateTime.Now))
             {
-                if (_currentDelays.Any(e => e.Value.lastPlayed < DateTime.Now))
-                {
-                    var annoucement = _currentDelays.OrderBy(e => e.Value.lastPlayed < DateTime.Now).FirstOrDefault();
+                    var annoucement = _currentDelays.OrderBy(e => e.Value.lastPlayed).FirstOrDefault();
                     var audioVave = new WasapiOut();
                     var playlist = annoucement.Value.playlist;
+                    Console.WriteLine(annoucement.Value.lastPlayed);
                     _logger.LogInformation($"Playing delay annoucement...");
-
+                    Console.WriteLine(annoucement.Value.playlist?.Length);
                     foreach (var file in playlist!)
                     {
                         using (var audioFile = file)
@@ -89,20 +88,23 @@ namespace AudioAnnouncementService.Services
                     }
                     _logger.LogInformation($"Finnished playing delay annoucement");
                     annoucement.Value.lastPlayed= DateTime.Now.AddMinutes(7);
+                    Console.WriteLine(annoucement.Key);
+                    Console.WriteLine(annoucement.Value.lastPlayed);
+                    Console.WriteLine(annoucement.Value.lastPlayed < DateTime.Now);
                     bool updated = _currentDelays.TryUpdate(annoucement.Key, annoucement.Value, _currentDelays[annoucement.Key]);
                     if (updated)
                         _logger.LogInformation($"Annoucement {annoucement.Key} has been updated");
                     else
                         _logger.LogError($"Annoucement {annoucement.Key} update has failed!");
-                }
+                
 
             }
             else if (true)
             {
 
             }
-            _logger.LogInformation($"There are {_currentDelays.Keys.Count} active delay annoucements");
-            _logger.LogInformation($"There are {_annoucementQueueManager.QueuedAnnoucements()} active train annoucements");
+            //_logger.LogInformation($"There are {_currentDelays.Keys.Count} active delay annoucements");
+            //_logger.LogInformation($"There are {_annoucementQueueManager.QueuedAnnoucements()} active train annoucements");
 
         }
 
@@ -146,13 +148,13 @@ namespace AudioAnnouncementService.Services
         private async Task SetUpTrainAudioAnnoucementAsync()
         {
 
-            _trainToAnnouce = _annoucementQueueManager.GetTrainAnnoucements();
-            if (_trainToAnnouce is not null && _trainToAnnouce.Name is not null)
+            FullCourse trainToAnnouce = _annoucementQueueManager.GetTrainAnnoucements();
+            if (trainToAnnouce is not null && trainToAnnouce.Name is not null)
             {
           
                     await Task.Run(() =>
                     {
-                        var task1 = Task.Run(()=> PrepareCoursePlaylist(_trainToAnnouce));
+                        var task1 = Task.Run(()=> PrepareCoursePlaylist(trainToAnnouce));
                         if(task1.Result.playlist!.ToArray().Length>0)
                             _annoucementQueueManager.EnqueueReadyAnnoucement(new ConcatenatingSampleProvider(task1.Result.playlist.ToArray()));
                     });
@@ -184,7 +186,7 @@ namespace AudioAnnouncementService.Services
                 || (int)(TimeOnly.Parse(course.ArrivalTime ?? course.DepartureTime!).AddMinutes(course.Delay==""?0: Double.Parse(course.Delay!)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes < 1
                 || (int)(TimeOnly.Parse(course.ArrivalTime ?? course.DepartureTime!).AddMinutes(course.Delay == "" ? 0 : Double.Parse(course.Delay!)) - TimeOnly.Parse(DateTime.Now.ToString("HH:mm"))).TotalMinutes > 10)
             {
-                _logger.LogInformation($"Couse is not suitable for annoucement");
+                _logger.LogInformation($"Course is not suitable for annoucement");
                 return Task.FromResult(trainAnnoucement);
             }
             trainAnnoucement = _audioPlaylistService.PrepareCoursePlaylist(course).Result;

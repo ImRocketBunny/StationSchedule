@@ -1,28 +1,61 @@
-import { Component } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { HttpClientModule, HttpClient } from '@angular/common/http';
 import { Train } from '../models/train';
 import { TrainService } from '../services/train.service';
 import { GtfsTrainService } from '../services/gtfstrain.service';
 import * as L from 'leaflet';
 import { GtfsTrain } from '../models/gtfstrain';
+import { MenuModule } from 'primeng/menu';
+import { StationLinkMenuComponent } from './station-link-menu/station-link-menu.component';
+import { MenuItem } from 'primeng/api';
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   standalone: false,
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
+
 })
+
+
 export class AppComponent {
-  private markers: Map<string, L.Marker> = new Map(); // Przechowuje markery z unikalnym ID
+  private markers: Map<string, L.Marker> = new Map();
   private intervalId: any;
   title = 'StationHubNG';
   trains: Train[] = []
 
   private map!: L.Map;
 
+  public items: MenuItem[]=[];
+
   constructor(private trainService: TrainService, private gtfsTraionService: GtfsTrainService) { }
 
   ngOnInit(): void {
-    //this.trainService.getTrains().subscribe((result: Train[]) => this.trains = result);
+    this.items= [
+    {
+      label: 'Mapa',
+      icon: 'pi-map',
+      items: [
+        { label: 'Nowy', icon: 'pi pi-fw pi-plus' },
+        { label: 'Otwórz', icon: 'pi pi-fw pi-download' }
+      ]
+    },
+    {
+      label: 'Edycja',
+      icon: 'pi pi-fw pi-pencil',
+      items: [
+        { label: 'Cofnij', icon: 'pi pi-fw pi-undo' },
+        { label: 'Ponów', icon: 'pi pi-fw pi-redo' }
+      ]
+    },
+    {
+      label: 'Pomoc',
+      icon: 'pi pi-fw pi-info',
+      items: [
+        { label: 'Dokumentacja', icon: 'pi pi-fw pi-book' }
+      ]
+    }
+  ];
     
   }
 
@@ -60,7 +93,7 @@ export class AppComponent {
   private startAutoUpdate(): void {
     this.intervalId = setInterval(() => {
       this.fetchMarkers();
-    }, 10000); // 🔄 Odświeżanie co 10 sekund
+    }, 10000);
   }
 
   private addMarker(id: string, lat: number, lng: number,headsign: string): void {
@@ -128,6 +161,11 @@ export class AppComponent {
     this.initMap();
     this.fetchMarkers();
     this.startAutoUpdate();
+
+
+    
+
+
   }
 
 

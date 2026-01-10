@@ -19,8 +19,9 @@ namespace ScheduleUpdater.Services
         {
             try
             {
-                //await _fileService.FileServiceManager();
+                await _fileService.FileServiceManager();
                 await _readerService.FileReaderManager();
+                GC.Collect();
             }
             catch (Exception ex)
             {

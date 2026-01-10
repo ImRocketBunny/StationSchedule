@@ -109,7 +109,7 @@
     <None Update="Sounds\Core\WKD.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Sounds\Core\za_opóźnienie.mp3">
+    <None Update="Sounds\Core\za_opoznienie.mp3">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Sounds\Core\ze_stacji.mp3">

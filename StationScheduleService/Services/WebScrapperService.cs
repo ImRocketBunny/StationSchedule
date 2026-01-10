@@ -77,7 +77,7 @@ namespace StationScheduleService.Services
             }
             catch (Exception e)
             {
-                _logger.LogError($"Data scrapping error");
+                _logger.LogError($"Data scrapping error: {e.Message}");
             }
             finally
             {
@@ -149,7 +149,7 @@ namespace StationScheduleService.Services
             }
             catch (Exception ex)
             {
-                _logger.LogError("Scrapping failed: "+ex.Message+"\nPrvious known data has will be fetchd");
+                _logger.LogError("Scrapping failed: "+ex.Message+" Prvious known data has will be fetchd");
                
                 //_schedule.Add("arrivals", _arrivals!);
                 //_schedule.Add("departures", _departures!);
@@ -188,7 +188,7 @@ namespace StationScheduleService.Services
             }
             //_documentArrivals = PrepareHtml(await GetContentPage(PrepareUrls("arr")));
 
-            if (_documentArrivals!.DocumentNode.SelectNodes("//*[@id='wyniki']").Count==0)
+            if (_documentArrivals!.DocumentNode.SelectNodes("//*[@id='wyniki']") is null || _documentArrivals!.DocumentNode.SelectNodes("//*[@id='wyniki']").Count == 0)
             {
                 _offlineDataFetch = true;
                 _logger.LogError(@"There is no result table inside returned HTML Document");

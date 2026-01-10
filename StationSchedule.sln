@@ -40,6 +40,8 @@ Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "StationLink", "StationLink\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StationAdvertService", "StationAdvertService\StationAdvertService.csproj", "{0EACA0F2-3881-4D2B-A7AC-44A6673196AE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaConverter", "MediaConverter\MediaConverter.csproj", "{8C904BEE-856C-4F5E-9337-89912D1DBF7F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +94,10 @@ Global
 		{0EACA0F2-3881-4D2B-A7AC-44A6673196AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EACA0F2-3881-4D2B-A7AC-44A6673196AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EACA0F2-3881-4D2B-A7AC-44A6673196AE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C904BEE-856C-4F5E-9337-89912D1DBF7F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C904BEE-856C-4F5E-9337-89912D1DBF7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C904BEE-856C-4F5E-9337-89912D1DBF7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C904BEE-856C-4F5E-9337-89912D1DBF7F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -107,6 +113,7 @@ Global
 		{42B6B4EF-ED9B-4580-854E-187366196FB8} = {04FF48CA-C897-45A1-8DB0-3D833E957AB3}
 		{0005F40F-1858-6475-253B-89CCA8EC91F9} = {720213FD-27FD-4ED4-A91D-1026BD9FBA37}
 		{0EACA0F2-3881-4D2B-A7AC-44A6673196AE} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
+		{8C904BEE-856C-4F5E-9337-89912D1DBF7F} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FECA02D-DCB9-4262-A30C-5C838DCA3C3A}

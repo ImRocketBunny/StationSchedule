@@ -1,13 +1,8 @@
 ﻿using AudioAnnouncementService.Abstract;
 using AudioAnnouncementService.Models;
 using NAudio.Wave;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.ConstrainedExecution;
-using System.Text;
 using System.Text.RegularExpressions;
-using System.Threading.Tasks;
+
 
 namespace AudioAnnouncementService.Builders
 {
@@ -26,10 +21,12 @@ namespace AudioAnnouncementService.Builders
 
         public TrainAnnoucementBuilder SetIntroduction(FullCourse fullCourse)
         {
-
-            List<AudioFileReader> playlist = new List<AudioFileReader>();
-
             _logger.LogInformation($"Preparing introduction segment for train: {fullCourse.Name}");
+            List<AudioFileReader> playlist = new List<AudioFileReader>();
+            if (fullCourse.Delay != String.Empty)
+            {
+                playlist.Add(new AudioFileReader(_audioFileService.CreateCoreFilePath("opozniony")));
+            }
             playlist.Add(new AudioFileReader(_audioFileService.CreateCoreFilePath(fullCourse.Name!.Split(" ")[0])));
             if (fullCourse.Name.Split("   ").Length > 1 && _audioFileService.GetReadyFileList()["trainNames"].Contains(fullCourse.Name.Split("   ")[1].Split("/")[0]))
                 playlist.Add(new AudioFileReader(_audioFileService.CreateTrainNameFilePath(fullCourse.Name.Split("   ")[1].Split("/")[0])));
@@ -113,7 +110,7 @@ namespace AudioAnnouncementService.Builders
                 playlist.Add(new AudioFileReader(_audioFileService.CreateMinutesFilePath(fullCourse.ArrivalTime.Split(":")[1])));
                 playlist.Add(new AudioFileReader(_audioFileService.CreateCoreFilePath("wjedzie_na")));
                 if (fullCourse.Platform!.Split("/").Length > 1)
-                    playlist.Add(new AudioFileReader((".\\Sounds\\Track\\" + fullCourse.Platform.Split("/")[1].Split(" ")[0] + ".mp3")));
+                    playlist.Add(new AudioFileReader(_audioFileService.CreateTrackFilePath(fullCourse.Platform.Split("/")[1].Split(" ")[0])));
                 playlist.Add(new AudioFileReader(_audioFileService.CreateCoreFilePath("przy_peronie")));
                 playlist.Add(new AudioFileReader(_audioFileService.CreatePlatformFilePath(fullCourse.Platform!.Split("/")[0])));
 
@@ -121,16 +118,16 @@ namespace AudioAnnouncementService.Builders
                 {
                     playlist.Add(new AudioFileReader(_audioFileService.CreateCoreFilePath("pociąg_konczy")));
                 }
-                playlist.Add(new AudioFileReader((".\\Sounds\\Core\\prosimy_zachować.mp3")));
+                playlist.Add(new AudioFileReader(_audioFileService.CreateCoreFilePath("prosimy_zachować")));
 
             }
             else if (fullCourse.DepartureTime is not null)
             {
-                playlist.Add(new AudioFileReader((".\\Sounds\\Core\\stoi_na.mp3")));
+                playlist.Add(new AudioFileReader((_audioFileService.CreateCoreFilePath("stoi_na"))));
                 if (fullCourse.Platform!.Split("/").Length > 1)
-                    playlist.Add(new AudioFileReader((".\\Sounds\\Track\\" + fullCourse.Platform.Split("/")[1].Split(" ")[0] + ".mp3")));
-                playlist.Add(new AudioFileReader((".\\Sounds\\Core\\przy_peronie.mp3")));
-                playlist.Add(new AudioFileReader((".\\Sounds\\Platform\\" + fullCourse.Platform.Split("/")[0] + ".mp3")));
+                    playlist.Add(new AudioFileReader((_audioFileService.CreateTrackFilePath(fullCourse.Platform.Split("/")[1].Split(" ")[0]))));
+                playlist.Add(new AudioFileReader((_audioFileService.CreateCoreFilePath("przy_peronie"))));
+                playlist.Add(new AudioFileReader((_audioFileService.CreatePlatformFilePath(fullCourse.Platform.Split("/")[0]))));
 
                 if (fullCourse.Delay == "")
                 {
@@ -139,11 +136,11 @@ namespace AudioAnnouncementService.Builders
                     playlist.Add(new AudioFileReader(_audioFileService.CreateMinutesFilePath(fullCourse.DepartureTime.Split(":")[1])));
                 }
 
-                playlist.Add(new AudioFileReader((".\\Sounds\\Core\\życzymy.mp3")));
+                playlist.Add(new AudioFileReader((_audioFileService.CreateCoreFilePath("życzymy"))));
 
             }
             if (fullCourse.Delay != string.Empty)
-                playlist.Add(new AudioFileReader((".\\Sounds\\Core\\za_opóźnienie.mp3")));
+                playlist.Add(new AudioFileReader((_audioFileService.CreateCoreFilePath("za_opoznienie"))));
 
             _trainAnnoucement.details = playlist;
             return this;

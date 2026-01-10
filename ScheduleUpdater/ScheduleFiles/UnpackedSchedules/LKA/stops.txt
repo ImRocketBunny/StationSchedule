@@ -35,8 +35,11 @@ stop_id,stop_name,stop_lat,stop_lon
 33035,Mokra,51.97870000,20.09970400
 33043,"Sierakowice Skierniewickie",51.99875600,20.06151700
 33050,"Łowicz Przedmieście",52.09304000,19.94681600
+33472,"Warszawa Główna",52.22515000,20.98227000
 33506,"Warszawa Zachodnia",52.22020800,20.96514500
+33571,"Warszawa Śródmieście",52.22941300,21.00762000
 33605,"Warszawa Centralna",52.22869700,21.00272800
+33647,"Warszawa Stadion",52.24484800,21.04395900
 36103,"Warszawa Gdańska",52.25913500,20.99247600
 38653,"Warszawa Wschodnia",52.25137300,21.05236600
 44701,Jarocin,51.96898000,17.49466000
@@ -157,6 +160,7 @@ stop_id,stop_name,stop_lat,stop_lon
 63149,"Stary Cykarzew",50.95304011,19.16897800
 63156,"Ważne Młyny",51.03940899,19.14678435
 63172,Dubidze,51.10320393,19.14264343
+63180,Wistka,51.14487400,19.09685600
 63222,"Dubidze Kolonia",51.11682320,19.12926462
 63529,"Kielce Piaski",50.88961466,20.62525995
 63552,"Kielce Główne",50.87440093,20.61803746
@@ -287,6 +291,9 @@ stop_id,stop_name,stop_lat,stop_lon
 1100091,"Szczerców Pl.Św.Floriana",51.33061100,19.11447200
 1100092,"Gorczyn 65 kier. Szczerców",51.57504800,19.13295900
 1100093,"Gorczyn 78 kier. Szczerców",51.56658300,19.13897200
+1110449,"Rogów Osobowy Wąskotorowy",51.81703100,19.88571300
+1110450,"Rogów Towarowy Wąskotorowy",51.81236400,19.87991900
+1110451,Jeżów,51.80567200,19.96204800
 1200001,"Wola Rakowa Główna",51.67834301,19.59937454
 1200002,"Wola Rakowa Cmentarz kier. Bedoń",51.67407626,19.60802035
 1200003,"Wola Rakowa Południowa kier. Bedoń",51.66827206,19.61375684
@@ -329,20 +336,20 @@ stop_id,stop_name,stop_lat,stop_lon
 1200050,"Wardzyn Sosnowa Aleja kier. Wola Rakowa",51.64918708,19.64169507
 1200051,"Wardzyn OSP kier. Wola Rakowa",51.65013828,19.64427361
 1300001,"Brzeziny Głowackiego",51.80389429,19.76220049
-1300002,"Brzeziny Szpital kier. Andrespol",51.80550995,19.75544708
-1300003,"Brzeziny Traugutta kier. Andrespol",51.80092968,19.75265881
-1300004,"Brzeziny Muzeum Regionalne kier. Andrespol",51.79927862,19.74355337
-1300005,"Brzeziny Małczewska 28 kier. Andrespol",51.79399516,19.73480760
-1300006,"Brzeziny Małczewska/Leśna kier. Andrespol",51.78727300,19.72137443
-1300007,"Małczew 8 kier. Andrespol",51.78245996,19.71221150
-1300008,"Małczew Świetlica kier. Andrespol",51.77827585,19.70396149
-1300009,"Małczew Kapliczka kier. Andrespol",51.77510096,19.69524562
-1300010,"Adamów kier. Andrespol",51.77131377,19.69041522
-1300011,"Jordanów OSP kier. Andrespol",51.75883656,19.67663622
-1300012,"Jordanów 43 kier. Andrespol",51.75269926,19.66800772
-1300013,"Jordanów Ignaców kier. Andrespol",51.74731316,19.66112235
-1300014,"Bedoń Brzezińska/Słowiańska kier. Andrespol",51.73784784,19.64922107
-1300015,"Bedoń Brzezińska/Sienkiewicza kier. Andrespol",51.73288499,19.64445236
+1300002,"Brzeziny Szpital kier. Wola Rakowa",51.80550995,19.75544708
+1300003,"Brzeziny Traugutta kier. Wola Rakowa",51.80092968,19.75265881
+1300004,"Brzeziny Muzeum Regionalne kier. Wola Rakowa",51.79927862,19.74355337
+1300005,"Brzeziny Małczewska 28 kier. Wola Rakowa",51.79399516,19.73480760
+1300006,"Brzeziny Małczewska/Leśna kier. Wola Rakowa",51.78727300,19.72137443
+1300007,"Małczew 8 kier. Wola Rakowa",51.78245996,19.71221150
+1300008,"Małczew Świetlica kier. Wola Rakowa",51.77827585,19.70396149
+1300009,"Małczew Kapliczka kier. Wola Rakowa",51.77510096,19.69524562
+1300010,"Adamów kier. Wola Rakowa",51.77131377,19.69041522
+1300011,"Jordanów OSP kier. Wola Rakowa",51.75883656,19.67663622
+1300012,"Jordanów 43 kier. Wola Rakowa",51.75269926,19.66800772
+1300013,"Jordanów Ignaców kier. Wola Rakowa",51.74731316,19.66112235
+1300014,"Bedoń Brzezińska/Słowiańska kier. Wola Rakowa",51.73784784,19.64922107
+1300015,"Bedoń Brzezińska/Sienkiewicza kier. Wola Rakowa",51.73288499,19.64445236
 1300016,"Andrespol Centrum Handlowe",51.72661359,19.63874691
 1300017,"Bedoń Brzezińska/Sienkiewicza kier. Brzeziny",51.73396492,19.64507625
 1300018,"Bedoń Brzezińska/Słowiańska kier. Brzeziny",51.73806792,19.64955098
@@ -358,6 +365,27 @@ stop_id,stop_name,stop_lat,stop_lon
 1300028,"Brzeziny Fredry kier. Głowackiego",51.79717343,19.74482154
 1300029,"Brzeziny św. Anny kier. Głowackiego",51.79754514,19.75220797
 1300030,"Brzeziny Sienkiewicza kier. Głowackiego",51.80006955,19.76474314
+1300031,"Wiśniowa Góra Szkoła kier. Wola Rakowa",51.72003705,19.63207628
+1300032,"Wiśniowa Góra Tuszyńska/Piekarnicza kier. Wola Rakowa",51.71533886,19.62890894
+1300033,"Wiśniowa Góra Jednostka Wojskowa kier. Wola Rakowa",51.71079941,19.62573577
+1300034,"Wiśniowa Góra Tuszyńska/Akacjowa kier. Wola Rakowa",51.70700574,19.62299781
+1300035,"Stróża Kolumny kier. Wola Rakowa",51.70226606,19.61919336
+1300036,"Stróża Gajowa kier. Wola Rakowa",51.69663766,19.61463731
+1300037,"Stróża Ludwików kier. Wola Rakowa",51.69173125,19.61023910
+1300038,"Wola Rakowa Brzezińska/Krańcowa kier. Wola Rakowa",51.68585902,19.61122282
+1300039,"Wola Rakowa Cmentarz kier. Szkoła",51.67402598,19.60811655
+1300040,"Wola Rakowa Szkoła",51.67443446,19.61223973
+1300041,"Wola Rakowa Cmentarz kier. Brzeziny",51.67451417,19.60738775
+1300042,"Wola Rakowa Brzezińska/Krańcowa kier. Brzeziny",51.68589602,19.61146556
+1300043,"Stróża Ludwików kier. Brzeziny",51.69180647,19.61046476
+1300044,"Stróża Gajowa kier. Brzeziny",51.69624799,19.61447634
+1300045,"Stróża Kolumny kier. Brzeziny",51.70274117,19.62001795
+1300046,"Wiśniowa Góra Tuszyńska/Akacjowa kier. Brzeziny",51.70632327,19.62267344
+1300047,"Wiśniowa Góra Jednostka Wojskowa kier. Brzeziny",51.71130800,19.62632917
+1300048,"Wiśniowa Góra Tuszyńska/Piekarnicza kier. Brzeziny",51.71580092,19.62937803
+1300049,"Wiśniowa Góra Szkoła kier. Brzeziny",51.72105781,19.63293452
+1300050,"Andrespol Brzezińska/Rokicińska kier. Brzeziny",51.72576854,19.63931333
+1300051,"Andrespol Urząd Gminy kier. Wola Rakowa",51.72491721,19.63778678
 1500001,"Budziszewice Kościół",51.66494400,19.93430500
 1500002,"Budziszewice kier. Będzelin",51.66750000,19.93491600
 1500003,"Regny Jednostka Wojskowa kier. Będzelin",51.69227700,19.89477700
@@ -400,7 +428,7 @@ stop_id,stop_name,stop_lat,stop_lon
 1600007,"Ozorków Sikorskiego kier. Ozorków PKP",51.95443600,19.27644200
 1600009,"Ozorków Bema kier. Ozorków PKP",51.95631100,19.28248400
 1600011,"Ozorków Konstytucji 3 Maja 37 kier. Ozorków PKP",51.95880600,19.28076100
-1600012,"Ozorków Konstytucji 3 Maja / Nowe Miasto kier. Ozo",51.95843100,19.28766600
+1600012,"Ozorków Konstytucji 3 Maja / Nowe Miasto kier. Ozorków PKP",51.95843100,19.28766600
 1600014,"Ozorków Starzyńskiego kier. Ozorków PKP",51.96215600,19.29062700
 1600017,"Ozorków Wigury kier. Ozorków PKP",51.96722200,19.28547200
 1600018,"Ozorków Stypułkowskiego kier. Ozorków PKP",51.96890300,19.28206700
@@ -409,17 +437,17 @@ stop_id,stop_name,stop_lat,stop_lon
 1600023,"Ozorków Stypułkowskiego kier. Leźnica Wlk (Osiedle",51.96891400,19.28189800
 1600024,"Ozorków Wigury kier. Leźnica Wlk (Osiedle)",51.96719400,19.28530600
 1600027,"Ozorków Starzyńskiego kier. Leźnica Wlk (Osiedle)",51.96159700,19.29013600
-1600029,"Ozorków Konstytucji 3 Maja / Nowe Miasto kier. Leź",51.95885300,19.28543000
-1600030,"Ozorków Konstytucji 3 Maja 37 kier. Leźnica Wlk (O",51.95880600,19.28076100
+1600029,"Ozorków Konstytucji 3 Maja / Nowe Miasto kier. Leźnica Wlk (Osiedle)",51.95885300,19.28543000
+1600030,"Ozorków Konstytucji 3 Maja 37 kier. Leźnica Wlk (Osiedle)",51.95880600,19.28076100
 1600032,"Ozorków Bema kier. Leźnica Wlk (Osiedle)",51.95631100,19.28248400
 1600034,"Ozorków Sikorskiego kier. Leźnica Wlk (Osiedle)",51.95432200,19.27762000
 1600035,"Ozorków Zachodnia kier. Leźnica Wlk (Osiedle)",51.95658900,19.27574200
-1600036,"Ozorków Konstytucji Makowa kier. Leźnica Wlk (Osie",51.95787200,19.25871100
+1600036,"Ozorków Konstytucji Makowa kier. Leźnica Wlk (Osiedle)",51.95787200,19.25871100
 1600037,"Wytrzyszczki 20 kier. Leźnica Wlk (Osiedle)",51.95059700,19.24408900
 1600038,"Wytrzyszczki 5 kier. Leźnica Wlk (Osiedle)",51.94622700,19.23546400
-1600039,"Piaskowice Stacja Paliw kier. Leźnica Wlk (Osiedle",51.94691100,19.22342800
+1600039,"Piaskowice Stacja Paliw kier. Leźnica Wlk (Osiedle)",51.94691100,19.22342800
 1600041,"Ozorków Konstytucji 3 Maja / PKP kier. Ozorków PKP",51.95803600,19.26884200
-1600042,"Ozorków Dworzec PKP",51.97254800,19.26658100
+1600042,"Ozorków Kolejowa  Dw. PKP Ozorków",51.97254800,19.26658100
 1600043,"Ozorków Konstytucji 3 Maja / PKP kier. Parzęczew",51.95808300,19.26830600
 1600044,"Leźnica Wielka (Osiedle)",51.98972500,19.12948900
 1600045,"Leźnica Wielka kier. Ozorków PKP",51.98775500,19.14288300
@@ -434,10 +462,37 @@ stop_id,stop_name,stop_lat,stop_lon
 1600054,"Różyce kier. Leźnica Wlk (Osiedle)",51.95927800,19.15433300
 1600055,"Różyce 17 kier. Leźnica Wlk (Osiedle)",51.97291700,19.15938900
 1600056,"Różyce Żmijowe kier. Leźnica Wlk (Osiedle)",51.97963400,19.15236900
+1600057,"Dalików Kościół",51.88244039,19.10193901
+1600058,"Dalików Cmentarz kier. Ozorków PKP",51.88416708,19.11316336
+1600059,"Dalików Wchodnia 68 kier. Ozorków PKP",51.88495543,19.12263227
+1600060,"Gajówka - Parcel kier. Ozorków PKP",51.88590509,19.13357235
+1600061,"Gajówka kier. Ozorków PKP",51.88680065,19.14773433
+1600062,"Bardzynin kier. Ozorków PKP",51.89315784,19.16057645
+1600063,"Huta Bardzyńska kier. Ozorków PKP",51.90096455,19.16729830
+1600064,"Symonia kier. Ozorków PKP",51.91165845,19.17649255
+1600069,"Symonia kier. Dalików",51.91188468,19.17661842
+1600070,"Huta Bardzyńska kier. Dalików",51.90095480,19.16715852
+1600071,"Bardzynin kier. Dalików",51.89309040,19.16037694
+1600072,"Gajówka kier. Dalików",51.88689697,19.14744798
+1600073,"Gajówka - Parcel kier. Dalików",51.88594896,19.13354956
+1600074,"Dalików Wchodnia 68 kier. Kościół",51.88501947,19.12263565
+1600075,"Dalików Cmentarz kier. Kościół",51.88420745,19.11312502
+1600076,"Lubocha I kier. Ozorków PKP",51.89310566,19.09624130
+1600077,"Lubocha II kier. Ozorków PKP",51.90380364,19.09044696
+1600078,"Brudnów kier. Ozorków PKP",51.91721383,19.08576137
+1600079,"Psary kier. Ozorków PKP",51.92830857,19.10699838
+1600080,"Budzynek kier. Ozorków PKP",51.93078174,19.12881540
+1600081,"Parzęczew Szkoła  kier. Ozorków PKP",51.94327617,19.20505959
+1600083,"Parzęczew Szkoła kier. Dalików",51.94326294,19.20513335
+1600085,"Budzynek kier. Dalików",51.93087436,19.12856059
+1600086,"Psary kier. Dalików",51.92836669,19.10691821
+1600087,"Brudnów kier. Dalików",51.91707696,19.08576137
+1600088,"Lubocha II kier. Dalików",51.90380708,19.09034564
+1600089,"Lubocha I kier. Dalików",51.89308027,19.09614367
 1700001,"Rokiciny Dworzec PKP",51.66741700,19.78117500
-1700002,"Rokiciny Rondo kier. Będków",51.64885200,19.80160600
-1700003,"Łaznów pos. 160 kier. Będków",51.63846900,19.79852200
-1700004,"Łaznów OSP kier. Bedków",51.62791700,19.78269500
+1700002,"Rokiciny Rondo kier. Łaznów ŁA 7",51.64885200,19.80160600
+1700003,"Łaznów pos. 160 kier. OSP ŁA 7",51.63846900,19.79852200
+1700004,"Łaznów OSP ŁA 7",51.62791700,19.78269500
 1700005,"Łaznów pos. 22 kier. Będków",51.62066700,19.76766700
 1700006,"Zacharz Północna kier. Będków",51.60708300,19.74983300
 1700007,"Będków Kościół",51.58752200,19.74735000
@@ -447,13 +502,13 @@ stop_id,stop_name,stop_lat,stop_lon
 1700011,"Łaznów OSP kier. Rokiciny",51.62883400,19.78466600
 1700012,"Łaznów pos. 160 kier. Rokiciny",51.63787700,19.79841600
 1700013,"Rokiciny Rondo kier. Dworzec PKP",51.65098600,19.80112200
-1700014,"Rokiciny Rondo kier. Będków przez Wilkucice",51.64947200,19.80300000
-1700015,"Janków kier. Będków",51.64786100,19.83463900
-1700016,"Maksymilianów kier. Będków",51.65608300,19.84122200
-1700017,"Wilkucice Duże kier. Będków",51.66516700,19.84752700
-1700018,"Wilkucice Małe kier. Będków",51.67644500,19.83575000
-1700019,"Albertów kier. Będków",51.67630600,19.82344500
-1700020,"Rokiciny pos. 73 kier. Będków",51.66513900,19.80625000
+1700014,"Rokiciny Rondo kier. Łaznów przez Wilkucice",51.64947200,19.80300000
+1700015,"Janków kier. Łaznów",51.64786100,19.83463900
+1700016,"Maksymilianów kier. Łaznów",51.65608300,19.84122200
+1700017,"Wilkucice Duże kier. Łaznów",51.66516700,19.84752700
+1700018,"Wilkucice Małe kier. Łaznów",51.67644500,19.83575000
+1700019,"Albertów kier. Łaznów",51.67630600,19.82344500
+1700020,"Rokiciny pos. 73 kier. Łaznów",51.66513900,19.80625000
 1700021,"Rokiciny Rondo kier. Dworzec PKP przez Wilkucice",51.65122200,19.80238900
 1700022,"Rokiciny pos. 73 kier. Dworzec PKP",51.66644400,19.80677800
 1700023,"Albertów kier. Rokiciny",51.67627800,19.82347300
@@ -491,18 +546,19 @@ stop_id,stop_name,stop_lat,stop_lon
 1800027,"Złota I kier. Rawa Maz.",51.77133400,20.15186100
 1800028,"Soszyce kier. Rawa Maz.",51.77350000,20.18405500
 1800029,"Ścieki kier. Rawa Maz.",51.77125000,20.22175000
+1800030,"Marianów Roqowski I kier. Rogów PKP",51.80722392,19.89525615
 1900001,"Działoszyn Plac Wolności",51.11624326,18.86465100
-1900002,"Działoszyn Piłsudskiego/Starzyńskiego kier. Biała",51.11763285,18.87621934
-1900003,"Działoszyn Piłsudskiego/CPN kier. Biała",51.11979628,18.88566948
-1900004,"Posmykowizna kier. Biała",51.12190020,18.89433199
-1900005,"Trębaczew Wyzwolenia/Kolejowa kier. Biała",51.12447600,18.90498449
-1900006,"Trębaczew Kościół kier. Biała",51.12908847,18.91899082
-1900007,"Trębaczew Park kier. Biała",51.13185355,18.92795536
-1900008,"Dylów Rządowy kier. Biała",51.14153040,18.96727302
-1900009,"Pajęczno Wieluńska kier. Biała",51.14690991,18.98904638
-1900010,"Pajęczno Centrum kier. Biała",51.14558686,18.99853575
-1900011,"Pajęczno 1 Maja kier. Biała",51.15346990,19.00845049
-1900012,"Wręczyca kier. Biała",51.16884617,19.02385781
+1900002,"Działoszyn Piłsudskiego/Starzyńskiego kier.Rząśnia",51.11763285,18.87621934
+1900003,"Działoszyn Piłsudskiego/CPN kier. Rząśnia",51.11979628,18.88566948
+1900004,"Posmykowizna kier. Rząśnia",51.12190020,18.89433199
+1900005,"Trębaczew Wyzwolenia/Kolejowa kier. Rząśnia",51.12447600,18.90498449
+1900006,"Trębaczew Kościół kier. Rząśnia",51.12908847,18.91899082
+1900007,"Trębaczew Park kier. Rząśnia",51.13185355,18.92795536
+1900008,"Dylów Rządowy kier. Rząśnia",51.14153040,18.96727302
+1900009,"Pajęczno Wieluńska kier. Rząśnia",51.14690991,18.98904638
+1900010,"Pajęczno Centrum kier. Rząśnia",51.14558686,18.99853575
+1900011,"Pajęczno 1 Maja kier. Rząśnia",51.15346990,19.00845049
+1900012,"Wręczyca kier. Rząśnia",51.16884617,19.02385781
 1900013,"Biała PKP",51.17609177,19.02598266
 1900014,"Wręczyca kier. Działoszyn",51.16800681,19.02321957
 1900015,"Pajęczno 1 Maja kier. Działoszyn",51.15319089,19.00805555
@@ -515,6 +571,21 @@ stop_id,stop_name,stop_lat,stop_lon
 1900022,"Posmykowizna kier. Działoszyn",51.12141842,18.89216132
 1900023,"Działoszyn Piłsudskiego/CPN kier. Plac Wolności",51.11955426,18.88418401
 1900024,"Działoszyn Urząd Gminy kier. Plac Wolności",51.11711884,18.87291067
+1900025,"Biała PKP kier. Rząśnia",51.17617772,19.02609141
+1900026,"Biała pos. 9 kier. Rząśnia",51.18567232,19.02811178
+1900027,"Biała pos. 2C kier. Rząśnia",51.18668446,19.03098601
+1900028,"Biała pos. 179 kier. Rząśnia",51.18860209,19.03851895
+1900029,"Gawłów Dolna kier. Rząśnia",51.19059197,19.04619009
+1900030,"Suchowola Skrzyżowanie kier. Rząśnia",51.19658561,19.05077893
+1900031,"Rząśnia Urząd Gminy kier. Rondo",51.21694696,19.04196310
+1900032,"Rząśnia Rondo",51.22154767,19.04249047
+1900033,"Rząśnia Urząd Gminy kier. Działoszyn",51.21694738,19.04187861
+1900034,"Suchowola Skrzyżowanie kier. Działoszyn",51.19658771,19.05072595
+1900035,"Gawłów Dolna kier. Działoszyn",51.19075650,19.04670888
+1900036,"Biała pos. 179 kier. Działoszyn",51.18863104,19.03848944
+1900037,"Biała pos. 2C kier. Działoszyn",51.18670797,19.03095706
+1900038,"Biała pos. 9 kier. Działoszyn",51.18570226,19.02805201
+1900039,"Biała PKP kier. Działoszyn",51.17589599,19.02584718
 2100001,"Kutno - przy stacji PKP (ul. 3 Maja)",52.22710506,19.35013461
 2100002,"Sklęczki - przystanek autobusowy DK 92 Agroma",52.22448549,19.41543705
 2100003,"Złotniki Kutnowskie - przystanek autobusowy DK 92",52.21702656,19.49119431
@@ -558,7 +629,7 @@ stop_id,stop_name,stop_lat,stop_lon
 2200002,"Słotwiny - przystanek autobusowy ul. Tomaszowska",51.72248263,19.83965630
 2200003,"Wykno - Budziszewice P.A ul. JC Paska / Kolejowa",51.65957495,19.93157669
 2200004,"Zaosie - przystanek autobusowy przy DW 715",51.63191241,19.93455820
-2200005,"Skrzynki - przystanek autobusowy przy zakładzie EU",51.60036350,19.96443400
+2200005,"Skrzynki - przystanek autobusowy przy zakładzie Dunapack",51.60037542,19.96444210
 2200006,"Tomaszów Mazowiecki - przy stacji PKP ul. Dworcowa",51.54684176,20.03297153
 2200007,"Tomaszów Mazowiecki Białobrzegi - przystanek autob",51.51975566,20.06339888
 2200008,"Brzustów - przystanek autobusowy (Brzustów - Szkoł",51.49383958,20.14430138
@@ -571,10 +642,11 @@ stop_id,stop_name,stop_lat,stop_lon
 2200015,"Dęba Opoczyńska - przystanek autobusowy 726/75, 72",51.48437094,20.24828657
 2200016,"Brzustów - przystanek autobusowy (Brzustów - Szkoł",51.49383958,20.14430138
 2200017,"Tomaszów Mazowiecki Białobrzegi - przystanek autob",51.52101318,20.06038301
-2200018,"Skrzynki - przystanek autobusowy przy zakładzie EU",51.60036350,19.96443400
+2200018,"Skrzynki - przystanek autobusowy przy zakładzie Dunapack",51.60036350,19.96443400
 2200019,"Zaosie - przystanek autobusowy przy DW 715",51.63298671,19.93464448
 2200020,"Wykno - Budziszewice P.A ul. JC Paska / Kolejowa",51.65957495,19.93157669
 2200021,"Słotwiny - przystanek autobusowy ul. Tomaszowska",51.72248263,19.83965630
+2200022,"Wykno - przy przejeździe kolejowym",51.66324261,19.90256783
 2300008,"Głowno przy stacji PKP (ul. Kolejowa 2)",51.96132748,19.70359596
 2300009,"Bratoszewice przystanek autobusowy DK 14 (przy Zes",51.93250167,19.65243635
 2300010,"Stryków przy stacji PKP (ul. Batorego)",51.91027018,19.59432195
@@ -589,6 +661,10 @@ stop_id,stop_name,stop_lat,stop_lon
 2400005,"Łódź Piłsudskiego/Niciarniana 2213",51.76355398,19.50721822
 2400006,"Łódź Kopcińskiego/Tuwima 0363",51.76736667,19.48416325
 2400007,"Łódź Strykowska/Inflancka 1594",51.79711865,19.48808665
+2500004,"Witonia - przy stacji PKP (ul. Dworcowa)",52.15683137,19.27711530
+2500005,"Witonia przystanek autobusowy DK 60 (ul. Centralna",52.14666939,19.29558751
+2500006,"Kutno przystanek autobusowy DK 60 Łęczycka/Matejki",52.22650635,19.34440947
+2500007,"Kutno - przy stacji PKP (ul. 3 Maja)",52.22710506,19.35013461
 2700001,"Zduńska Wola - przy stacji PKP (Plac Żelazny)",51.61096590,18.94664480
 2700002,"Męcka Wola - Stawiszcze przystanek autobusowy",51.60474573,18.84230524
 2700003,"Sieradz Męka - skrzyżowanie ul. Sienkiewicza z ul. Uniejowską (Woźniki), przystanek autobusowy",51.60129775,18.78682972
@@ -609,20 +685,53 @@ stop_id,stop_name,stop_lat,stop_lon
 2800010,"Tomaszówek - skrzyżowanie (przy posesji Bratków 37)",51.44403364,20.12037732
 2800011,"Bratków - przy stacji PKP",51.45526664,20.11619530
 2800012,"Jeleń - przystanek autobusowy (skrzyżowanie drogi 713 z drogą na Jeleń)",51.50365590,20.08767670
-11000001,"Łaznów OSP kier. Gałków Mały",51.62883400,19.78466600
-11000002,"Łaznów pos. 160 kier. Gałków Mały",51.63787700,19.79841600
-11000003,"Rokiciny Rondo kier. Gałków Mały",51.65098600,19.80112200
-11000004,"Rokiciny Dworzec PKP kier. Gałków Mały",51.66741700,19.78117500
-11000005,"Rokiciny Brzezińska kier. Gałków Mały",51.66616700,19.77502800
-11000006,"Łaznowska Wola kier. Gałków Mały",51.66836100,19.74127700
-11000007,"Karpin OSP kier. Gałków Mały",51.66986100,19.71147200
-11000008,"Karpin pos. 39 kier. Gałków Mały",51.67525000,19.71077800
-11000009,"Borowa pos. 3 kier. Gałków Mały",51.68258400,19.70669400
-11000010,"Borowa Długa/Nowa kier. Gałków Mały",51.68663900,19.71080600
-11000011,"Borowa Długa/Zielonogórska kier. Gałków Mały",51.69163900,19.71600000
-11000012,"Borowa Długa/Jarosława kier. Gałków Mały",51.69988900,19.72444500
-11000013,"Borowa OSP kier. Gałków Mały",51.70666700,19.73138900
-11000014,"Borowa Długa/Leśna kier. Gałków Mały",51.71088900,19.73575000
+2800013,"Sitowa - przystanek autobusowy Sitowa skrzyżowanie (droga 713/01 i 02)",51.33762695,20.33309962
+2800014,"Petrykozy - przy przystanku osobowym PKP (parking)",51.29596257,20.36382507
+2800015,"Ruda Białaczowska - przystanek autobusowy Sędów",51.26081561,20.36462058
+2800016,"Kornica - przy przystanku osobowym PKP",51.21721641,20.40522481
+2800017,"Końskie - przy stacji PKP",51.19017226,20.42222369
+2800018,"Wąsosz Konecki - przystanek autobusowy Wąsosz Przymiarki (0455/03 w dwóch kierunkach)",51.13803826,20.47349021
+2800019,"Czarniecka Góra - przy przystanku osobowym PKP",51.14365570,20.51959888
+2800020,"Stąporków - przystanek autobusowy ul. Niekłańska (obok stacji w dwóch kierunkach)",51.14419555,20.57561305
+2800021,"Wólka Plebańska - przy przystanku osobowym PKP ",51.15297532,20.63108658
+2800022,"Sołtyków - przystanek autobusowy (droga 42 /01 i 02 bloki)",51.13596451,20.68761131
+2800023,"Gilów - przystanek autobusowy (droga 42 /01 i 02) ",51.11632394,20.73595394
+2800024,"Bliżyn - przystanek autobusowy ul. Kościuszki (droga 42/ 06 i 07 kościół)",51.10694986,20.76241759
+2800025,"Brzask - przystanek autobusowy Bugaj (droga 42/ 01 i 02)",51.09758175,20.80261830
+2800026,"Skarżysko Milica - przystanek autobusowy ul. Legionów/ ul. Metalowców 04 w kier. Skarżyska-K. oraz M",51.10653789,20.85108415
+2800027,"Skarżysko-Kamienna - przystanek autobusowy (zatoka autobusowa przy stacji PKP, Aleja Niepodległości)",51.11606035,20.87982834
+2800028,"Skarżysko Milica - przystanek autobusowy ul. Legionów/ ul. Metalowców 04 w kier. Skarżyska-K. oraz M",51.10692872,20.85176183
+2800029,"Brzask - przystanek autobusowy Bugaj (droga 42/ 01 i 02)",51.09784499,20.80207665
+2800030,"Bliżyn - przystanek autobusowy ul. Kościuszki (droga 42/ 06 i 07 kościół)",51.10746196,20.76075884
+2800031,"Gilów - przystanek autobusowy (droga 42 /01 i 02) ",51.11708616,20.73425611
+2800032,"Sołtyków - przystanek autobusowy (droga 42 /01 i 02 bloki)",51.13630352,20.68604890
+2800033,"Wólka Plebańska - przy przystanku osobowym PKP ",51.15299736,20.63127594
+2800034,"Stąporków - przystanek autobusowy ul. Niekłańska (obok stacji w dwóch kierunkach)",51.14431165,20.57565596
+2800035,"Czarniecka Góra - przy przystanku osobowym PKP",51.14361363,20.51933603
+2800036,"Wąsosz Konecki - przystanek autobusowy Wąsosz Przymiarki (0455/03 w dwóch kierunkach)",51.13811666,20.47322350
+2800037,"Końskie - przy stacji PKP",51.19017226,20.42222369
+2800038,"Kornica - przy przystanku osobowym PKP",51.21721641,20.40522481
+2800039,"Ruda Białaczowska - przystanek autobusowy Sędów",51.26081561,20.36462058
+2800040,"Petrykozy - przy przystanku osobowym PKP (parking)",51.29596257,20.36382507
+2800041,"Sitowa - przystanek autobusowy Sitowa skrzyżowanie (droga 713/01 i 02)",51.33902517,20.33191773
+2900001,"Wolanów - przy stacji PKP",51.35304668,20.99829245
+2900002,"Kończyce Radomskie - przystanek w ciągu DW 733, obok skrzyżowania z ul. Kościelną",51.34899538,21.03677743
+2900003,"Radom Główny - przystanek MZKDiK Dw. Główny/Poczta 02",51.39215442,21.15591686
+2900004,"Kończyce Radomskie - przystanek w ciągu DW 733, obok skrzyżowania z ul. Kościelną",51.34903894,21.03685790
+11000001,"Łaznów OSP kier. Gałkówek Dworzec PKP",51.62883400,19.78466600
+11000002,"Łaznów pos. 160 kier. Gałkówek Dworzec PKP",51.63787700,19.79841600
+11000003,"Rokiciny Rondo kier. Gałkówek Dworzec PKP",51.65098600,19.80112200
+11000004,"Rokiciny Dworzec PKP kier. Gałkówek Dworzec PKP",51.66741700,19.78117500
+11000005,"Rokiciny Brzezińska kier. Gałkówek Dworzec PKP",51.66616700,19.77502800
+11000006,"Łaznowska Wola kier. Gałkówek Dworzec PKP",51.66836100,19.74127700
+11000007,"Karpin OSP kier. Gałkówek Dworzec PKP",51.66986100,19.71147200
+11000008,"Karpin pos. 39 kier. Gałkówek Dworzec PKP",51.67525000,19.71077800
+11000009,"Borowa pos. 3 kier. Gałkówek Dworzec PKP",51.68258400,19.70669400
+11000010,"Borowa Długa/Nowa kier. Gałkówek Dworzec PKP",51.68663900,19.71080600
+11000011,"Borowa Długa/Zielonogórska kier. Gałkówek Dworzec PKP",51.69163900,19.71600000
+11000012,"Borowa Długa/Jarosława kier. Gałkówek Dworzec PKP",51.69988900,19.72444500
+11000013,"Borowa OSP kier. Gałkówek Dworzec PKP",51.70666700,19.73138900
+11000014,"Borowa Długa/Leśna kier. Gałkówek Dworzec PKP",51.71088900,19.73575000
 11000015,"Gałków Mały Dworzec PKP",51.72952800,19.73202800
 11000016,"Gałków Mały Borowiecka/Sporna kier. Łaznów",51.72286100,19.73080600
 11000017,"Borowa Długa/Leśna kier. Łaznów",51.71088900,19.73561100
@@ -636,6 +745,150 @@ stop_id,stop_name,stop_lat,stop_lon
 11000025,"Łaznowska Wola kier. Łaznów",51.66794500,19.74427700
 11000026,"Rokiciny Brzezińska kier. Łaznów",51.66619400,19.77722300
 11000027,"Rokiciny Dworzec PKP kier. Łaznów",51.66741700,19.78117500
-11000028,"Rokiciny Rondo kier. Łaznów",51.64885200,19.80160600
-11000029,"Łaznów pos. 160 kier. OSP",51.63846900,19.79852200
-11000030,"Łaznów OSP",51.62791700,19.78269500
+11000028,"Rokiciny Rondo kier. Łaznów ŁA 10",51.64885200,19.80160600
+11000029,"Łaznów pos. 160 kier. OSP ŁA 10",51.63846900,19.79852200
+11000030,"Łaznów OSP ŁA 10",51.62791700,19.78269500
+11000031,"Gałków Mały Łódzka/Długa kier. Gałkówek Dworzec PK",51.72366746,19.72985018
+11000032,"Gałków Mały Łódzka/Zacisze kier. Gałkówek Dworzec ",51.72443178,19.72260722
+11000033,"Gałków Mały Brzezińska/Łódzka kier. Gałkówek Dworz",51.72500989,19.72201304
+11000034,"Gałków Duży Dworcowa/Dzieci Polskich kier. Gałkówe",51.73068846,19.72367932
+11000035,"Gałkówek Dworzec PKP",51.72996383,19.73067753
+11000036,"Gałków Duży Dworcowa/Dzieci Polskich kier. Łaznów",51.73068147,19.72376330
+11000037,"Gałków Mały Brzezińska/Łódzka kier. Łaznów",51.72501011,19.72195079
+11000038,"Gałków Mały Łódzka/Zacisze kier. Łaznów",51.72434911,19.72310909
+11100001,"Rydzynki Wczasowa/Komarowa",51.62253513,19.46110691
+11100002,"Rydzynki Komarowa/Sadowa kier. Będków",51.61631109,19.46571002
+11100003,"Rydzynki Tęczowa/Borowikowa kier. Będków",51.61389370,19.47375985
+11100004,"Zofiówka Główna/Wesoła kier. Będków",51.60860287,19.46312604
+11100005,"Zofiówka Główna/Stanisławowska kier. Będków",51.60561052,19.47603487
+11100006,"Zofiówka Główna/Sporna kier. Będków",51.60331292,19.48284711
+11100007,"Tuszyn Poddębina Szpital kier. Będków",51.60141199,19.50274117
+11100008,"Tuszyn Poddębina/Brzozowa kier. Będków",51.61125598,19.50063675
+11100009,"Tuszyn Sienkiewicza/Słowackiego kier. Będków",51.61867617,19.51437033
+11100010,"Tuszyn 3-go Maja/Prusa kier. Będków",51.61519562,19.51648078
+11100011,"Tuszyn MOPS kier. Będków",51.61230791,19.50989261
+11100012,"Tuszyn Poniatowskiego Szkoła kier. Będków",51.61169040,19.51363418
+11100013,"Tuszyn Domowicza/Karłowicza kier. Będków",51.60977513,19.52210185
+11100014,"Tuszyn Rzgowska CPN kier. Będków",51.60586135,19.53573672
+11100015,"Tuszyn Chmielna kier. Będków",51.60415750,19.54283704
+11100016,"Tuszyn Żeromskiego Szkoła kier. Będków",51.60211326,19.55100311
+11100017,"Żeromin Tuszyńska/Ogrodzonka kier. Będków",51.60282917,19.58404710
+11100018,"Żeromin Bloki kier. Będków",51.60391216,19.60014823
+11100019,"Żeromin Tuszyńska 77 kier. Będków",51.60234821,19.62193903
+11100020,"Rzepki kier. Będków",51.60152950,19.63564793
+11100021,"Tychów kier. Będków",51.60027300,19.64953042
+11100022,"Czarnocin Tuszyńska/Główna kier. Będków",51.60074550,19.68269329
+11100023,"Czarnocin Poniatowskiego/Główna kier. Będków",51.59118069,19.68320786
+11100024,"Wolbórka PKP kier. Będków",51.59221507,19.72380894
+11100025,"Remiszewice kier. Będków",51.58812948,19.73133732
+11100026,"Remiszewice kier. Rydzynki",51.58821786,19.73125576
+11100027,"Wolbórka PKP kier. Rydzynki",51.59227254,19.72382968
+11100028,"Czarnocin Poniatowskiego/Główna kier. Rydzynki",51.59123734,19.68387746
+11100029,"Czarnocin Tuszyńska/Główna kier. Rydzynki",51.60081684,19.68268580
+11100030,"Tychów kier. Rydzynki",51.60031821,19.64843945
+11100031,"Rzepki kier. Rydzynki",51.60159527,19.63470961
+11100032,"Żeromin Tuszyńska 77 kier. Rydzynki",51.60239298,19.62193020
+11100033,"Żeromin Bloki kier. Rydzynki",51.60395433,19.59988122
+11100034,"Żeromin Tuszyńska/Ogrodzonka kier. Rydzynki",51.60278712,19.58370069
+11100035,"Tuszyn Żeromskiego Szkoła kier. Rydzynki",51.60217989,19.55075558
+11100036,"Tuszyn Chmielna kier. Rydzynki",51.60430320,19.54289052
+11100037,"Tuszyn Rzgowska CPN kier. Rydzynki",51.60616648,19.53435939
+11100038,"Tuszyn Domowicza/Karłowicza kier. Rydzynki",51.60977761,19.52224539
+11100039,"Tuszyn Poniatowskiego Szkoła kier. Rydzynki",51.61187298,19.51421521
+11100040,"Tuszyn MOPS kier. Rydzynki",51.61234607,19.51002929
+11100041,"Tuszyn 3-go Maja/Prusa kier. Rydzynki",51.61512976,19.51631013
+11100042,"Tuszyn Sienkiewicza/Słowackiego kier. Rydzynki",51.61840329,19.51478406
+11100043,"Tuszyn Poddębina/Brzozowa kier. Rydzynki",51.61129262,19.50044363
+11100044,"Tuszyn Poddębina Szpital kier. Rydzynki",51.60142549,19.50269775
+11100045,"Zofiówka Główna/Sporna kier. Rydzynki",51.60337929,19.48289655
+11100046,"Zofiówka Główna/Stanisławowska kier. Rydzynki",51.60555063,19.47646642
+11100047,"Zofiówka Główna/Wesoła kier. Rydzynki",51.60867983,19.46335013
+11100048,"Rydzynki Tęczowa/Borowikowa kier. Wczasowa",51.61394284,19.47357075
+11100049,"Rydzynki Komarowa/Sadowa kier. Wczasowa",51.61646111,19.46560519
+12100001,"Buków Świetlica",51.61520249,19.85710132
+12100002,"Buków pos. 36 kier. Skrzynki",51.61370034,19.86226033
+12100003,"Bronisławów kier. Skrzynki",51.60907998,19.88280154
+12100004,"Józefin Zajazd kier. Skrzynki",51.60402310,19.90386319
+12100005,"Ujazd Pl. Wolności kier. Skrzynki",51.59754471,19.92220327
+12100006,"Ujazd Tomaszowska kier. Skrzynki",51.59177525,19.92961299
+12100007,"Sangrodz kier. Skrzynki",51.57913531,19.94657009
+12100008,"Tobiasze Plac Zabaw kier. Skrzynki",51.57607554,19.95482452
+12100009,"Tobiasze kier. Skrzynki",51.57779783,19.95603473
+12100010,"Ojrzanów kier. Skrzynki",51.58464151,19.95714542
+12100011,"Przesiadłów OSP kier. Skrzynki",51.59479392,19.96086251
+12100012,"Przesiadłów Dunapack kier. Skrzynki",51.60035476,19.96448740
+12100013,"Skrzynki PKP",51.60320877,19.96654046
+12100014,"Przesiadłów Dunapack kier. Buków",51.60011871,19.96419355
+12100015,"Przesiadłów kier. Buków",51.59452192,19.96053674
+12100016,"Ojrzanów kier. Buków",51.58437598,19.95707393
+12100017,"Tobiasze kier. Buków",51.57751913,19.95581231
+12100018,"Sangrodz kier. Buków",51.58025161,19.94446008
+12100019,"Ujazd Tomaszowska kier. Buków",51.59222767,19.92916908
+12100020,"Ujazd Pl. Wolności kier. Buków",51.59791709,19.92222571
+12100021,"Józefin Zajazd kier. Buków",51.60455077,19.90226406
+12100022,"Bronisławów Kier. Buków",51.61009714,19.87891102
+12100023,"Buków pos. 36 kier. Buków",51.61437710,19.85971721
+13100001,"Zaosie Świetlica",51.63411543,19.93599325
+13100002,"Zaosie PKP kier. Tomaszów Maz.",51.63187699,19.93454676
+13100003,"Niewiadów Huta kier. Tomaszów Maz.",51.61815005,19.93048423
+13100004,"Niewiadów Akademia Sportu kier. Tomaszów Maz.",51.61201996,19.92804728
+13100005,"Ujazd Konopnickiej kier. Tomaszów Maz.",51.60644497,19.92499319
+13100006,"Ujazd Pl.Wolności kier. Tomaszów Maz.",51.59798130,19.92211368
+13100007,"Teklów kier. Tomaszów Maz.",51.57685888,19.90581788
+13100008,"Wygoda kier. Tomaszów Maz.",51.57046480,19.90698473
+13100009,"Bielina kier. Tomaszów Maz.",51.56934188,19.91069803
+13100010,"Kolonia Dębniak kier. Tomaszów Maz.",51.56734402,19.91516081
+13100011,"Dębniak Świetlica kier. Tomaszów Maz.",51.56220862,19.92220513
+13100012,"Dębniak pos. 15 kier. Tomaszów Maz.",51.55614259,19.92771295
+13100013,"Dębniak pos. 10 kier. Tomaszów Maz.",51.55561311,19.93191842
+13100014,"Dębniak pos. 1 kier. Tomaszów Maz.",51.55447711,19.93787731
+13100015,"Łazisko OSP kier. Tomaszów Maz.",51.55074786,19.94947605
+13100016,"Łazisko pos. 65 kier. Tomaszów Maz.",51.54894022,19.95849874
+13100017,"Łazisko Scania kier. Tomaszów Maz.",51.54611591,19.96703514
+13100018,"Tomaszów Mazowiecki Zawadzka-Mostowa kier. Dworzec",51.54304891,19.97683947
+13100019,"Tomaszów Mazowiecki Zawadzka Pętla kier. Dworzec",51.54373190,19.98366782
+13100020,"Tomaszów Mazowiecki Zawadzka pos. 120 kier. Dworzec",51.54403561,19.99124966
+13100021,"Tomaszów Mazowiecki Orzeszkowej kier. Dworzec",51.54288721,19.99605409
+13100022,"Tomaszów Mazowiecki Szeroka - Rondo gen. Andersa kier. Dworzec",51.53974015,20.00392296
+13100023,"Tomaszów Mazowiecki Szeroka - Warszawska kier. Dworzec",51.53985081,20.01050875
+13100024,"Tomaszów Mazowiecki Warszawska - Galeria kier. Dworzec",51.53382521,20.00838696
+13100025,"Tomaszów Mazowiecki Plac Kościuszki - Arkady kier. Dworzec",51.53121866,20.00567900
+13100026,"Tomaszów Mazowiecki Plac Kościuszki Centrum kier. Dworzec",51.53052866,20.00588337
+13100027,"Tomaszów Mazowiecki Warszawska-Konstytucji 3 Maja kier. Dworzec",51.53533597,20.00927142
+13100028,"Tomaszów Mazowiecki Warszawska-Grota Roweckiego kier. Dworzec",51.53912971,20.01097232
+13100029,"Tomaszów Mazowiecki Warszawska-Cmentarna kier. Dworzec",51.54365040,20.01304694
+13100030,"Tomaszów Mazowiecki Chopina-Warszawska kier. Dworzec",51.54561342,20.01891430
+13100031,"Tomaszów Mazowiecki Chopina-Sierakowskiego kier. Dworzec",51.54495642,20.02514159
+13100032,"Tomaszów Mazowiecki Chopina-Traugutta kier. Dworzec",51.54610016,20.02981600
+13100033,"Tomaszów Mazowiecki Dworzec PKP",51.54773295,20.03135071
+13100034,"Tomaszów Mazowiecki Chopina-Okrzei kier. Zaosie",51.54566646,20.02790783
+13100035,"Tomaszów Mazowiecki Chopina-Skłodowskiej kier. Zaosie",51.54506678,20.02381669
+13100036,"Tomaszów Mazowiecki Chopina-Warszawska kier. Zaosie",51.54590794,20.01795846
+13100037,"Tomaszów Mazowiecki Warszawska-Dzieci Polskich kier. Zaosie",51.54434278,20.01316073
+13100038,"Tomaszów Mazowiecki Warszawska-Szeroka kier. Zaosie",51.54098202,20.01164985
+13100039,"Tomaszów Mazowiecki Warszawska Galeria kier. Zaosie",51.53382521,20.00838696
+13100040,"Tomaszów Mazowiecki Plac Kościuszki Arkady kier. Zaosie",51.53121866,20.00567900
+13100041,"Tomaszów Mazowiecki Plac Kościuszki Centrum kier. Zaosie",51.53053489,20.00581965
+13100042,"Tomaszów Mazowiecki Warszawska-Konstytucji 3 Maja kier. Zaosie",51.53533597,20.00927142
+13100043,"Tomaszów Mazowiecki Warszawska-Grota Roweckiego kier. Zaosie",51.53912971,20.01097232
+13100044,"Tomaszów Mazowiecki Orzeszkowej kier. Zaosie",51.54265188,19.99660885
+13100045,"Tomaszów Mazowiecki Zawadzka pos. 120 kier. Zaosie",51.54410421,19.99066057
+13100046,"Tomaszów Mazowiecki Zawadzka Pętla kier. Zaosie",51.54383724,19.98399257
+13100047,"Tomaszów Mazowiecki Zawadzka-Mostowa kier. Zaosie",51.54309228,19.97665172
+13100048,"Łazisko Scania kier. Zaosie",51.54687133,19.96547731
+13100049,"Łazisko pos. 65 kier. Zaosie",51.54920555,19.95787277
+13100050,"Łazisko OSP kier. Zaosie",51.55083042,19.94931914
+13100051,"Dębniak pos. 1 kier. Zaosie",51.55478814,19.93715043
+13100052,"Dębniak pos. 10 kier. Zaosie",51.55567398,19.93225906
+13100053,"Dębniak pos. 15 kier. Zaosie",51.55607088,19.92823195
+13100054,"Dębniak Świetlica kier. Zaosie",51.56199744,19.92262458
+13100055,"Kolonia Dębniak kier. Zaosie",51.56722023,19.91551888
+13100056,"Bielina kier. Zaosie",51.56946979,19.91048130
+13100057,"Wygoda kier. Zaosie",51.57065402,19.90655155
+13100058,"Teklów kier. Zaosie",51.57696579,19.90596868
+13100059,"Ujazd Pl.Wolności kier. Zaosie",51.59795859,19.92219205
+13100060,"Ujazd Konopnickiej kier. Zaosie",51.60717304,19.92561272
+13100061,"Niewiadów Akademia Sportu kier. Zaosie",51.61289159,19.92870917
+13100062,"Niewiadów Huta kier. Zaosie",51.61869629,19.93086846
+13100063,"Zaosie PKP kier. Świetlica",51.63303786,19.93474998
+13100064,"Tomaszów Mazowiecki Szeroka - Dubois kier. Zaosie",51.53983776,20.00441187

@@ -27,7 +27,7 @@ namespace StationAPI
             while (!stoppingToken.IsCancellationRequested)
             {
                await _taskManagerService.Execute();
-                _logger.LogInformation($"StationAPI is running at: {DateTime.Now}");
+                //_logger.LogInformation($"StationAPI is running at: {DateTime.Now}");
                await Task.Delay(10000);
             }
         }

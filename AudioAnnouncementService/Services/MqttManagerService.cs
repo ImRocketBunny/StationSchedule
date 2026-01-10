@@ -10,6 +10,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Windows.Foundation.Metadata;
+using static System.Collections.Specialized.BitVector32;
 
 namespace AudioAnnouncementService.Services
 {
@@ -39,7 +40,7 @@ namespace AudioAnnouncementService.Services
             {
 
                 _mqttClient = await InitializeMqttClientAsync(_configuration);
-                SubscribeTopicAsync(_configuration);
+                await SubscribeTopicAsync(_configuration);
                 ReceiveNewAnnoucementAsync();
             }
 
@@ -79,7 +80,7 @@ namespace AudioAnnouncementService.Services
 
 
                 
-                _logger.LogInformation($"MqttClient subscribed to: {topic} ");
+                _logger.LogInformation($"MqttClient subscribed to: { topic } ");
 
             }
         }
@@ -105,7 +106,6 @@ namespace AudioAnnouncementService.Services
                         return Task.CompletedTask;
                     }
                     _annoucementQueueManager.EnqueueDelayAnnoucement(courses);
-                    
                 }
                 else
                 {
@@ -115,6 +115,7 @@ namespace AudioAnnouncementService.Services
                         return Task.CompletedTask;
                     }
                     _annoucementQueueManager.EnqueueTrainAnnoucement(course);
+                    //_logger.LogInformation($"There are {_annoucementQueueManager.QueuedAnnoucements()} active train annoucements");
                 }
                 return Task.CompletedTask;
             };

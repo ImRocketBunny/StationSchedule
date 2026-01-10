@@ -106,7 +106,7 @@ namespace StationAPI.DAL.Repository
                 using (var context = dbContext)
                 {
 
-                    var connection = context.Database.GetDbConnection();
+                    /*var connection = context.Database.GetDbConnection();
                     try
                     {
                         connection.Open();
@@ -116,9 +116,19 @@ namespace StationAPI.DAL.Repository
                     {
                         _logger.LogError("SQL Connection Error: " + ex.Message);
                         return JsonConvert.DeserializeObject<List<Train>>("[]");
+                    }*/
+
+                    try
+                    {
+                        var trains = await context.ActiveKmTrains.ToListAsync();
+                        return trains;
+                    }
+                    catch (Exception ex)
+                    {
+                        _logger.LogError(ex.Message);
                     }
 
-                    using (var command = connection.CreateCommand())
+                    /*using (var command = connection.CreateCommand())
                     {
                         command.CommandType = CommandType.StoredProcedure;
                         command.CommandText = "dbo.GetCurrentCourses";
@@ -142,7 +152,7 @@ namespace StationAPI.DAL.Repository
                             _logger.LogError("Błąd połączenia SQL : " + ex.Message);
                             return JsonConvert.DeserializeObject<List<Train>>("[]");
                         }
-                    }
+                    }*/
 
                     return JsonConvert.DeserializeObject<List<Train>>("[]");
                 }

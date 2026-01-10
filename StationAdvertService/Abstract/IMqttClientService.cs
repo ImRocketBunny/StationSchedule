@@ -15,5 +15,8 @@ namespace StationAdvertService.Abstract
         string? GetCurrentBrokerValue(string topic);
         Task PublishNumber(int number);
         Task PublishNumber(int number, string platform);
+        Task PublishPlaylist(List<string> playlist, string topic);
+
+        Task PublishValue(string value, string platform);
     }
 }

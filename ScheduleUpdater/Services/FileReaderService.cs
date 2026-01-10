@@ -21,10 +21,12 @@ namespace ScheduleUpdater.Services
     {
         private string[] _sourceFolders;
         private readonly IUpdaterRepository _updaterRepository;
+        private readonly ILogger<FileReaderService> _logger;
         private DateTime _runDate;
-        public FileReaderService(IUpdaterRepository updaterRepository) 
+        public FileReaderService(IUpdaterRepository updaterRepository,ILogger<FileReaderService>logger) 
         {
             _updaterRepository = updaterRepository;
+            _logger = logger;
             _runDate = DateTime.Now;
         }
 
@@ -35,10 +37,12 @@ namespace ScheduleUpdater.Services
             {
                 await GetScheduleFolders("ScheduleFiles\\UnpackedSchedules");
                 await ReadScheduleFiles();
-                _runDate=_runDate.AddMinutes(3);
+                _runDate=_runDate.AddHours(3);
+                _logger.LogInformation($"Next update will begin at: {_runDate}");
+
             }
-            
-            
+
+
         }
         private Task GetScheduleFolders(string path) 
         {
@@ -60,8 +64,8 @@ namespace ScheduleUpdater.Services
                         Console.WriteLine(file + " is procesing...");
                         JObject o = JObject.FromObject(new
                         {
-                            scheduleName = folder.Split("\\"/*LineSeparator*/).Last(),
-                            scheduleFile = file.Split("\\"/*LineSeparator*/).Last().Replace(".txt", ""),
+                            scheduleName = folder.Split("\\").Last(),
+                            scheduleFile = file.Split("\\").Last().Replace(".txt", ""),
                             fileContent = await GetJsonFileContent(file)
                         });
                         await _updaterRepository.UpdateSchedule(JsonConvert.SerializeObject(o, Formatting.Indented));
@@ -80,8 +84,6 @@ namespace ScheduleUpdater.Services
             using (var csv = new CsvReader(sr, CultureInfo.InvariantCulture))
             {
                 var records = csv.GetRecords<object>().ToList();
-                //string json = JsonConvert.SerializeObject(records, Formatting.Indented);
-
                 return Task.FromResult(records);
             }
             
