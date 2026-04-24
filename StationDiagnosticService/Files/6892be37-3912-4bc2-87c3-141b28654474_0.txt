@@ -1,0 +1,450 @@
+{
+  "frameDate": "2026-04-24T12:09:17.8219538+02:00",
+  "dataType": "Json",
+  "dataSource": "station/IX/2/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.8200877+02:00",
+  "dataType": "Json",
+  "dataSource": "station/IX/2/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.818022+02:00",
+  "dataType": "Json",
+  "dataSource": "station/IX/1/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.8159567+02:00",
+  "dataType": "Json",
+  "dataSource": "station/IX/1/lcd",
+  "jsonData": {
+    "arrivalTime": null,
+    "departureTime": "12:17",
+    "delay": "",
+    "name": "KM 15607   R90",
+    "headsignFrom": "",
+    "headsignTo": "Ciechan\u00F3w",
+    "routeFrom": "",
+    "routeTo": "Warszawa Zachodnia peron 9  12:17 -  Warszawa Wola  12:18 -  Warszawa M\u0142yn\u00F3w  12:20 -  Warszawa Ko\u0142o  12:22 \u2022  Warszawa Pow\u0105zki  12:25 -  Warszawa Gda\u0144ska  12:28 -  Warszawa Toru\u0144ska  12:37 -  Legionowo  12:49 -  Nowy Dw\u00F3r Mazowiecki  13:03 -  Ciechan\u00F3w  13:52",
+    "platform": "IX/1 Warszawa Zachodnia peron 9"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.8140007+02:00",
+  "dataType": "Json",
+  "dataSource": "station/VIII/9/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.8121013+02:00",
+  "dataType": "Json",
+  "dataSource": "station/VIII/9/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.8101818+02:00",
+  "dataType": "Json",
+  "dataSource": "station/VIII/7/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.8083237+02:00",
+  "dataType": "Json",
+  "dataSource": "station/VIII/7/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.8064926+02:00",
+  "dataType": "Json",
+  "dataSource": "station/VII/5/audio",
+  "jsonData": {
+    "arrivalTime": "12:12",
+    "departureTime": "12:14",
+    "delay": "",
+    "name": "IC 5328   KOLBERG",
+    "headsignFrom": "Olsztyn G\u0142\u00F3wny",
+    "headsignTo": "Krak\u00F3w G\u0142\u00F3wny",
+    "routeFrom": "Olsztyn G\u0142\u00F3wny  09:34 -  Olsztyn Zachodni  09:38 -  Dzia\u0142dowo  10:35 -  M\u0142awa  10:44 -  Ciechan\u00F3w  11:00 -  Nowy Dw\u00F3r Mazowiecki  11:29 \u2022  Legionowo  11:38 -  Warszawa Wschodnia  11:53 -  Warszawa Centralna  12:08 -  Warszawa Zachodnia  12:12",
+    "routeTo": "Warszawa Zachodnia  12:14 -  Warszawa S\u0142u\u017Cewiec  12:21 -  Piaseczno  12:30 -  Warka  12:48 \u2022  Radom G\u0142\u00F3wny  13:10 -  Skar\u017Cysko-Kamienna  13:36 -  Kielce G\u0142\u00F3wne  14:18 -  S\u0119dzisz\u00F3w  15:02 -  Miech\u00F3w  15:36 -  Krak\u00F3w G\u0142\u00F3wny  16:34",
+    "platform": "VII/5"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.8043789+02:00",
+  "dataType": "Json",
+  "dataSource": "station/VII/5/lcd",
+  "jsonData": {
+    "arrivalTime": "12:12",
+    "departureTime": "12:14",
+    "delay": "",
+    "name": "IC 5328   KOLBERG",
+    "headsignFrom": "Olsztyn G\u0142\u00F3wny",
+    "headsignTo": "Krak\u00F3w G\u0142\u00F3wny",
+    "routeFrom": "Olsztyn G\u0142\u00F3wny  09:34 -  Olsztyn Zachodni  09:38 -  Dzia\u0142dowo  10:35 -  M\u0142awa  10:44 -  Ciechan\u00F3w  11:00 -  Nowy Dw\u00F3r Mazowiecki  11:29 \u2022  Legionowo  11:38 -  Warszawa Wschodnia  11:53 -  Warszawa Centralna  12:08 -  Warszawa Zachodnia  12:12",
+    "routeTo": "Warszawa Zachodnia  12:14 -  Warszawa S\u0142u\u017Cewiec  12:21 -  Piaseczno  12:30 -  Warka  12:48 \u2022  Radom G\u0142\u00F3wny  13:10 -  Skar\u017Cysko-Kamienna  13:36 -  Kielce G\u0142\u00F3wne  14:18 -  S\u0119dzisz\u00F3w  15:02 -  Miech\u00F3w  15:36 -  Krak\u00F3w G\u0142\u00F3wny  16:34",
+    "platform": "VII/5"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.8014844+02:00",
+  "dataType": "Json",
+  "dataSource": "station/VII/3/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7988179+02:00",
+  "dataType": "Json",
+  "dataSource": "station/VII/3/lcd",
+  "jsonData": {
+    "arrivalTime": "12:16",
+    "departureTime": "12:17",
+    "delay": "",
+    "name": "IC 1626   LE\u015AMIAN",
+    "headsignFrom": "Bia\u0142ystok",
+    "headsignTo": "Wroc\u0142aw G\u0142\u00F3wny",
+    "routeFrom": "Bia\u0142ystok  10:15 -  Bia\u0142ystok Zielone Wzg\u00F3rza  10:19 -  \u0141apy  10:30 -  Czy\u017Cew  10:52 -  Ma\u0142kinia  11:05 -  T\u0142uszcz  11:28 \u2022  Wo\u0142omin  11:37 -  Warszawa Wschodnia  11:57 -  Warszawa Centralna  12:12 -  Warszawa Zachodnia  12:16",
+    "routeTo": "Warszawa Zachodnia  12:17 -  \u017Byrard\u00F3w  12:37 -  Skierniewice  12:49 -  Koluszki  13:08 \u2022  \u0141\u00F3d\u017A Widzew  13:21 -  \u0141\u00F3d\u017A Chojny  13:31 -  Pabianice  13:46 -  \u0141ask  13:57 -  Wroc\u0142aw Miko\u0142aj\u00F3w  16:52 -  Wroc\u0142aw G\u0142\u00F3wny  16:58",
+    "platform": "VII/3"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7961334+02:00",
+  "dataType": "Json",
+  "dataSource": "station/VI/2/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7933571+02:00",
+  "dataType": "Json",
+  "dataSource": "station/VI/2/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7904424+02:00",
+  "dataType": "Json",
+  "dataSource": "station/VI/1/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7878081+02:00",
+  "dataType": "Json",
+  "dataSource": "station/VI/1/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7850586+02:00",
+  "dataType": "Json",
+  "dataSource": "station/V/4/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.781924+02:00",
+  "dataType": "Json",
+  "dataSource": "station/V/4/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7792819+02:00",
+  "dataType": "Json",
+  "dataSource": "station/V/6/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7767119+02:00",
+  "dataType": "Json",
+  "dataSource": "station/V/6/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7736274+02:00",
+  "dataType": "Json",
+  "dataSource": "station/IV/10/audio",
+  "jsonData": {
+    "arrivalTime": null,
+    "departureTime": "12:09",
+    "delay": "",
+    "name": "KM 19480   R3",
+    "headsignFrom": "",
+    "headsignTo": "B\u0142onie",
+    "routeFrom": "",
+    "routeTo": "Warszawa Zachodnia  12:09 -  Warszawa W\u0142ochy  12:13 -  Warszawa Ursus P\u00F3\u0142nocny  12:17 -  Warszawa Go\u0142\u0105bki  12:19 -  O\u017Car\u00F3w Mazowiecki  12:23 -  P\u0142ochocin  12:28 -  B\u0142onie Rokitno  12:32 -  B\u0142onie  12:36",
+    "platform": "IV/10"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7708189+02:00",
+  "dataType": "Json",
+  "dataSource": "station/IV/10/lcd",
+  "jsonData": {
+    "arrivalTime": null,
+    "departureTime": "12:09",
+    "delay": "",
+    "name": "KM 19480   R3",
+    "headsignFrom": "",
+    "headsignTo": "B\u0142onie",
+    "routeFrom": "",
+    "routeTo": "Warszawa Zachodnia  12:09 -  Warszawa W\u0142ochy  12:13 -  Warszawa Ursus P\u00F3\u0142nocny  12:17 -  Warszawa Go\u0142\u0105bki  12:19 -  O\u017Car\u00F3w Mazowiecki  12:23 -  P\u0142ochocin  12:28 -  B\u0142onie Rokitno  12:32 -  B\u0142onie  12:36",
+    "platform": "IV/10"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7682185+02:00",
+  "dataType": "Json",
+  "dataSource": "station/IV/8/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7656363+02:00",
+  "dataType": "Json",
+  "dataSource": "station/IV/8/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7624314+02:00",
+  "dataType": "Json",
+  "dataSource": "station/III/23/audio",
+  "jsonData": {
+    "arrivalTime": "12:12",
+    "departureTime": "12:13",
+    "delay": "",
+    "name": "KM 19320   R1",
+    "headsignFrom": "Warszawa Wschodnia",
+    "headsignTo": "Grodzisk Mazowiecki PKP",
+    "routeFrom": "Warszawa Wschodnia  11:57 -  Warszawa Stadion  11:59 -  Warszawa Powi\u015Ble  12:02 -  Warszawa \u015Ar\u00F3dmie\u015Bcie PKP  12:06 -  Warszawa Ochota  12:09 -  Warszawa Zachodnia  12:12",
+    "routeTo": "Warszawa Zachodnia  12:13 -  Warszawa W\u0142ochy  12:17 -  Warszawa Ursus  12:20 -  Warszawa Ursus Nied\u017Awiadek  12:21 \u2022  Piast\u00F3w  12:24 -  Pruszk\u00F3w  12:27 -  Parzniew  12:30 -  Brwin\u00F3w  12:33 -  Milan\u00F3wek  12:37 -  Grodzisk Mazowiecki PKP  12:41",
+    "platform": "III/23"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7598585+02:00",
+  "dataType": "Json",
+  "dataSource": "station/III/23/lcd",
+  "jsonData": {
+    "arrivalTime": "12:12",
+    "departureTime": "12:13",
+    "delay": "",
+    "name": "KM 19320   R1",
+    "headsignFrom": "Warszawa Wschodnia",
+    "headsignTo": "Grodzisk Mazowiecki PKP",
+    "routeFrom": "Warszawa Wschodnia  11:57 -  Warszawa Stadion  11:59 -  Warszawa Powi\u015Ble  12:02 -  Warszawa \u015Ar\u00F3dmie\u015Bcie PKP  12:06 -  Warszawa Ochota  12:09 -  Warszawa Zachodnia  12:12",
+    "routeTo": "Warszawa Zachodnia  12:13 -  Warszawa W\u0142ochy  12:17 -  Warszawa Ursus  12:20 -  Warszawa Ursus Nied\u017Awiadek  12:21 \u2022  Piast\u00F3w  12:24 -  Pruszk\u00F3w  12:27 -  Parzniew  12:30 -  Brwin\u00F3w  12:33 -  Milan\u00F3wek  12:37 -  Grodzisk Mazowiecki PKP  12:41",
+    "platform": "III/23"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7572525+02:00",
+  "dataType": "Json",
+  "dataSource": "station/III/21/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7544501+02:00",
+  "dataType": "Json",
+  "dataSource": "station/III/21/lcd",
+  "jsonData": {
+    "arrivalTime": "12:16",
+    "departureTime": "12:17",
+    "delay": "",
+    "name": "SKW 10830   S2",
+    "headsignFrom": "Sulej\u00F3wek Mi\u0142osna",
+    "headsignTo": "Warszawa Lotnisko Chopina",
+    "routeFrom": "Sulej\u00F3wek Mi\u0142osna  11:42 -  Sulej\u00F3wek  11:45 -  Warszawa Wola Grzybowska  11:47 -  Warszawa Rembert\u00F3w  11:53 -  Warszawa Wschodnia  12:01 -  Warszawa Stadion  12:03 \u2022  Warszawa Powi\u015Ble  12:06 -  Warszawa \u015Ar\u00F3dmie\u015Bcie PKP  12:10 -  Warszawa Ochota  12:13 -  Warszawa Zachodnia  12:16",
+    "routeTo": "Warszawa Zachodnia  12:17 -  Warszawa Aleje Jerozolimskie PKP  12:21 -  Warszawa Rakowiec  12:24 -  Warszawa \u017Bwirki i Wigury  12:26 -  Warszawa S\u0142u\u017Cewiec  12:28 -  Warszawa Lotnisko Chopina  12:32",
+    "platform": "III/21"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7510341+02:00",
+  "dataType": "Json",
+  "dataSource": "station/II/20/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7482182+02:00",
+  "dataType": "Json",
+  "dataSource": "station/II/20/lcd",
+  "jsonData": {
+    "arrivalTime": "12:14",
+    "departureTime": "12:15",
+    "delay": "",
+    "name": "SKW 99230   S1",
+    "headsignFrom": "Pruszk\u00F3w",
+    "headsignTo": "Warszawa Wawer",
+    "routeFrom": "Pruszk\u00F3w  11:59 -  Piast\u00F3w  12:02 -  Warszawa Ursus Nied\u017Awiadek  12:05 -  Warszawa Ursus  12:07 -  Warszawa W\u0142ochy  12:10 -  Warszawa Zachodnia  12:14",
+    "routeTo": "Warszawa Zachodnia  12:15 -  Warszawa Ochota  12:18 -  Warszawa \u015Ar\u00F3dmie\u015Bcie PKP  12:21 -  Warszawa Powi\u015Ble  12:25 \u2022  Warszawa Stadion  12:27 -  Warszawa Wschodnia  12:30 -  Warszawa Groch\u00F3w  12:34 -  Warszawa Olszynka Grochowska  12:37 -  Warszawa Goc\u0142awek  12:39 -  Warszawa Wawer  12:42",
+    "platform": "II/20"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7456231+02:00",
+  "dataType": "Json",
+  "dataSource": "station/II/22/audio",
+  "jsonData": {
+    "arrivalTime": "12:10",
+    "departureTime": "12:12",
+    "delay": "",
+    "name": "SKW 97228   S2",
+    "headsignFrom": "Warszawa Lotnisko Chopina",
+    "headsignTo": "Sulej\u00F3wek Mi\u0142osna",
+    "routeFrom": "Warszawa Lotnisko Chopina  11:56 -  Warszawa S\u0142u\u017Cewiec  12:00 -  Warszawa \u017Bwirki i Wigury  12:02 -  Warszawa Rakowiec  12:04 -  Warszawa Aleje Jerozolimskie PKP  12:07 -  Warszawa Zachodnia  12:10",
+    "routeTo": "Warszawa Zachodnia  12:12 -  Warszawa Ochota  12:14 -  Warszawa \u015Ar\u00F3dmie\u015Bcie PKP  12:18 -  Warszawa Powi\u015Ble  12:21 \u2022  Warszawa Stadion  12:24 -  Warszawa Wschodnia  12:27 -  Warszawa Rembert\u00F3w  12:35 -  Warszawa Weso\u0142a  12:39 -  Warszawa Wola Grzybowska  12:41 -  Sulej\u00F3wek Mi\u0142osna  12:47",
+    "platform": "II/22"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7419992+02:00",
+  "dataType": "Json",
+  "dataSource": "station/II/22/lcd",
+  "jsonData": {
+    "arrivalTime": "12:10",
+    "departureTime": "12:12",
+    "delay": "",
+    "name": "SKW 97228   S2",
+    "headsignFrom": "Warszawa Lotnisko Chopina",
+    "headsignTo": "Sulej\u00F3wek Mi\u0142osna",
+    "routeFrom": "Warszawa Lotnisko Chopina  11:56 -  Warszawa S\u0142u\u017Cewiec  12:00 -  Warszawa \u017Bwirki i Wigury  12:02 -  Warszawa Rakowiec  12:04 -  Warszawa Aleje Jerozolimskie PKP  12:07 -  Warszawa Zachodnia  12:10",
+    "routeTo": "Warszawa Zachodnia  12:12 -  Warszawa Ochota  12:14 -  Warszawa \u015Ar\u00F3dmie\u015Bcie PKP  12:18 -  Warszawa Powi\u015Ble  12:21 \u2022  Warszawa Stadion  12:24 -  Warszawa Wschodnia  12:27 -  Warszawa Rembert\u00F3w  12:35 -  Warszawa Weso\u0142a  12:39 -  Warszawa Wola Grzybowska  12:41 -  Sulej\u00F3wek Mi\u0142osna  12:47",
+    "platform": "II/22"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.739359+02:00",
+  "dataType": "Json",
+  "dataSource": "station/WKD/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:09:17.7344107+02:00",
+  "dataType": "Json",
+  "dataSource": "station/WKD/lcd",
+  "jsonData": {
+    "arrivalTime": "12:15",
+    "departureTime": "12:15",
+    "delay": "",
+    "name": "WKD 6525",
+    "headsignFrom": "Warszawa \u015Ar\u00F3dmie\u015Bcie WKD",
+    "headsignTo": "Warszawa Aleje Jerozolimskie WKD",
+    "routeFrom": "Warszawa \u015Ar\u00F3dmie\u015Bcie WKD  12:10 -  Warszawa Ochota WKD  12:12 -  Warszawa Zachodnia WKD  12:15",
+    "routeTo": "Warszawa Zachodnia WKD  12:15 -  Warszawa Reduta Ordona  12:17 -  Warszawa Aleje Jerozolimskie WKD  12:20",
+    "platform": "Warszawa Zachodnia WKD"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:10:02.5435848+02:00",
+  "dataType": "Json",
+  "dataSource": "station/WKD/audio",
+  "jsonData": {
+    "arrivalTime": "12:15",
+    "departureTime": "12:15",
+    "delay": "",
+    "name": "WKD 6525",
+    "headsignFrom": "Warszawa \u015Ar\u00F3dmie\u015Bcie WKD",
+    "headsignTo": "Warszawa Aleje Jerozolimskie WKD",
+    "routeFrom": "Warszawa \u015Ar\u00F3dmie\u015Bcie WKD  12:10 -  Warszawa Ochota WKD  12:12 -  Warszawa Zachodnia WKD  12:15",
+    "routeTo": "Warszawa Zachodnia WKD  12:15 -  Warszawa Reduta Ordona  12:17 -  Warszawa Aleje Jerozolimskie WKD  12:20",
+    "platform": "Warszawa Zachodnia WKD"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:10:02.5482239+02:00",
+  "dataType": "Json",
+  "dataSource": "station/II/20/audio",
+  "jsonData": {
+    "arrivalTime": "12:14",
+    "departureTime": "12:15",
+    "delay": "",
+    "name": "SKW 99230   S1",
+    "headsignFrom": "Pruszk\u00F3w",
+    "headsignTo": "Warszawa Wawer",
+    "routeFrom": "Pruszk\u00F3w  11:59 -  Piast\u00F3w  12:02 -  Warszawa Ursus Nied\u017Awiadek  12:05 -  Warszawa Ursus  12:07 -  Warszawa W\u0142ochy  12:10 -  Warszawa Zachodnia  12:14",
+    "routeTo": "Warszawa Zachodnia  12:15 -  Warszawa Ochota  12:18 -  Warszawa \u015Ar\u00F3dmie\u015Bcie PKP  12:21 -  Warszawa Powi\u015Ble  12:25 \u2022  Warszawa Stadion  12:27 -  Warszawa Wschodnia  12:30 -  Warszawa Groch\u00F3w  12:34 -  Warszawa Olszynka Grochowska  12:37 -  Warszawa Goc\u0142awek  12:39 -  Warszawa Wawer  12:42",
+    "platform": "II/20"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:10:02.5601588+02:00",
+  "dataType": "Json",
+  "dataSource": "station/IV/10/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:10:02.5634475+02:00",
+  "dataType": "Json",
+  "dataSource": "station/IV/10/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:11:11.4461053+02:00",
+  "dataType": "Json",
+  "dataSource": "station/II/22/lcd",
+  "jsonData": {
+    "arrivalTime": null,
+    "departureTime": "12:12",
+    "delay": "",
+    "name": "SKW 97228   S2",
+    "headsignFrom": "",
+    "headsignTo": "Sulej\u00F3wek Mi\u0142osna",
+    "routeFrom": "",
+    "routeTo": "Warszawa Zachodnia  12:12 -  Warszawa Ochota  12:14 -  Warszawa \u015Ar\u00F3dmie\u015Bcie PKP  12:18 -  Warszawa Powi\u015Ble  12:21 \u2022  Warszawa Stadion  12:24 -  Warszawa Wschodnia  12:27 -  Warszawa Rembert\u00F3w  12:35 -  Warszawa Weso\u0142a  12:39 -  Warszawa Wola Grzybowska  12:41 -  Sulej\u00F3wek Mi\u0142osna  12:47",
+    "platform": "II/22"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24T12:11:11.4537692+02:00",
+  "dataType": "Json",
+  "dataSource": "station/II/22/audio",
+  "jsonData": {
+    "arrivalTime": null,
+    "departureTime": "12:12",
+    "delay": "",
+    "name": "SKW 97228   S2",
+    "headsignFrom": "",
+    "headsignTo": "Sulej\u00F3wek Mi\u0142osna",
+    "routeFrom": "",
+    "routeTo": "Warszawa Zachodnia  12:12 -  Warszawa Ochota  12:14 -  Warszawa \u015Ar\u00F3dmie\u015Bcie PKP  12:18 -  Warszawa Powi\u015Ble  12:21 \u2022  Warszawa Stadion  12:24 -  Warszawa Wschodnia  12:27 -  Warszawa Rembert\u00F3w  12:35 -  Warszawa Weso\u0142a  12:39 -  Warszawa Wola Grzybowska  12:41 -  Sulej\u00F3wek Mi\u0142osna  12:47",
+    "platform": "II/22"
+  },
+  "textData": null
+}

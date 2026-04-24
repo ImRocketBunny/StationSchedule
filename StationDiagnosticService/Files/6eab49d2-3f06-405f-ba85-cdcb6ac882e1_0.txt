@@ -1,0 +1,450 @@
+{
+  "frameDate": "2026-04-24 12:50:07.525082",
+  "dataType": "Json",
+  "dataSource": "station/IX/2/audio",
+  "jsonData": {
+    "arrivalTime": "12:42",
+    "departureTime": null,
+    "delay": "10",
+    "name": "KM 51606   R90",
+    "headsignFrom": "Ciechan\u00F3w",
+    "headsignTo": "",
+    "routeFrom": "Ciechan\u00F3w  11:10 -  Nowy Dw\u00F3r Mazowiecki  11:57 -  Legionowo  12:11 -  Warszawa Toru\u0144ska  12:22 -  Warszawa Gda\u0144ska  12:31 -  Warszawa Pow\u0105zki  12:34 \u2022  Warszawa Ko\u0142o  12:36 -  Warszawa M\u0142yn\u00F3w  12:38 -  Warszawa Wola  12:40 -  Warszawa Zachodnia peron 9  12:42",
+    "routeTo": "",
+    "platform": "IX/2 Warszawa Zachodnia peron 9"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.523195",
+  "dataType": "Json",
+  "dataSource": "station/IX/2/lcd",
+  "jsonData": {
+    "arrivalTime": "12:42",
+    "departureTime": null,
+    "delay": "10",
+    "name": "KM 51606   R90",
+    "headsignFrom": "Ciechan\u00F3w",
+    "headsignTo": "",
+    "routeFrom": "Ciechan\u00F3w  11:10 -  Nowy Dw\u00F3r Mazowiecki  11:57 -  Legionowo  12:11 -  Warszawa Toru\u0144ska  12:22 -  Warszawa Gda\u0144ska  12:31 -  Warszawa Pow\u0105zki  12:34 \u2022  Warszawa Ko\u0142o  12:36 -  Warszawa M\u0142yn\u00F3w  12:38 -  Warszawa Wola  12:40 -  Warszawa Zachodnia peron 9  12:42",
+    "routeTo": "",
+    "platform": "IX/2 Warszawa Zachodnia peron 9"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.520680",
+  "dataType": "Json",
+  "dataSource": "station/IX/1/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.518126",
+  "dataType": "Json",
+  "dataSource": "station/IX/1/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.513625",
+  "dataType": "Json",
+  "dataSource": "station/VIII/9/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.510876",
+  "dataType": "Json",
+  "dataSource": "station/VIII/9/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.506285",
+  "dataType": "Json",
+  "dataSource": "station/VIII/7/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.501743",
+  "dataType": "Json",
+  "dataSource": "station/VIII/7/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.497595",
+  "dataType": "Json",
+  "dataSource": "station/VII/5/audio",
+  "jsonData": {
+    "arrivalTime": "12:52",
+    "departureTime": null,
+    "delay": "",
+    "name": "IC 1130   RADZIWI\u0141\u0141",
+    "headsignFrom": "Terespol",
+    "headsignTo": "",
+    "routeFrom": "Terespol  10:37 -  Ma\u0142aszewicze  10:44 -  Choty\u0142\u00F3w  10:52 -  Bia\u0142a Podlaska  11:01 -  Mi\u0119dzyrzec Podlaski  11:13 -  \u0141uk\u00F3w  11:27 \u2022  Siedlce  11:42 -  Mrozy  11:58 -  Mi\u0144sk Mazowiecki  12:09 -  Warszawa Zachodnia  12:52",
+    "routeTo": "",
+    "platform": "VII/5"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.493696",
+  "dataType": "Json",
+  "dataSource": "station/VII/5/lcd",
+  "jsonData": {
+    "arrivalTime": "12:52",
+    "departureTime": null,
+    "delay": "",
+    "name": "IC 1130   RADZIWI\u0141\u0141",
+    "headsignFrom": "Terespol",
+    "headsignTo": "",
+    "routeFrom": "Terespol  10:37 -  Ma\u0142aszewicze  10:44 -  Choty\u0142\u00F3w  10:52 -  Bia\u0142a Podlaska  11:01 -  Mi\u0119dzyrzec Podlaski  11:13 -  \u0141uk\u00F3w  11:27 \u2022  Siedlce  11:42 -  Mrozy  11:58 -  Mi\u0144sk Mazowiecki  12:09 -  Warszawa Zachodnia  12:52",
+    "routeTo": "",
+    "platform": "VII/5"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.489902",
+  "dataType": "Json",
+  "dataSource": "station/VII/3/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.484178",
+  "dataType": "Json",
+  "dataSource": "station/VII/3/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.481140",
+  "dataType": "Json",
+  "dataSource": "station/VI/2/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.477728",
+  "dataType": "Json",
+  "dataSource": "station/VI/2/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.473442",
+  "dataType": "Json",
+  "dataSource": "station/VI/1/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.470751",
+  "dataType": "Json",
+  "dataSource": "station/VI/1/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.468166",
+  "dataType": "Json",
+  "dataSource": "station/V/4/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.465347",
+  "dataType": "Json",
+  "dataSource": "station/V/4/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.462606",
+  "dataType": "Json",
+  "dataSource": "station/V/6/audio",
+  "jsonData": {
+    "arrivalTime": "12:55",
+    "departureTime": null,
+    "delay": "",
+    "name": "EIC 43   BERLIN WARSZAWA EXPRESS",
+    "headsignFrom": "Berlin Hbf",
+    "headsignTo": "",
+    "routeFrom": "Berlin Hbf  07:48 -  Berlin Ostbahnhof  08:00 -  Frankfurt(Oder)  08:50 -  Rzepin  09:13 -  \u015Awiebodzin  09:38 -  Zb\u0105szynek  09:51 \u2022  Pozna\u0144 G\u0142\u00F3wny  10:36 -  Konin  11:22 -  Kutno  11:58 -  Warszawa Zachodnia  12:55",
+    "routeTo": "",
+    "platform": "V/6"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.458229",
+  "dataType": "Json",
+  "dataSource": "station/V/6/lcd",
+  "jsonData": {
+    "arrivalTime": "12:55",
+    "departureTime": null,
+    "delay": "",
+    "name": "EIC 43   BERLIN WARSZAWA EXPRESS",
+    "headsignFrom": "Berlin Hbf",
+    "headsignTo": "",
+    "routeFrom": "Berlin Hbf  07:48 -  Berlin Ostbahnhof  08:00 -  Frankfurt(Oder)  08:50 -  Rzepin  09:13 -  \u015Awiebodzin  09:38 -  Zb\u0105szynek  09:51 \u2022  Pozna\u0144 G\u0142\u00F3wny  10:36 -  Konin  11:22 -  Kutno  11:58 -  Warszawa Zachodnia  12:55",
+    "routeTo": "",
+    "platform": "V/6"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.454253",
+  "dataType": "Json",
+  "dataSource": "station/IV/10/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.448895",
+  "dataType": "Json",
+  "dataSource": "station/IV/10/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.442908",
+  "dataType": "Json",
+  "dataSource": "station/IV/8/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.436153",
+  "dataType": "Json",
+  "dataSource": "station/IV/8/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.432746",
+  "dataType": "Json",
+  "dataSource": "station/III/23/audio",
+  "jsonData": {
+    "arrivalTime": null,
+    "departureTime": "12:50",
+    "delay": "",
+    "name": "SKW 99330   S1",
+    "headsignFrom": "",
+    "headsignTo": "Pruszk\u00F3w",
+    "routeFrom": "",
+    "routeTo": "Warszawa Zachodnia  12:50 -  Warszawa W\u0142ochy  12:54 -  Warszawa Ursus  12:58 -  Warszawa Ursus Nied\u017Awiadek  13:00 -  Piast\u00F3w  13:02 -  Pruszk\u00F3w  13:07",
+    "platform": "III/23"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.427750",
+  "dataType": "Json",
+  "dataSource": "station/III/23/lcd",
+  "jsonData": {
+    "arrivalTime": null,
+    "departureTime": "12:50",
+    "delay": "",
+    "name": "SKW 99330   S1",
+    "headsignFrom": "",
+    "headsignTo": "Pruszk\u00F3w",
+    "routeFrom": "",
+    "routeTo": "Warszawa Zachodnia  12:50 -  Warszawa W\u0142ochy  12:54 -  Warszawa Ursus  12:58 -  Warszawa Ursus Nied\u017Awiadek  13:00 -  Piast\u00F3w  13:02 -  Pruszk\u00F3w  13:07",
+    "platform": "III/23"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.423389",
+  "dataType": "Json",
+  "dataSource": "station/III/21/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.417550",
+  "dataType": "Json",
+  "dataSource": "station/III/21/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.414520",
+  "dataType": "Json",
+  "dataSource": "station/II/20/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.408895",
+  "dataType": "Json",
+  "dataSource": "station/II/20/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.403111",
+  "dataType": "Json",
+  "dataSource": "station/II/22/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.398567",
+  "dataType": "Json",
+  "dataSource": "station/II/22/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.392699",
+  "dataType": "Json",
+  "dataSource": "station/WKD/audio",
+  "jsonData": {
+    "arrivalTime": "12:51",
+    "departureTime": "12:51",
+    "delay": "",
+    "name": "WKD 6114",
+    "headsignFrom": "Grodzisk Mazowiecki Rado\u0144ska",
+    "headsignTo": "Warszawa \u015Ar\u00F3dmie\u015Bcie WKD",
+    "routeFrom": "Grodzisk Mazowiecki Rado\u0144ska  12:00 -  Podkowa Le\u015Bna Zachodnia  12:11 -  Komor\u00F3w  12:26 -  Pruszk\u00F3w WKD  12:28 -  Tworki  12:30 -  Malichy  12:32 \u2022  Warszawa Rak\u00F3w  12:43 -  Warszawa Aleje Jerozolimskie WKD  12:46 -  Warszawa Reduta Ordona  12:48 -  Warszawa Zachodnia WKD  12:51",
+    "routeTo": "Warszawa Zachodnia WKD  12:51 -  Warszawa Ochota WKD  12:53 -  Warszawa \u015Ar\u00F3dmie\u015Bcie WKD  12:56",
+    "platform": "Warszawa Zachodnia WKD"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:07.380590",
+  "dataType": "Json",
+  "dataSource": "station/WKD/lcd",
+  "jsonData": {
+    "arrivalTime": "12:51",
+    "departureTime": "12:51",
+    "delay": "",
+    "name": "WKD 6114",
+    "headsignFrom": "Grodzisk Mazowiecki Rado\u0144ska",
+    "headsignTo": "Warszawa \u015Ar\u00F3dmie\u015Bcie WKD",
+    "routeFrom": "Grodzisk Mazowiecki Rado\u0144ska  12:00 -  Podkowa Le\u015Bna Zachodnia  12:11 -  Komor\u00F3w  12:26 -  Pruszk\u00F3w WKD  12:28 -  Tworki  12:30 -  Malichy  12:32 \u2022  Warszawa Rak\u00F3w  12:43 -  Warszawa Aleje Jerozolimskie WKD  12:46 -  Warszawa Reduta Ordona  12:48 -  Warszawa Zachodnia WKD  12:51",
+    "routeTo": "Warszawa Zachodnia WKD  12:51 -  Warszawa Ochota WKD  12:53 -  Warszawa \u015Ar\u00F3dmie\u015Bcie WKD  12:56",
+    "platform": "Warszawa Zachodnia WKD"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:50:12.324684",
+  "dataType": "text",
+  "dataSource": "station/II/22/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.347860",
+  "dataType": "text",
+  "dataSource": "station/WKD/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.367887",
+  "dataType": "text",
+  "dataSource": "station/II/20/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.384627",
+  "dataType": "text",
+  "dataSource": "station/III/21/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.407901",
+  "dataType": "text",
+  "dataSource": "station/III/23/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.425504",
+  "dataType": "text",
+  "dataSource": "station/IV/8/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.434842",
+  "dataType": "text",
+  "dataSource": "station/IV/10/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.444945",
+  "dataType": "text",
+  "dataSource": "station/V/6/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.458928",
+  "dataType": "text",
+  "dataSource": "station/V/4/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.470632",
+  "dataType": "text",
+  "dataSource": "station/VI/1/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.483320",
+  "dataType": "text",
+  "dataSource": "station/VI/2/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.495170",
+  "dataType": "text",
+  "dataSource": "station/VII/3/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.507367",
+  "dataType": "text",
+  "dataSource": "station/VII/5/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.520060",
+  "dataType": "text",
+  "dataSource": "station/VIII/7/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.566883",
+  "dataType": "text",
+  "dataSource": "station/VIII/9/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:12.579454",
+  "dataType": "text",
+  "dataSource": "station/IX/1/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+}

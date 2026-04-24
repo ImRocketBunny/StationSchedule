@@ -1,2 +1,0 @@
-agency_id,agency_name,agency_url,agency_timezone,agency_lang,agency_phone,agency_fare_url,agency_email
-SKMTr,PKP Szybka Kolej Miejska w Trójmieście Sp. z o.o.,http://www.skm.pkp.pl/,Europe/Warsaw,pl,(+48) 58 721 21 70,https://bilety.skm.pkp.pl/,skm@skm.pkp.pl

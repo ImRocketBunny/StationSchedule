@@ -9,5 +9,6 @@ namespace MediaConverter.Services.Abstract
     internal interface IFFmpegConversionService
     {
         public Task ProcessFileConversion(string inputPath);
+        public Task SetupConverter();
     }
 }

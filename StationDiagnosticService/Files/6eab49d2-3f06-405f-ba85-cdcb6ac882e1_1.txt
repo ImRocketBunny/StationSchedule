@@ -1,0 +1,184 @@
+{
+  "frameDate": "2026-04-24 12:50:12.592423",
+  "dataType": "text",
+  "dataSource": "station/IX/2/fileName",
+  "jsonData": null,
+  "textData": "2025.01.22_UTK_Rogatek_I-r20250122-39.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:42.672697",
+  "dataType": "text",
+  "dataSource": "station/IV/10/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:42.686765",
+  "dataType": "text",
+  "dataSource": "station/VII/3/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:42.705641",
+  "dataType": "text",
+  "dataSource": "station/V/4/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:42.721676",
+  "dataType": "text",
+  "dataSource": "station/VIII/7/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:42.733852",
+  "dataType": "text",
+  "dataSource": "station/VI/2/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:42.743793",
+  "dataType": "text",
+  "dataSource": "station/IV/8/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:42.755525",
+  "dataType": "text",
+  "dataSource": "station/III/21/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:42.764202",
+  "dataType": "text",
+  "dataSource": "station/II/22/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:42.772755",
+  "dataType": "text",
+  "dataSource": "station/II/20/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:42.781399",
+  "dataType": "text",
+  "dataSource": "station/VI/1/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:42.790061",
+  "dataType": "text",
+  "dataSource": "station/VIII/9/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:50:42.798682",
+  "dataType": "text",
+  "dataSource": "station/IX/1/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:51:04.605276",
+  "dataType": "Json",
+  "dataSource": "station/III/23/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:51:04.611301",
+  "dataType": "Json",
+  "dataSource": "station/III/23/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:51:04.617062",
+  "dataType": "Json",
+  "dataSource": "station/VI/2/lcd",
+  "jsonData": {
+    "arrivalTime": "12:57",
+    "departureTime": "13:00",
+    "delay": "",
+    "name": "KM 97124   RL",
+    "headsignFrom": "Warszawa Lotnisko Chopina",
+    "headsignTo": "Modlin",
+    "routeFrom": "Warszawa Lotnisko Chopina  12:41 -  Warszawa S\u0142u\u017Cewiec  12:45 -  Warszawa \u017Bwirki i Wigury  12:48 -  Warszawa Rakowiec  12:50 -  Warszawa Aleje Jerozolimskie PKP  12:53 -  Warszawa Zachodnia  12:57",
+    "routeTo": "Warszawa Zachodnia  13:00 -  Warszawa Centralna  13:04 -  Warszawa Wschodnia  13:11 -  Warszawa Targ\u00F3wek  13:17 \u2022  Warszawa Toru\u0144ska  13:22 -  Warszawa P\u0142udy  13:26 -  Legionowo  13:32 -  Legionowo Przystanek  13:35 -  Nowy Dw\u00F3r Mazowiecki  13:44 -  Modlin  13:48",
+    "platform": "VI/2"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:51:04.630996",
+  "dataType": "text",
+  "dataSource": "station/III/23/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+},
+{
+  "frameDate": "2026-04-24 12:52:01.829072",
+  "dataType": "Json",
+  "dataSource": "station/WKD/lcd",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:52:01.836463",
+  "dataType": "Json",
+  "dataSource": "station/WKD/audio",
+  "jsonData": {},
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:52:01.844144",
+  "dataType": "Json",
+  "dataSource": "station/II/20/lcd",
+  "jsonData": {
+    "arrivalTime": "13:00",
+    "departureTime": "13:01",
+    "delay": "",
+    "name": "KM 93542   R7",
+    "headsignFrom": "Grodzisk Mazowiecki PKP",
+    "headsignTo": "Warszawa Wawer",
+    "routeFrom": "Grodzisk Mazowiecki PKP  12:32 -  Milan\u00F3wek  12:35 -  Brwin\u00F3w  12:38 -  Parzniew  12:41 -  Pruszk\u00F3w  12:45 -  Piast\u00F3w  12:48 \u2022  Warszawa Ursus Nied\u017Awiadek  12:50 -  Warszawa Ursus  12:52 -  Warszawa W\u0142ochy  12:56 -  Warszawa Zachodnia  13:00",
+    "routeTo": "Warszawa Zachodnia  13:01 -  Warszawa Ochota  13:03 -  Warszawa \u015Ar\u00F3dmie\u015Bcie PKP  13:07 -  Warszawa Powi\u015Ble  13:10 \u2022  Warszawa Stadion  13:13 -  Warszawa Wschodnia  13:16 -  Warszawa Groch\u00F3w  13:20 -  Warszawa Olszynka Grochowska  13:22 -  Warszawa Goc\u0142awek  13:25 -  Warszawa Wawer  13:27",
+    "platform": "II/20"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:52:01.850551",
+  "dataType": "Json",
+  "dataSource": "station/III/23/lcd",
+  "jsonData": {
+    "arrivalTime": "13:01",
+    "departureTime": null,
+    "delay": "",
+    "name": "KM 91512   R7",
+    "headsignFrom": "Warszawa Wawer",
+    "headsignTo": "",
+    "routeFrom": "Warszawa Wawer  12:34 -  Warszawa Goc\u0142awek  12:36 -  Warszawa Olszynka Grochowska  12:39 -  Warszawa Groch\u00F3w  12:41 -  Warszawa Wschodnia  12:46 -  Warszawa Stadion  12:48 \u2022  Warszawa Powi\u015Ble  12:51 -  Warszawa \u015Ar\u00F3dmie\u015Bcie PKP  12:55 -  Warszawa Ochota  12:58 -  Warszawa Zachodnia  13:01",
+    "routeTo": "",
+    "platform": "III/23"
+  },
+  "textData": null
+},
+{
+  "frameDate": "2026-04-24 12:52:01.859220",
+  "dataType": "text",
+  "dataSource": "station/WKD/fileName",
+  "jsonData": null,
+  "textData": "kraszczady-r20260327-7.webm"
+}

@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio Version 17
-VisualStudioVersion = 17.8.34525.116
+# Visual Studio Version 18
+VisualStudioVersion = 18.2.11415.280 d18.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{04FF48CA-C897-45A1-8DB0-3D833E957AB3}"
 EndProject
@@ -41,6 +41,10 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StationAdvertService", "StationAdvertService\StationAdvertService.csproj", "{0EACA0F2-3881-4D2B-A7AC-44A6673196AE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MediaConverter", "MediaConverter\MediaConverter.csproj", "{8C904BEE-856C-4F5E-9337-89912D1DBF7F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StationDiagnosticService", "StationDiagnosticService\StationDiagnosticService.csproj", "{DCB5D7FD-D002-4038-A299-44FAE839DCF9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TrainSetService", "TrainSetService\TrainSetService.csproj", "{F85321AB-1810-4494-AD09-7DE246EE808A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -98,6 +102,14 @@ Global
 		{8C904BEE-856C-4F5E-9337-89912D1DBF7F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C904BEE-856C-4F5E-9337-89912D1DBF7F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C904BEE-856C-4F5E-9337-89912D1DBF7F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCB5D7FD-D002-4038-A299-44FAE839DCF9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCB5D7FD-D002-4038-A299-44FAE839DCF9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCB5D7FD-D002-4038-A299-44FAE839DCF9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCB5D7FD-D002-4038-A299-44FAE839DCF9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F85321AB-1810-4494-AD09-7DE246EE808A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F85321AB-1810-4494-AD09-7DE246EE808A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F85321AB-1810-4494-AD09-7DE246EE808A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F85321AB-1810-4494-AD09-7DE246EE808A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -114,6 +126,8 @@ Global
 		{0005F40F-1858-6475-253B-89CCA8EC91F9} = {720213FD-27FD-4ED4-A91D-1026BD9FBA37}
 		{0EACA0F2-3881-4D2B-A7AC-44A6673196AE} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
 		{8C904BEE-856C-4F5E-9337-89912D1DBF7F} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
+		{DCB5D7FD-D002-4038-A299-44FAE839DCF9} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
+		{F85321AB-1810-4494-AD09-7DE246EE808A} = {E0C0FE3C-2B99-4FF9-8683-14A5D2D63E0A}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {7FECA02D-DCB9-4262-A30C-5C838DCA3C3A}

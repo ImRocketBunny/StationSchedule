@@ -20,15 +20,12 @@ namespace AudioAnnouncementService.Services
         private readonly IConfiguration _configuration;
         private readonly ILogger _logger;
         private readonly IAnnoucementQueueManager _annoucementQueueManager;
-        private MqttClientConnectResult? result;
-        //private Dictionary<string, string> _mqttDataStore;
-        private BlockingCollection<string> messageQueue = new BlockingCollection<string>();
+
 
         public MqttManagerService(
          IConfiguration configuration, ILogger logger,IAnnoucementQueueManager annoucementQueueManager)
         {
             _configuration = configuration;
-           // _mqttDataStore = new Dictionary<string, string>();
             _annoucementQueueManager = annoucementQueueManager;
             _logger = logger;
         }
@@ -44,7 +41,7 @@ namespace AudioAnnouncementService.Services
                 ReceiveNewAnnoucementAsync();
             }
 
-            //_logger.LogInformation($"Mqtt connection Status: {_mqttClient!.IsConnected}");
+
             
            
 
@@ -86,13 +83,6 @@ namespace AudioAnnouncementService.Services
         }
 
 
-        private async Task GetStationAudioStructure()
-        {
-
-        }
-
-
-
         async Task ReceiveNewAnnoucementAsync()
         {
             _mqttClient!.ApplicationMessageReceivedAsync += e =>
@@ -115,7 +105,6 @@ namespace AudioAnnouncementService.Services
                         return Task.CompletedTask;
                     }
                     _annoucementQueueManager.EnqueueTrainAnnoucement(course);
-                    //_logger.LogInformation($"There are {_annoucementQueueManager.QueuedAnnoucements()} active train annoucements");
                 }
                 return Task.CompletedTask;
             };

@@ -20,5 +20,6 @@
 
   <ItemGroup>
     <Folder Include="ScheduleFiles\UnpackedSchedules\" />
+    <Folder Include="ScheduleFiles\ZipDownloads\" />
   </ItemGroup>
 </Project>

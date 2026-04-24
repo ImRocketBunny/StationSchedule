@@ -89,8 +89,10 @@ namespace StationAPI.DAL.Repository
 
 
 
-            public async Task<List<Train>> GetGtfsKMPositions()
-            {
+
+
+        public async Task<List<TrainDetails>> GetTrainDetails(string trainNumber, string headsing)
+        {
             using (var scope = _serviceProvider.CreateScope())
             {
                 ApiDbContext dbContext;
@@ -101,26 +103,16 @@ namespace StationAPI.DAL.Repository
                 catch (Exception ex)
                 {
                     _logger.LogError("Błąd połączenia SQL : " + ex.Message);
-                    return JsonConvert.DeserializeObject<List<Train>>("[]");
+                    return JsonConvert.DeserializeObject<List<TrainDetails>>("[]");
                 }
                 using (var context = dbContext)
                 {
 
-                    /*var connection = context.Database.GetDbConnection();
-                    try
-                    {
-                        connection.Open();
-
-                    }
-                    catch (Exception ex)
-                    {
-                        _logger.LogError("SQL Connection Error: " + ex.Message);
-                        return JsonConvert.DeserializeObject<List<Train>>("[]");
-                    }*/
+   
 
                     try
                     {
-                        var trains = await context.ActiveKmTrains.ToListAsync();
+                        var trains = await context.GetTrainDetails.Where(x=>x.trip_headsign == headsing && x.plk_train_number.StartsWith(trainNumber)).OrderBy(x=>x.stop_sequence).ToListAsync();
                         return trains;
                     }
                     catch (Exception ex)
@@ -128,39 +120,15 @@ namespace StationAPI.DAL.Repository
                         _logger.LogError(ex.Message);
                     }
 
-                    /*using (var command = connection.CreateCommand())
-                    {
-                        command.CommandType = CommandType.StoredProcedure;
-                        command.CommandText = "dbo.GetCurrentCourses";
-                        try
-                        {
-                            using (var reader = await command.ExecuteReaderAsync())
-                            {
-                                if (reader.Read())
-                                {
-                                    if (reader.IsDBNull(0))
-                                    {
-                                        return JsonConvert.DeserializeObject<List<Train>>("[]");
-                                    }
-                                    return
-                                    JsonConvert.DeserializeObject<List<Train>>(reader.GetString(0));
-                                }
-                            }
-                        }
-                        catch (Exception ex)
-                        {
-                            _logger.LogError("Błąd połączenia SQL : " + ex.Message);
-                            return JsonConvert.DeserializeObject<List<Train>>("[]");
-                        }
-                    }*/
+                    
 
-                    return JsonConvert.DeserializeObject<List<Train>>("[]");
+                    return JsonConvert.DeserializeObject<List<TrainDetails>>("[]");
                 }
 
 
             }
 
-            }
+        }
 
     }
 }

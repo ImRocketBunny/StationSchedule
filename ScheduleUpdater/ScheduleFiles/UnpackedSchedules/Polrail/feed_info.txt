@@ -1,0 +1,2 @@
+feed_publisher_name,feed_publisher_url,feed_lang,feed_version,feed_start_date,feed_end_date
+Mikołaj Kuranowski,https://mkuran.pl/gtfs,pl,2026-04-18T02:45:04.880988+02:00,20260418,20260518

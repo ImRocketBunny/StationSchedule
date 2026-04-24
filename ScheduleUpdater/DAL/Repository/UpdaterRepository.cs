@@ -19,6 +19,9 @@ namespace ScheduleUpdater.DAL.Repository
         private readonly IConfiguration _configuration;
         private readonly IServiceProvider _serviceProvider;
 
+
+
+
         public UpdaterRepository(ILogger<UpdaterRepository> logger, IConfiguration configuration, IServiceProvider serviceProvider)
         {
             _configuration = configuration;
@@ -58,6 +61,9 @@ namespace ScheduleUpdater.DAL.Repository
                         try
                         {
                             await command.ExecuteNonQueryAsync();
+
+
+                            _logger.LogInformation("Insert procedure executed.");
 
 
                         }

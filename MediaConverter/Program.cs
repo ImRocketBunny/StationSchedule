@@ -8,6 +8,7 @@ using MediaConverter.Services.Abstract;
 
 var builder = Host.CreateApplicationBuilder(args);
 builder.Services.AddHostedService<Worker>();
+builder.Services.AddHostedService(sp => (MediaConversionQueueService)sp.GetRequiredService<IMediaConversionQueueService>());
 builder.Services.AddSingleton<ICloudConvertService,CloudConvertService>();
 builder.Services.AddSingleton<IFFmpegConversionService, FFmpegConversionService>();
 builder.Services.AddSingleton<ITaskManagerService, TaskManagerService>();

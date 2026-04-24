@@ -7,7 +7,9 @@ namespace StationAPI.DAL.Context
     public class ApiDbContext : DbContext
     {
 
-        public DbSet<Train> ActiveKmTrains { get; set; } = null!;
+        //public DbSet<Train> ActiveKmTrains { get; set; } = null!;
+
+        public DbSet<TrainDetails> GetTrainDetails { get; set; } = null!;
         public ApiDbContext(DbContextOptions<ApiDbContext> options) : base(options)
         {
 
@@ -18,9 +20,22 @@ namespace StationAPI.DAL.Context
             base.OnModelCreating(modelBuilder);
 
 
-            modelBuilder.Entity<Train>()
+            /*modelBuilder.Entity<Train>()
                 .HasNoKey()
-                .ToView("RunningTrains");
+                .ToView("RunningTrains");*/
+
+            modelBuilder.Entity<TrainDetails>()
+                .HasNoKey()
+                .ToView("GetTrain");
+                
+                
+            modelBuilder.Entity<TrainDetails>()
+              .Property(e => e.stop_lon)
+                .HasPrecision(9, 6); ;
+
+            modelBuilder.Entity<TrainDetails>()
+               .Property(e => e.stop_lat)
+                .HasPrecision(9, 6);
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

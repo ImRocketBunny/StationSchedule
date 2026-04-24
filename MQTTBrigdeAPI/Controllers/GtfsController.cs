@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using StationAPI.Abstract.DAL;
+using StationAPI.Models;
 using StationAPI.Services;
 
 namespace StationAPI.Controllers
@@ -29,15 +30,17 @@ namespace StationAPI.Controllers
             return Ok(JsonConvert.SerializeObject((vehicles), Formatting.Indented));
 
         }
-        [Route("api/gtfskmpositions")]
+
+
+        [Route("api/gtfsdetails")]
         [HttpGet]
-        public IActionResult GetGtfsKMPositions()
+        public async Task<IActionResult> GetTrainDetails(string trainNumber, string headsign)
         {
 
-            var vehicles = _apiRepository.GetGtfsKMPositions().Result;
-            return Ok(JsonConvert.SerializeObject((vehicles), Formatting.Indented));
-
+            var trainDetails = await _apiRepository.GetTrainDetails(trainNumber, headsign);
+            return Ok(JsonConvert.SerializeObject((trainDetails), Formatting.Indented));
         }
+
 
         public IActionResult Index()
         {
