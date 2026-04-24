@@ -14,34 +14,34 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Content\27WE-skmwa-a.png">
+    <None Update="Content\ReadySets\SKMW\27WE-skmwa-a.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\31WEba-skmwa-a.png">
+    <None Update="Content\ReadySets\SKMW\31WEba-skmwa-a.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\31WEbb-pom2-a.png">
+    <None Update="Content\ReadySets\R\31WEbb-pom2-a.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\36WEhb-pom2-a.png">
+    <None Update="Content\ReadySets\R\36WEhb-pom2-a.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\ED78-zach-a.png">
+    <None Update="Content\ReadySets\R\ED78-zach-a.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\EN57AL-pom2-a.png">
+    <None Update="Content\ReadySets\R\EN57AL-pom2-a.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\EN57ALd-polregio-a.png">
+    <None Update="Content\ReadySets\R\EN57ALd-polregio-a.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\EN90-pom2-a.png">
+    <None Update="Content\ReadySets\R\EN90-pom2-a.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\SA136-pom2-a.png">
+    <None Update="Content\ReadySets\R\SA136-pom2-a.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Update="Content\SA138-pom2-a.png">
+    <None Update="Content\ReadySets\R\SA138-pom2-a.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
